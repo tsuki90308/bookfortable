@@ -1,11 +1,16 @@
 using bookfortable.Models;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using System.Diagnostics;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace bookfortable.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -15,8 +20,13 @@ namespace bookfortable.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
+
+
+        
+
 
         public IActionResult Privacy()
         {
