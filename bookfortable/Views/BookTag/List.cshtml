@@ -1,0 +1,49 @@
+﻿@model IEnumerable<bookfortable.Models.BookTag>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>書類標籤</h1>
+@using(Html.BeginForm())
+{
+    @:關鍵字 @Html.TextBox("txtKeyword")
+    <input type="submit" value="查詢" />
+}
+<br />
+<p>
+    <a asp-action="Create">新增書的類別</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BtagId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BtagName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model) {
+                count++;
+                <tr>
+            <td>
+                @count
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BtagName)
+            </td>
+            <td>
+                        @Html.ActionLink("修改", "Edit", "BookTag", new { id = item.BtagId }, null)
+                        @Html.ActionLink("刪除", "Delete", "BookTag", new { id = item.BtagId },
+                             new { onclick = "return confirm('確定要刪除嗎?')" })
+            </td>
+        </tr>
+}}
+    </tbody>
+</table>

@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddDbContext<FinalContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Final"));
 });
 var app = builder.Build();
 
@@ -43,7 +43,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=BookTag}/{action=List}/{id?}");
 app.MapRazorPages();
 
 app.Run();
