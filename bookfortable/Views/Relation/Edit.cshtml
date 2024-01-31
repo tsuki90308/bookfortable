@@ -1,0 +1,53 @@
+﻿@model bookfortable.ViewModels.CRelationViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>書的類別修改</h1>
+
+<h4>請輸入書的類別</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="relation.SortId" value="@Model.relation.SortId" />
+            <div class="form-group">
+                <label asp-for="productName" class="control-label"></label>
+                <select asp-for="productName" class="select-control">
+                    @{
+                        foreach(var item in Model.productNameList)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="productName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="bookTagName" class="control-label"></label>
+                <select asp-for="bookTagName" class="select-control">
+                    @{
+                        foreach (var item in Model.bookTagNameList)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="bookTagName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="儲存" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">取消</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

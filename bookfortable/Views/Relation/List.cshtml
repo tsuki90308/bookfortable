@@ -1,0 +1,61 @@
+﻿@model IEnumerable<bookfortable.ViewModels.CRelationViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+<style>
+    .link-edit {
+        color: forestgreen;
+        
+    }
+
+    .link-delete {
+        color: red;
+       
+    }
+
+    .table {
+     
+    }
+
+</style>
+<h1>書的類別</h1>
+
+<p>
+    <a asp-action="Create">新增書的類別</a>
+</p>
+<table class="table" >
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bookTagName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.productName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bookTagName)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-controller="Relation" asp-route-id="@item.relation.SortId" class="link-edit btn btn-outline-success"><i class="fas fa-pen"></i></a>
+                    <a asp-action="Delete" asp-controller="Relation" asp-route-id="@item.relation.SortId" class="link-delete btn btn-outline-danger" onclick="return confirm('確定要刪除嗎?')">
+                        <i class="fas fa-trash"></i></a>
+
+                   @*  @Html.ActionLink("修改", "Edit", "Relation", new { id = item.relation.SortId }, new { @class = "link-edit btn btn-outline-primary" })
+                    @Html.ActionLink("刪除", "Delete", "Relation", new { id = item.relation.SortId},
+                             new { onclick = "return confirm('確定要刪除嗎?')", @class = "link-delete btn btn-outline-danger" }) *@
+                </td>
+          
+        </tr>
+}
+    </tbody>
+</table>

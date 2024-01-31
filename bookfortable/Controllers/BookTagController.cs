@@ -11,10 +11,10 @@ namespace bookfortable.Controllers
            FinalContext db = new FinalContext();
             IEnumerable<BookTag> datas = null;
             if (string.IsNullOrEmpty(vm.txtKeyword))
-                datas = from b in db.BookTags
-                        select b;
+                datas = from p in db.BookTags
+                        select p;
             else
-                datas = db.BookTags.Where(b => b.BtagName.Contains(vm.txtKeyword));
+                datas = db.BookTags.Where(p => p.BtagName.Contains(vm.txtKeyword));
                     //p.FPhone.Contains(vm.txtKeyword) ||
                     //p.FEmail.Contains(vm.txtKeyword) ||
                     //p.FAddress.Contains(vm.txtKeyword));
@@ -66,10 +66,10 @@ namespace bookfortable.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(BookTag b)
+        public IActionResult Create(BookTag p)
         {
             FinalContext db = new FinalContext();
-            db.BookTags.Add(b);
+            db.BookTags.Add(p);
             db.SaveChanges();
             return RedirectToAction("List");
 

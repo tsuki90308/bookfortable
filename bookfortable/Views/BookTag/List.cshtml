@@ -3,18 +3,29 @@
 @{
     ViewData["Title"] = "List";
 }
+<style>
+    .link-edit {
+        color: forestgreen;
+    }
+
+    .link-delete {
+        color: red;
+    }
+
+
+</style>
 
 <h1>書類標籤</h1>
-@using(Html.BeginForm())
+@using (Html.BeginForm())
 {
     @:關鍵字 @Html.TextBox("txtKeyword")
     <input type="submit" value="查詢" />
 }
 <br />
 <p>
-    <a asp-action="Create">新增書的類別</a>
+    <a asp-action="Create">新增書的標籤</a>
 </p>
-<table class="table">
+<table class="table" >
     <thead>
         <tr>
             <th>
@@ -32,16 +43,19 @@
             foreach (var item in Model) {
                 count++;
                 <tr>
-            <td>
+                    <td>
                 @count
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BtagName)
             </td>
-            <td>
-                        @Html.ActionLink("修改", "Edit", "BookTag", new { id = item.BtagId }, null)
+                    <td style="text-align:right">
+
+                        <a asp-action="Edit" asp-controller="BookTag" asp-route-id="@item.BtagId" class="link-edit btn btn-outline-success"><i class="fas fa-pen"></i></a>
+                        <a asp-action="Delete" asp-controller="BookTag" asp-route-id="@item.BtagId" class="link-delete btn btn-outline-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                      @*  @Html.ActionLink("修改", "Edit", "BookTag", new { id = item.BtagId },null)
                         @Html.ActionLink("刪除", "Delete", "BookTag", new { id = item.BtagId },
-                             new { onclick = "return confirm('確定要刪除嗎?')" })
+                             new { onclick = "return confirm('確定要刪除嗎?')" }) *@
             </td>
         </tr>
 }}
