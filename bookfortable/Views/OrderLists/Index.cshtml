@@ -1,0 +1,227 @@
+﻿@model IEnumerable<bookfortable.Models.OrderList>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Oidramd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsMember)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PayDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPayed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingTimeReq)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingMethod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Is711Pay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store711)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerAdd1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerAdd2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerAdd3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingAdd1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingAdd2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingAdd3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phinvoice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpinvoice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cptitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PayMethod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingFeed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Points)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderListNote)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oidramd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMember)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPayed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingTimeReq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Is711Pay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store711)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAdd1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAdd2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAdd3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingAdd1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingAdd2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingAdd3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phinvoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cpinvoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cptitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingFeed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderListNote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.MemberId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDetail.Odid)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Oid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Oid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Oid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
