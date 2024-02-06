@@ -7,6 +7,10 @@ public partial class WishList
 {
     public int WishListId { get; set; }
 
+    public string? ProductName { get; set; }
+
+    public string? ProductImage { get; set; }
+
     public int? ProductId { get; set; }
 
     public string? ProductDescribe { get; set; }
