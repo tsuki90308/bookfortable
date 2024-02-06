@@ -27,7 +27,7 @@ public partial class Event
 
     public virtual EvenType EventTypeNavigation { get; set; }
 
-    public virtual Employee Eventhost { get; set; } = null!;
+    public virtual Employee EventhostNavigation { get; set; } = null!;
 
     public virtual ICollection<SingUp> SingUps { get; set; } = new List<SingUp>();
 }
