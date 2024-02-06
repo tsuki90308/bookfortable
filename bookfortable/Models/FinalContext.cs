@@ -130,14 +130,21 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.EventAddress).HasMaxLength(40);
             entity.Property(e => e.EventDate).HasColumnType("datetime");
             entity.Property(e => e.EventName).HasMaxLength(40);
+            entity.Property(e => e.EventType)
+                .HasMaxLength(10)
+                .IsFixedLength();
             entity.Property(e => e.EventTypeId).HasColumnName("EventTypeID");
+            entity.Property(e => e.Eventhost).HasMaxLength(50);
             entity.Property(e => e.EventhostId).HasColumnName("EventhostID");
+            entity.Property(e => e.FIamgePath)
+                .HasMaxLength(50)
+                .HasColumnName("fIamgePath");
 
-            entity.HasOne(d => d.EventType).WithMany(p => p.Events)
+            entity.HasOne(d => d.EventTypeNavigation).WithMany(p => p.Events)
                 .HasForeignKey(d => d.EventTypeId)
                 .HasConstraintName("FK_Events_EvenType");
 
-            entity.HasOne(d => d.Eventhost).WithMany(p => p.Events)
+            entity.HasOne(d => d.EventhostNavigation).WithMany(p => p.Events)
                 .HasForeignKey(d => d.EventhostId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Events_Employees");
@@ -322,6 +329,11 @@ public partial class FinalContext : DbContext
             entity.HasKey(e => e.SignUpId);
 
             entity.Property(e => e.SignUpId).HasColumnName("SignUpID");
+            entity.Property(e => e.EventAddress).HasMaxLength(50);
+            entity.Property(e => e.EventDate).HasColumnType("datetime");
+            entity.Property(e => e.EventName).HasMaxLength(50);
+            entity.Property(e => e.EventType).HasMaxLength(50);
+            entity.Property(e => e.Eventhost).HasMaxLength(50);
             entity.Property(e => e.MemberId).HasColumnName("MemberID");
 
             entity.HasOne(d => d.Event).WithMany(p => p.SingUps)
