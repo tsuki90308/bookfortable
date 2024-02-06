@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    @* <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> *@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
@@ -167,18 +168,18 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4"
                        aria-expanded="true" aria-controls="collapsePages4">
                         <i class="fas fa-fw fa-folder"></i>
-                        <span>產品</span>
+                        <span>書籍管理</span>
                     </a>
                     <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="login.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
-                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Other Pages:</h6>
+                            <h6 class="collapse-header">書籍資料</h6>
+                            <a class="collapse-item" asp-controller="Product" asp-action="List">查看列表</a>
+                            <a class="collapse-item" asp-controller="Product" asp-action="Create">新增書籍</a>
+@*                             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                            <div class="collapse-divider"></div> *@
+@*                             <h6 class="collapse-header">Other Pages:</h6>
                             <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
+                            <a class="collapse-item" href="blank.html">Blank Page</a> *@
                         </div>
                     </div>
                 </li>
@@ -214,13 +215,16 @@
                     <div id="collapsePages6" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="login.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
+                            <a class="collapse-item" asp-controller="BookTag" asp-action="List">書籤</a>
+                            <a class="collapse-item" asp-controller="Relation" asp-action="List">類別</a>
+     
+
+         @*                    <a class="collapse-item" href="register.html">Register</a>
                             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                             <div class="collapse-divider"></div>
                             <h6 class="collapse-header">Other Pages:</h6>
                             <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
+                            <a class="collapse-item" href="blank.html">Blank Page</a> *@
                         </div>
                     </div>
                 </li>
