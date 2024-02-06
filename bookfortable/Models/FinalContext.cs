@@ -339,6 +339,8 @@ public partial class FinalContext : DbContext
 
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.ProductDescribe).HasMaxLength(500);
+            entity.Property(e => e.ProductImage).HasMaxLength(50);
+            entity.Property(e => e.ProductName).HasMaxLength(50);
             entity.Property(e => e.Remark).HasMaxLength(500);
             entity.Property(e => e.State).HasMaxLength(50);
 
@@ -358,6 +360,8 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.CreationDate).HasColumnType("datetime");
             entity.Property(e => e.ProductDescribe).HasMaxLength(500);
+            entity.Property(e => e.ProductImage).HasMaxLength(50);
+            entity.Property(e => e.ProductName).HasMaxLength(50);
             entity.Property(e => e.Remark).HasMaxLength(500);
             entity.Property(e => e.WishPrice).HasColumnType("money");
 
