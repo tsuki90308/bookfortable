@@ -1,0 +1,149 @@
+﻿@model IEnumerable<bookfortable.Models.DiscountCodeCart>
+
+@{
+    ViewData["Title"] = "折扣碼";
+}
+<style>
+    .str1{
+        margin-left:30px;
+        margin-top:10px;
+    }
+</style>
+<div class="str1">
+    <h1>折扣碼一覽表</h1>
+</div>
+
+
+<div class="str1">
+    <a asp-action="Create">新增折扣碼</a>
+</div>
+<div class="str1">
+@using (Html.BeginForm())
+{
+    @:關鍵字 @Html.TextBox("txtKeyword")
+    <input type="submit" value="查詢" />
+}
+</div>
+<br />
+<div class="str1">
+<table @* class="table" *@>
+    <thead>
+        <tr>
+            <th>
+                序號
+            </th>
+            <th>
+                折扣代碼
+                @* @Html.DisplayNameFor(model => model.DiscountCode) *@
+            </th>
+            <th>
+                類型
+                @* @Html.DisplayNameFor(model => model.DiscountType) *@
+            </th>
+            <th>
+                起迄時間
+                @* @Html.DisplayNameFor(model => model.DiscountStart) *@
+            </th>
+            <th>
+                結束時間
+                @* @Html.DisplayNameFor(model => model.DiscountEnd) *@
+            </th>
+            <th>
+                會員專屬
+                @* @Html.DisplayNameFor(model => model.IsMemberDiscount) *@
+            </th>
+            <th>
+                業配
+                @* @Html.DisplayNameFor(model => model.IsPartnerDiscount) *@
+            </th>
+            <th>
+                合作夥伴
+                @* @Html.DisplayNameFor(model => model.PartnerName) *@
+            </th>
+            <th>
+                聯絡人
+                @* @Html.DisplayNameFor(model => model.PartnerManager) *@
+            </th>
+            <th>
+                聯絡人電郵
+                @* @Html.DisplayNameFor(model => model.PartnerManagerEmail) *@
+            </th>
+            <th>
+                聯絡人電話
+                @* @Html.DisplayNameFor(model => model.PartnerManagerPhone) *@
+            </th>
+            <th>
+                狀態
+                @* @Html.DisplayNameFor(model => model.IsActivate) *@
+            </th>
+            <th>
+                折扣價格
+                @* @Html.DisplayNameFor(model => model.DiscountPrice) *@
+            </th>
+            <th>
+                備註
+                @* @Html.DisplayNameFor(model => model.DiscountNote) *@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountEnd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsMemberDiscount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPartnerDiscount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartnerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartnerManager)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartnerManagerEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartnerManagerPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActivate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountNote)
+                    </td>
+                    <td>
+                        @Html.ActionLink("修改", "Edit", "DiscountCodeCarts", new { id = item.DiscountId }, null)
+                        @Html.ActionLink("刪除", "Delete", "DiscountCodeCarts", new { id = item.DiscountId }, new { onclick = "return confirm('確定要刪除嗎?')" })
+                    </td>
+                </tr>
+            }
+
+}
+    </tbody>
+</table>
+</div>
