@@ -8,21 +8,26 @@ namespace bookfortable.Controllers
 {
     public class RelationController : Controller
     {
-    
-            public IActionResult List()
-            {
-                FinalContext db = new FinalContext();
+
+        public IActionResult List()
+        {
+            FinalContext db = new FinalContext();
+            //var data = from r in db.Relations
+            //           join b in db.BookTags on r.BookTagId equals b.BtagId
+            //           select new {r.ProductId, b.BtagId, b.BtagName};
+            //List<string> tags = data.GroupBy(r => r.ProductId).SelectMany(group => group.Select(r => r.BtagName))
+            //            .ToList();
             var datas = from r in db.Relations
                         join p in db.Products on r.ProductId equals p.ProductId
                         join b in db.BookTags on r.BookTagId equals b.BtagId
                         select new CRelationViewModel()
                         {
                             relation = r,
-                            productName = p.ProductName,
-                            bookTagName = b.BtagName
+                            product = p,
+                            booktag = b,
                         };
                 return View(datas);
-            }
+        }
         public IActionResult Create()
         {
             return View();
@@ -41,20 +46,19 @@ namespace bookfortable.Controllers
             if (id != null)
             {
                 FinalContext db = new FinalContext();
-                Relation book = db.Relations.FirstOrDefault(p => p.SortId == id);
-                if (book != null)
-                {
-                    db.Relations.Remove(book);
-                    db.SaveChanges();
-                }
+                var productId = db.Relations.Where(r => r.SortId == id).Select(r => r.ProductId).FirstOrDefault();
+                List<Relation> pRemove = db.Relations.Where(r => r.ProductId == productId).ToList();
+              
+                db.Relations.RemoveRange(pRemove);
+                db.SaveChanges();
             }
             return RedirectToAction("List");
 
         }
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id, string tagNameString)
         {
             FinalContext db = new FinalContext();
-            Relation relation = db.Relations.FirstOrDefault(p=>p.SortId == id);
+            Relation relation = db.Relations.FirstOrDefault(p => p.SortId == id);
             if (relation != null)
             {
                 var productList = db.Products.ToList();
@@ -62,10 +66,10 @@ namespace bookfortable.Controllers
                 CRelationViewModel data = new CRelationViewModel()
                 {
                     relation = relation,
-                    productNameList = productList.Select(p => p.ProductName).ToList(),
-                    bookTagNameList = bookTagList.Select(p=>p.BtagName).ToList(),
+                    bookTagNameList = bookTagList.Select(p => p.BtagName).ToList(),
                     productName = productList.FirstOrDefault(p => p.ProductId == relation.ProductId).ProductName,
                     bookTagName = bookTagList.FirstOrDefault(p => p.BtagId == relation.BookTagId).BtagName,
+                    tagNameString = tagNameString
                 };
                 return View(data);
             }
@@ -75,11 +79,35 @@ namespace bookfortable.Controllers
         public IActionResult Edit(CRelationViewModel pIn)
         {
             FinalContext db = new FinalContext();
-            Relation pEdit = db.Relations.FirstOrDefault(p => p.SortId == pIn.relation.SortId);
+            List<Relation> pEdit= db.Relations.Where(r => r.ProductId == pIn.relation.ProductId).ToList();
+            List<int> nowTag = pEdit.Select(p => p.BookTagId).ToList();//NOTAG 現在所有的TAG的ID
+            List<int> AddTagList = db.BookTags.Where(p => pIn.tagNameString.Contains(p.BtagName)).Select(p => p.BtagId).ToList(); //欲新增的tag id
             if (pEdit != null)
             {
-                pEdit.ProductId = db.Products.Where(p => p.ProductName == pIn.productName).Select(p => p.ProductId).FirstOrDefault();
-                pEdit.BookTagId = db.BookTags.Where(p => p.BtagName == pIn.bookTagName).Select(p => p.BtagId).FirstOrDefault();
+                var sameTag = AddTagList.Intersect(nowTag).ToList();
+                for(int i = 0; i < sameTag.Count; i++)
+                {
+                    nowTag.Remove(sameTag[i]);
+                    AddTagList.Remove(sameTag[i]);
+                    
+                }
+                pEdit.Clear();
+                for(int i = 0;i < AddTagList.Count; i++)
+                {
+                    pEdit.Add(new Relation
+                    {
+                        ProductId = pIn.relation.ProductId,
+                        BookTagId = AddTagList[i]
+                    });
+                }
+                
+                db.Relations.AddRange(pEdit);
+                
+                for(int i = 0; i < nowTag.Count; i++)
+                {
+                    Relation pRemove = db.Relations.Where(r => r.ProductId == pIn.relation.ProductId && r.BookTagId == nowTag[i]).FirstOrDefault();
+                    db.Remove(pRemove);
+                }
 
                 db.SaveChanges();
             }

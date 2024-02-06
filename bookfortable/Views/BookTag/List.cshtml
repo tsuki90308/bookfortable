@@ -12,20 +12,37 @@
         color: red;
     }
 
+    .search {
+        display: flex;
+        /* align-items:center; */
+    }
+    
+
 
 </style>
 
 <h1>書類標籤</h1>
 @using (Html.BeginForm())
-{
-    @:關鍵字 @Html.TextBox("txtKeyword")
-    <input type="submit" value="查詢" />
+{  <div class="d-flex">
+    <div class="me-auto">
+            <a asp-action="Create" class="btn btn-outline-success">新增書的標籤</a>
+    </div>
+     <div class="search">
+            
+                @*  關鍵字 @Html.TextBox("txtKeyword") *@
+                <label class="my-auto">關鍵字 <input type="text" id="txtKeyword" /></label>
+                <input type="submit" value="查詢" class=" btn btn-primary mx-2" />
+            
+     </div>
+        
+    
+    </div>
 }
-<br />
+
 <p>
-    <a asp-action="Create">新增書的標籤</a>
+    
 </p>
-<table class="table" >
+<table class="table table-striped" >
     <thead>
         <tr>
             <th>
