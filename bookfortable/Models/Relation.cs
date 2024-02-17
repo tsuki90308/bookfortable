@@ -11,7 +11,7 @@ public partial class Relation
 
     public int ProductId { get; set; }
 
-    public int? BookTagId { get; set; }
+    public int BookTagId { get; set; }
 
     public virtual BookTag BookTag { get; set; }
 
