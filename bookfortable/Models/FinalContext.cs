@@ -51,7 +51,7 @@ public partial class FinalContext : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Trust Server Certificate=True");
+//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,7 +75,9 @@ public partial class FinalContext : DbContext
 
             entity.ToTable("BookTag");
 
-            entity.Property(e => e.BtagName).HasMaxLength(50);
+            entity.Property(e => e.BtagName)
+                .IsRequired()
+                .HasMaxLength(50);
         });
 
         modelBuilder.Entity<DiscountCodeCart>(entity =>
@@ -130,14 +132,21 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.EventAddress).HasMaxLength(40);
             entity.Property(e => e.EventDate).HasColumnType("datetime");
             entity.Property(e => e.EventName).HasMaxLength(40);
+            entity.Property(e => e.EventType)
+                .HasMaxLength(10)
+                .IsFixedLength();
             entity.Property(e => e.EventTypeId).HasColumnName("EventTypeID");
+            entity.Property(e => e.Eventhost).HasMaxLength(50);
             entity.Property(e => e.EventhostId).HasColumnName("EventhostID");
+            entity.Property(e => e.FIamgePath)
+                .HasMaxLength(50)
+                .HasColumnName("fIamgePath");
 
-            entity.HasOne(d => d.EventType).WithMany(p => p.Events)
+            entity.HasOne(d => d.EventTypeNavigation).WithMany(p => p.Events)
                 .HasForeignKey(d => d.EventTypeId)
                 .HasConstraintName("FK_Events_EvenType");
 
-            entity.HasOne(d => d.Eventhost).WithMany(p => p.Events)
+            entity.HasOne(d => d.EventhostNavigation).WithMany(p => p.Events)
                 .HasForeignKey(d => d.EventhostId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Events_Employees");
@@ -308,7 +317,6 @@ public partial class FinalContext : DbContext
 
             entity.HasOne(d => d.BookTag).WithMany(p => p.Relations)
                 .HasForeignKey(d => d.BookTagId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Relation_BookTag");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Relations)
@@ -322,6 +330,11 @@ public partial class FinalContext : DbContext
             entity.HasKey(e => e.SignUpId);
 
             entity.Property(e => e.SignUpId).HasColumnName("SignUpID");
+            entity.Property(e => e.EventAddress).HasMaxLength(50);
+            entity.Property(e => e.EventDate).HasColumnType("datetime");
+            entity.Property(e => e.EventName).HasMaxLength(50);
+            entity.Property(e => e.EventType).HasMaxLength(50);
+            entity.Property(e => e.Eventhost).HasMaxLength(50);
             entity.Property(e => e.MemberId).HasColumnName("MemberID");
 
             entity.HasOne(d => d.Event).WithMany(p => p.SingUps)

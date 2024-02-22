@@ -13,6 +13,16 @@ public partial class SingUp
 
     public int? EventId { get; set; }
 
+    public string EventName { get; set; }
+
+    public DateTime? EventDate { get; set; }
+
+    public string EventAddress { get; set; }
+
+    public string Eventhost { get; set; }
+
+    public string EventType { get; set; }
+
     public virtual Event Event { get; set; }
 
     public virtual Member Member { get; set; }

@@ -43,7 +43,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=DiscountCodeCarts}/{action=List}/{id?}");
+    pattern: "{controller=BookTag}/{action=List}/{id?}");
 app.MapRazorPages();
 
 app.Run();
