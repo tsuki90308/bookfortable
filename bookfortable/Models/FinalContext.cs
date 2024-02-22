@@ -45,6 +45,8 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<SingUp> SingUps { get; set; }
 
+    public virtual DbSet<TempBox> TempBoxes { get; set; }
+
     public virtual DbSet<TradeList> TradeLists { get; set; }
 
     public virtual DbSet<WishList> WishLists { get; set; }
