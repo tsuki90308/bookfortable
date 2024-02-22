@@ -51,9 +51,9 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<WishList> WishLists { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False");
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -134,21 +134,14 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.EventAddress).HasMaxLength(40);
             entity.Property(e => e.EventDate).HasColumnType("datetime");
             entity.Property(e => e.EventName).HasMaxLength(40);
-            entity.Property(e => e.EventType)
-                .HasMaxLength(10)
-                .IsFixedLength();
             entity.Property(e => e.EventTypeId).HasColumnName("EventTypeID");
-            entity.Property(e => e.Eventhost).HasMaxLength(50);
             entity.Property(e => e.EventhostId).HasColumnName("EventhostID");
-            entity.Property(e => e.FIamgePath)
-                .HasMaxLength(50)
-                .HasColumnName("fIamgePath");
 
-            entity.HasOne(d => d.EventTypeNavigation).WithMany(p => p.Events)
+            entity.HasOne(d => d.EventType).WithMany(p => p.Events)
                 .HasForeignKey(d => d.EventTypeId)
                 .HasConstraintName("FK_Events_EvenType");
 
-            entity.HasOne(d => d.EventhostNavigation).WithMany(p => p.Events)
+            entity.HasOne(d => d.Eventhost).WithMany(p => p.Events)
                 .HasForeignKey(d => d.EventhostId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Events_Employees");
@@ -332,11 +325,6 @@ public partial class FinalContext : DbContext
             entity.HasKey(e => e.SignUpId);
 
             entity.Property(e => e.SignUpId).HasColumnName("SignUpID");
-            entity.Property(e => e.EventAddress).HasMaxLength(50);
-            entity.Property(e => e.EventDate).HasColumnType("datetime");
-            entity.Property(e => e.EventName).HasMaxLength(50);
-            entity.Property(e => e.EventType).HasMaxLength(50);
-            entity.Property(e => e.Eventhost).HasMaxLength(50);
             entity.Property(e => e.MemberId).HasColumnName("MemberID");
 
             entity.HasOne(d => d.Event).WithMany(p => p.SingUps)
@@ -348,14 +336,27 @@ public partial class FinalContext : DbContext
                 .HasConstraintName("FK_SingUps_Members");
         });
 
+        modelBuilder.Entity<TempBox>(entity =>
+        {
+            entity.HasKey(e => e.BoxId);
+
+            entity.ToTable("TempBox");
+
+            entity.Property(e => e.BoxId).HasColumnName("BoxID");
+            entity.Property(e => e.BookTag2string)
+                .HasMaxLength(255)
+                .IsFixedLength();
+            entity.Property(e => e.Price)
+                .HasColumnType("money")
+                .HasColumnName("price");
+        });
+
         modelBuilder.Entity<TradeList>(entity =>
         {
             entity.ToTable("TradeList");
 
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.ProductDescribe).HasMaxLength(500);
-            entity.Property(e => e.ProductImage).HasMaxLength(50);
-            entity.Property(e => e.ProductName).HasMaxLength(50);
             entity.Property(e => e.Remark).HasMaxLength(500);
             entity.Property(e => e.State).HasMaxLength(50);
 
@@ -375,8 +376,6 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.CreationDate).HasColumnType("datetime");
             entity.Property(e => e.ProductDescribe).HasMaxLength(500);
-            entity.Property(e => e.ProductImage).HasMaxLength(50);
-            entity.Property(e => e.ProductName).HasMaxLength(50);
             entity.Property(e => e.Remark).HasMaxLength(500);
             entity.Property(e => e.WishPrice).HasColumnType("money");
 
