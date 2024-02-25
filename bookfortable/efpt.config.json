@@ -64,11 +64,19 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Question]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Relation]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[SingUps]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TempBox]",
          "ObjectType": 0
       },
       {
