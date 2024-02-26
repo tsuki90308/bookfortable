@@ -24,8 +24,12 @@ namespace bookfortable.Controllers
             return View();
         }
 
+        public IActionResult Test()
+        {
 
-        
+            return View("Test");
+        }
+
 
 
         public IActionResult Privacy()

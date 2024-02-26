@@ -41,9 +41,13 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Question> Questions { get; set; }
+
     public virtual DbSet<Relation> Relations { get; set; }
 
     public virtual DbSet<SingUp> SingUps { get; set; }
+
+    public virtual DbSet<TempBox> TempBoxes { get; set; }
 
     public virtual DbSet<TradeList> TradeLists { get; set; }
 
@@ -51,7 +55,7 @@ public partial class FinalContext : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Trust Server Certificate=True");
+//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,7 +79,9 @@ public partial class FinalContext : DbContext
 
             entity.ToTable("BookTag");
 
-            entity.Property(e => e.BtagName).HasMaxLength(50);
+            entity.Property(e => e.BtagName)
+                .IsRequired()
+                .HasMaxLength(50);
         });
 
         modelBuilder.Entity<DiscountCodeCart>(entity =>
@@ -304,6 +310,15 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.VersionInfo).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<Question>(entity =>
+        {
+            entity.ToTable("Question");
+
+            entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
+            entity.Property(e => e.QuestionName).HasMaxLength(50);
+            entity.Property(e => e.QuestionOptions).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Relation>(entity =>
         {
             entity.HasKey(e => e.SortId);
@@ -315,7 +330,6 @@ public partial class FinalContext : DbContext
 
             entity.HasOne(d => d.BookTag).WithMany(p => p.Relations)
                 .HasForeignKey(d => d.BookTagId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Relation_BookTag");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Relations)
@@ -343,6 +357,21 @@ public partial class FinalContext : DbContext
             entity.HasOne(d => d.Member).WithMany(p => p.SingUps)
                 .HasForeignKey(d => d.MemberId)
                 .HasConstraintName("FK_SingUps_Members");
+        });
+
+        modelBuilder.Entity<TempBox>(entity =>
+        {
+            entity.HasKey(e => e.BoxId);
+
+            entity.ToTable("TempBox");
+
+            entity.Property(e => e.BoxId).HasColumnName("BoxID");
+            entity.Property(e => e.BookTag2string)
+                .HasMaxLength(255)
+                .IsFixedLength();
+            entity.Property(e => e.Price)
+                .HasColumnType("money")
+                .HasColumnName("price");
         });
 
         modelBuilder.Entity<TradeList>(entity =>
