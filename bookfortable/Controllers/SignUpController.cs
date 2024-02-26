@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class SignUpController : Controller
 {
-    private readonly FinalContext _db;
+    private readonly FinalContext _db=new FinalContext();
 
     public SignUpController(FinalContext dbContext)
     {
@@ -22,67 +22,83 @@ public class SignUpController : Controller
     }
 
     // 显示创建报名表单页面
-    public IActionResult Create()
+    //public IActionResult Create()
+    //{
+
+    //    // 获取事件类型的选项
+    //    List<EvenType> eventTypes = _db.EvenTypes.ToList();
+
+    //    // 初始化下拉式选择框的选项
+    //    List<SelectListItem> eventTypeOptions = eventTypes
+    //        .Select(e => new SelectListItem
+    //        {
+    //            Value = e.EvenTypeId.ToString(),
+    //            Text = e.EvenTypeName
+    //        })
+    //        .ToList();
+
+
+
+    //    var SingUpsList = _db.SingUps;
+    //    var SignUpIdTypes = SingUpsList.Select(s => new { s.SignUpId, s.EventAddress }).ToList();
+    //    // 初始化下拉式选择框的选项
+    //    List<SelectListItem> SignUpIdTypeOptions = SignUpIdTypes
+    //        .Select(e => new SelectListItem
+    //        {
+    //            Value = e.SignUpId.ToString(),
+    //            Text = e.EventAddress
+    //        })
+    //        .ToList();
+
+
+    //    var EventhostTypes = SingUpsList.Select(s => new { s.EventId, s.Eventhost }).ToList();
+    //    // 初始化下拉式选择框的选项
+    //    List<SelectListItem> EventhostTypeOptions = EventhostTypes
+    //        .Select(e => new SelectListItem
+    //        {
+    //            Value = e.EventId.ToString(),
+    //            Text = e.Eventhost
+    //        })
+    //        .ToList();
+
+    //    CEventWrap viewModel = new CEventWrap();
+    //    viewModel.EventTypeOptions = eventTypeOptions;
+    //    //viewModel.signUpIdTypeOptions = SignUpIdTypeOptions;
+    //    viewModel.EventAddressTypeOptions = SignUpIdTypeOptions;
+    //    viewModel.EventhostOptions = EventhostTypeOptions;
+    //    return View(viewModel);
+    //}
+
+
+    [HttpGet] // 使用 HTTP GET 方法來顯示創建表單頁面
+    public IActionResult Create(int id)
     {
-
-        // 获取事件类型的选项
-        List<EvenType> eventTypes = _db.EvenTypes.ToList();
-
-        // 初始化下拉式选择框的选项
-        List<SelectListItem> eventTypeOptions = eventTypes
-            .Select(e => new SelectListItem
-            {
-                Value = e.EvenTypeId.ToString(),
-                Text = e.EvenTypeName
-            })
-            .ToList();
-
-        // 创建 SignUpViewModel
-        //SignUpViewModel viewModel = new SignUpViewModel
-        //{
-        //    EventTypeOptions = eventTypeOptions,
-        //    SingUp = new SingUp()
-        //};
-
-        CEventWrap viewModel = new CEventWrap();
-        viewModel.EventTypeOptions = eventTypeOptions;
-        viewModel.EventTypes = eventTypes;
-
-
-        //{
-        //    EventTypeOptions = eventTypeOptions,
-        //    EventTypes = eventTypes
-        //};
-        return View(viewModel);
+        CEventWrap cEventWrap = new CEventWrap();
+        cEventWrap.MemberId = id;
+        return View(cEventWrap);
     }
 
-    // 处理创建报名表单的逻辑
-    [HttpPost]
-    public IActionResult Create(CEventWrap viewModel)
+    [HttpPost] // 使用 HTTP POST 方法來處理表單提交
+    public IActionResult Create(CEventWrap cEventWrap)
     {
-        if (ModelState.IsValid)
-        {
-            // 在这里处理报名数据，包括 viewModel.SignUp，viewModel.EventTypeId 等
-
-            // 保存报名记录到数据库
-            _db.SingUps.Add(viewModel.SingUps);
-            _db.SaveChanges();
-
-            // 重定向到报名列表页面
-            return RedirectToAction("List");
-        }
-
-        // 如果模型验证失败，重新显示创建页面
-        viewModel.EventTypeOptions = _db.EvenTypes
-            .Select(e => new SelectListItem
-            {
-                Value = e.EvenTypeId.ToString(),
-                Text = e.EvenTypeName
-            })
-            .ToList();
-
-        return View(viewModel);
+        //if (ModelState.IsValid)
+        //{
+        //    _db.SingUps.Add(viewModel.SingUp);
+        //    _db.SaveChanges();
+        //    return RedirectToAction("List");
+        //}
+        //var eventTypes=_db.EvenTypes.ToList();
+        //viewModel.EventType = _db.EvenTypes
+        //    .Select(e => new SelectListItem
+        //    {
+        //        Value = e.EvenTypeId.ToString(),
+        //        Text = e.EvenTypeName.ToString()
+        //    }).ToList();
+        //return View(viewModel);
+        return RedirectToAction("List");
     }
+
+
 
     // 显示编辑报名记录的表单页面
     public IActionResult Edit(int id)

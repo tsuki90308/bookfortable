@@ -12,6 +12,8 @@ namespace bookfortable.ViewModels
         public SingUp? SingUp { get; set; }
         public List<SingUp>? SingUps { get; set; }
 
+      
+
     }
 
 }
