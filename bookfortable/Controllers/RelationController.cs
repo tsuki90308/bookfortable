@@ -26,7 +26,7 @@ namespace bookfortable.Controllers
                             product = p,
                             booktag = b,
                         };
-                return View(datas);
+            return View(datas);
         }
         public IActionResult Create()
         {
@@ -48,7 +48,7 @@ namespace bookfortable.Controllers
                 FinalContext db = new FinalContext();
                 var productId = db.Relations.Where(r => r.SortId == id).Select(r => r.ProductId).FirstOrDefault();
                 List<Relation> pRemove = db.Relations.Where(r => r.ProductId == productId).ToList();
-              
+
                 db.Relations.RemoveRange(pRemove);
                 db.SaveChanges();
             }
@@ -79,20 +79,20 @@ namespace bookfortable.Controllers
         public IActionResult Edit(CRelationViewModel pIn)
         {
             FinalContext db = new FinalContext();
-            List<Relation> pEdit= db.Relations.Where(r => r.ProductId == pIn.relation.ProductId).ToList();
+            List<Relation> pEdit = db.Relations.Where(r => r.ProductId == pIn.relation.ProductId).ToList();
             List<int> nowTag = pEdit.Select(p => p.BookTagId).ToList();//NOTAG 現在所有的TAG的ID
             List<int> AddTagList = db.BookTags.Where(p => pIn.tagNameString.Contains(p.BtagName)).Select(p => p.BtagId).ToList(); //欲新增的tag id
             if (pEdit != null)
             {
                 var sameTag = AddTagList.Intersect(nowTag).ToList();
-                for(int i = 0; i < sameTag.Count; i++)
+                for (int i = 0; i < sameTag.Count; i++)
                 {
                     nowTag.Remove(sameTag[i]);
                     AddTagList.Remove(sameTag[i]);
-                    
+
                 }
                 pEdit.Clear();
-                for(int i = 0;i < AddTagList.Count; i++)
+                for (int i = 0; i < AddTagList.Count; i++)
                 {
                     pEdit.Add(new Relation
                     {
@@ -100,10 +100,10 @@ namespace bookfortable.Controllers
                         BookTagId = AddTagList[i]
                     });
                 }
-                
+
                 db.Relations.AddRange(pEdit);
-                
-                for(int i = 0; i < nowTag.Count; i++)
+
+                for (int i = 0; i < nowTag.Count; i++)
                 {
                     Relation pRemove = db.Relations.Where(r => r.ProductId == pIn.relation.ProductId && r.BookTagId == nowTag[i]).FirstOrDefault();
                     db.Remove(pRemove);
