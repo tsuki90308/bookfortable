@@ -19,9 +19,15 @@ public partial class Event
 
     public int EventhostId { get; set; }
 
-    public virtual EvenType EventType { get; set; }
+    public string FIamgePath { get; set; }
 
-    public virtual Employee Eventhost { get; set; }
+    public string Eventhost { get; set; }
+
+    public string EventType { get; set; }
+
+    public virtual EvenType EventTypeNavigation { get; set; }
+
+    public virtual Employee EventhostNavigation { get; set; }
 
     public virtual ICollection<SingUp> SingUps { get; set; } = new List<SingUp>();
 }
