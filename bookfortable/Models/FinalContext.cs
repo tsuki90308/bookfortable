@@ -41,9 +41,13 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Question> Questions { get; set; }
+
     public virtual DbSet<Relation> Relations { get; set; }
 
     public virtual DbSet<SingUp> SingUps { get; set; }
+
+    public virtual DbSet<TempBox> TempBoxes { get; set; }
 
     public virtual DbSet<TradeList> TradeLists { get; set; }
 
@@ -306,6 +310,15 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.VersionInfo).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<Question>(entity =>
+        {
+            entity.ToTable("Question");
+
+            entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
+            entity.Property(e => e.QuestionName).HasMaxLength(50);
+            entity.Property(e => e.QuestionOptions).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Relation>(entity =>
         {
             entity.HasKey(e => e.SortId);
@@ -344,6 +357,21 @@ public partial class FinalContext : DbContext
             entity.HasOne(d => d.Member).WithMany(p => p.SingUps)
                 .HasForeignKey(d => d.MemberId)
                 .HasConstraintName("FK_SingUps_Members");
+        });
+
+        modelBuilder.Entity<TempBox>(entity =>
+        {
+            entity.HasKey(e => e.BoxId);
+
+            entity.ToTable("TempBox");
+
+            entity.Property(e => e.BoxId).HasColumnName("BoxID");
+            entity.Property(e => e.BookTag2string)
+                .HasMaxLength(255)
+                .IsFixedLength();
+            entity.Property(e => e.Price)
+                .HasColumnType("money")
+                .HasColumnName("price");
         });
 
         modelBuilder.Entity<TradeList>(entity =>
