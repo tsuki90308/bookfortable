@@ -1,0 +1,6 @@
+@BookForTableAPI_HostAddress = http://localhost:5225
+
+GET {{BookForTableAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

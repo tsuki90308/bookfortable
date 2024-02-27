@@ -9,9 +9,9 @@ public partial class TradeList
 {
     public int TradeListId { get; set; }
 
-    public string? ProductName { get; set; }
+    public string ProductName { get; set; }
 
-    public string? ProductImage { get; set; }
+    public string ProductImage { get; set; }
 
     public int? ProductId { get; set; }
 

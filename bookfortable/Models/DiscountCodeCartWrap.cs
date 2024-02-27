@@ -47,13 +47,13 @@ namespace bookfortable.Models
             set { _discountcodecart.DiscountEnd = value; }
         }
         [DisplayName("會員專屬")]
-        public int? IsMemberDiscount
+        public bool? IsMemberDiscount
         {
             get { return _discountcodecart.IsMemberDiscount; }
             set { _discountcodecart.IsMemberDiscount = value; }
         }
         [DisplayName("業配")]
-        public int? IsPartnerDiscount
+        public bool? IsPartnerDiscount
         {
             get { return _discountcodecart.IsPartnerDiscount; }
             set { _discountcodecart.IsPartnerDiscount = value; }
@@ -83,7 +83,7 @@ namespace bookfortable.Models
             set { _discountcodecart.PartnerManagerPhone = value; }
         }
         [DisplayName("狀態")]
-        public int? IsActivate
+        public bool? IsActivate
         {
             get { return _discountcodecart.IsActivate; }
             set { _discountcodecart.IsActivate = value; }

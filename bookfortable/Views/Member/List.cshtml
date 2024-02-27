@@ -1,0 +1,84 @@
+﻿@model IEnumerable<bookfortable.Models.Member>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1 class="mt-3">會員資料一覽</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-green-2 btn-hover-text-light"><i class="fas fa-plus-square me-1"></i>新增會員</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MMail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MFilepic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MCarrier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MPoints)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model) {
+                count++;
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MPassword)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MMail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MFilepic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MCarrier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MPoints)
+                </td>
+                <td>
+                        <a class="text-grey btn btn-outline-green-2" asp-action="Edit" asp-controller="Member" asp-route-id="@item.MemberId">
+                            <i class="fas fa-edit"></i>修改
+                        </a>
+                        <a class="text-grey btn btn-outline-danger" asp-action="Delete" asp-controller="Member" asp-route-id="@item.MemberId" onclick="return confirm('確定要刪除嗎？')">
+                            <i class="fas fa-trash"></i>刪除
+                        </a>
+                </td>
+            </tr>
+}
+}
+    </tbody>
+</table>
