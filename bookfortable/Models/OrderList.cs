@@ -15,13 +15,13 @@ public partial class OrderList
 
     public DateTime? OrderDate { get; set; }
 
-    public int? IsMember { get; set; }
+    public bool? IsMember { get; set; }
 
     public int? MemberId { get; set; }
 
     public DateTime? PayDate { get; set; }
 
-    public int? IsPayed { get; set; }
+    public bool? IsPayed { get; set; }
 
     public decimal? OrderTotal { get; set; }
 
@@ -31,7 +31,7 @@ public partial class OrderList
 
     public string ShippingMethod { get; set; }
 
-    public int? Is711Pay { get; set; }
+    public bool? Is711Pay { get; set; }
 
     public string Store711 { get; set; }
 
@@ -78,4 +78,6 @@ public partial class OrderList
     public virtual Member Member { get; set; }
 
     public virtual OrderDetail OrderDetail { get; set; }
+
+    public virtual ICollection<PickingOrder> PickingOrders { get; set; } = new List<PickingOrder>();
 }

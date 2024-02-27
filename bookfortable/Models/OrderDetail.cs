@@ -11,11 +11,17 @@ public partial class OrderDetail
 
     public string OrderDetailId { get; set; }
 
-    public int? ProductId { get; set; }
+    public int? TempBoxId { get; set; }
+
+    public string BookTag2string { get; set; }
 
     public int? ProductAmount { get; set; }
 
+    public decimal? Price { get; set; }
+
     public virtual ICollection<OrderList> OrderLists { get; set; } = new List<OrderList>();
 
-    public virtual Product Product { get; set; }
+    public virtual ICollection<PickingOrder> PickingOrders { get; set; } = new List<PickingOrder>();
+
+    public virtual TempBox TempBox { get; set; }
 }
