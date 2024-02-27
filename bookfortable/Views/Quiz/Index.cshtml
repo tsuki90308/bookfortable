@@ -4,45 +4,24 @@
     ViewData["Title"] = "Index";
     Layout = "_FrontLayout";
 }
+<style>
 
-<h1>測驗</h1>
+</style>
 
-<p>
-    
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.QuestionId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuestionName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuestionOptions)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuestionId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuestionName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuestionOptions)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<section class="latest spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span class="">測驗</span>
+                    <h2>讓我們為您縮小範圍，挑選出最合適的盲包選擇，不論送禮對象的年齡或是您們處於的關係。</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="aaa">
+        <a href="Question">  <div class="bear_tx">開始 </div> </a>
+    </div>
+</section>
