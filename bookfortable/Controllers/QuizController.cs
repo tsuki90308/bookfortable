@@ -7,8 +7,15 @@ namespace Bookfortable.Controllers
     {
         public IActionResult Index()
         {
+            
+            return View();
+        }
+
+        public IActionResult Question()
+        {
             FinalContext db = new FinalContext();
             return View(db.Questions);
         }
+
     }
 }
