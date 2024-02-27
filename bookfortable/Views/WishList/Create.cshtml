@@ -1,27 +1,31 @@
-﻿@model bookfortable.Models.WishList
+﻿@model bookfortable.Models.CWishListWrap
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>願望清單新增作業</h2>
+<h1>新增願望清單作業</h1>
 
-
+<h4>請輸入產品資訊</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductImage" class="control-label"></label>
-                <input asp-for="ProductImage" class="form-control" />
-                <span asp-validation-for="ProductImage" class="text-danger"></span>
+                產品圖片
+                <input type="file" name="photo" />
             </div>
+            @* <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div> *@
             <div class="form-group">
                 <label asp-for="ProductDescribe" class="control-label"></label>
                 <input asp-for="ProductDescribe" class="form-control" />
@@ -37,11 +41,11 @@
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="MemberId" class="control-label"></label>
                 <input asp-for="MemberId" class="form-control" />
                 <span asp-validation-for="MemberId" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="CreationDate" class="control-label"></label>
                 <input asp-for="CreationDate" class="form-control" />
@@ -53,14 +57,14 @@
                 <span asp-validation-for="Remark" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="送出並新增" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="List">取消</a>
 </div>
 
 @section Scripts {

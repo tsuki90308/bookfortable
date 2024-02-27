@@ -1,0 +1,80 @@
+﻿@model IEnumerable<bookfortable.Models.BookTag>
+
+@{
+    ViewData["Title"] = "List";
+}
+<style>
+    .link-edit {
+        color: forestgreen;
+    }
+
+    .link-delete {
+        color: red;
+    }
+
+    .search {
+        display: flex;
+        /* align-items:center; */
+    }
+    
+
+
+</style>
+
+<h1>書類標籤</h1>
+@using (Html.BeginForm())
+{  <div class="d-flex">
+    <div class="me-auto">
+            <a asp-action="Create" class="btn btn-outline-success">新增書的標籤</a>
+    </div>
+     <div class="search">
+            
+                @*  關鍵字 @Html.TextBox("txtKeyword") *@
+                <label class="my-auto">關鍵字 <input type="text" id="txtKeyword" /></label>
+                <input type="submit" value="查詢" class=" btn btn-primary mx-2" />
+            
+     </div>
+        
+    
+    </div>
+}
+
+<p>
+    
+</p>
+<table class="table table-striped" >
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BtagId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BtagName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model) {
+                count++;
+                <tr>
+                    <td>
+                @count
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BtagName)
+            </td>
+                    <td style="text-align:right">
+
+                        <a asp-action="Edit" asp-controller="BookTag" asp-route-id="@item.BtagId" class="link-edit btn btn-outline-success"><i class="fas fa-pen"></i></a>
+                        <a asp-action="Delete" asp-controller="BookTag" asp-route-id="@item.BtagId" class="link-delete btn btn-outline-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                      @*  @Html.ActionLink("修改", "Edit", "BookTag", new { id = item.BtagId },null)
+                        @Html.ActionLink("刪除", "Delete", "BookTag", new { id = item.BtagId },
+                             new { onclick = "return confirm('確定要刪除嗎?')" }) *@
+            </td>
+        </tr>
+}}
+    </tbody>
+</table>

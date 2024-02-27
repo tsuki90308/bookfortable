@@ -1,0 +1,93 @@
+﻿@model bookfortable.Models.DiscountCodeCart
+
+@{
+    ViewData["Title"] = "新增折扣碼";
+}
+
+<h1>新增折扣碼</h1>
+
+<h4>請輸入折扣碼內容</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DiscountCode" class="control-label"></label>
+                <input asp-for="DiscountCode" class="form-control" />
+                <span asp-validation-for="DiscountCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountType" class="control-label"></label>
+                <input asp-for="DiscountType" class="form-control" />
+                <span asp-validation-for="DiscountType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountStart" class="control-label"></label>
+                <input asp-for="DiscountStart" class="form-control" />
+                <span asp-validation-for="DiscountStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountEnd" class="control-label"></label>
+                <input asp-for="DiscountEnd" class="form-control" />
+                <span asp-validation-for="DiscountEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsMemberDiscount" class="control-label"></label>
+                <input asp-for="IsMemberDiscount" class="form-control" />
+                <span asp-validation-for="IsMemberDiscount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsPartnerDiscount" class="control-label"></label>
+                <input asp-for="IsPartnerDiscount" class="form-control" />
+                <span asp-validation-for="IsPartnerDiscount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartnerName" class="control-label"></label>
+                <input asp-for="PartnerName" class="form-control" />
+                <span asp-validation-for="PartnerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartnerManager" class="control-label"></label>
+                <input asp-for="PartnerManager" class="form-control" />
+                <span asp-validation-for="PartnerManager" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartnerManagerEmail" class="control-label"></label>
+                <input asp-for="PartnerManagerEmail" class="form-control" />
+                <span asp-validation-for="PartnerManagerEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartnerManagerPhone" class="control-label"></label>
+                <input asp-for="PartnerManagerPhone" class="form-control" />
+                <span asp-validation-for="PartnerManagerPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsActivate" class="control-label"></label>
+                <input asp-for="IsActivate" class="form-control" />
+                <span asp-validation-for="IsActivate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountPrice" class="control-label"></label>
+                <input asp-for="DiscountPrice" class="form-control" />
+                <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountNote" class="control-label"></label>
+                <input asp-for="DiscountNote" class="form-control" />
+                <span asp-validation-for="DiscountNote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="送出並新增" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">取消</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

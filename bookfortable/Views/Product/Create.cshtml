@@ -1,0 +1,100 @@
+﻿@model bookfortable.Models.CProductWrap
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    h1 {
+        margin-top: 40px; /* 上邊距 */
+        margin-bottom: 20px; /* 下邊距 */
+        margin-left: 10px; /* 左邊距 */
+        margin-right: 40px; /* 右邊距 */
+    }
+</style>
+<h1>新增書籍</h1>
+
+@* <h4>請輸入新增書籍資訊</h4> *@
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">總覽</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("List", "Product")">書籍資料一覽</a></li>
+        <li class="breadcrumb-item active" aria-current="page">新增書籍</li>
+    </ol>
+</nav>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+@*             <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupplierId" class="control-label"></label>
+                <input asp-for="SupplierId" class="form-control" />
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="file" name="photo" />
+            </div>
+@*             <div class="form-group">
+                <label asp-for="ProductPhoto" class="control-label"></label>
+                <input asp-for="ProductPhoto" class="form-control" />
+                <span asp-validation-for="ProductPhoto" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitsInStock" class="control-label"></label>
+                <input asp-for="UnitsInStock" class="form-control" />
+                <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VersionInfo" class="control-label"></label>
+                <input asp-for="VersionInfo" class="form-control" />
+                <span asp-validation-for="VersionInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SellingPrice" class="control-label"></label>
+                <input asp-for="SellingPrice" class="form-control" />
+                <span asp-validation-for="SellingPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Isbn" class="control-label"></label>
+                <input asp-for="Isbn" class="form-control" />
+                <span asp-validation-for="Isbn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="送出並新增" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">取消</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,81 @@
+﻿@model bookfortable.Models.CProductWrap
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>修改書籍作業</h1>
+
+<h4>請輸入修改資訊</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="ProductId" value="@Model.ProductId" />
+@*             <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupplierId" class="control-label"></label>
+                <input asp-for="SupplierId" class="form-control" />
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="file" name="photo" />
+
+@*                 <label asp-for="ProductPhoto" class="control-label"></label>
+                <input asp-for="ProductPhoto" class="form-control" />
+                <span asp-validation-for="ProductPhoto" class="text-danger"></span> *@
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitsInStock" class="control-label"></label>
+                <input asp-for="UnitsInStock" class="form-control" />
+                <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VersionInfo" class="control-label"></label>
+                <input asp-for="VersionInfo" class="form-control" />
+                <span asp-validation-for="VersionInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SellingPrice" class="control-label"></label>
+                <input asp-for="SellingPrice" class="form-control" />
+                <span asp-validation-for="SellingPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Isbn" class="control-label"></label>
+                <input asp-for="Isbn" class="form-control" />
+                <span asp-validation-for="Isbn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">取消</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -4,60 +4,77 @@
     ViewData["Title"] = "List";
 }
 
-<h1>願望清單一覽表</h1>
-
+<h1>願望清單總覽</h1>
+@using (Html.BeginForm())
+{
+    @:關鍵字 @Html.TextBox("txtKeyword")
+    <input type="submit" value="查詢" />
+}
 <p>
-    <a asp-action="Create">新增產品</a>
+    <a asp-action="Create" class="btn btn-outline-primary">新增願望清單</a>
 </p>
-<table class="table">
-    <thead>
+<style>
+    .fixed-width {
+        width: 140px; 
+    }
+
+</style>
+<table class="table table-hover" border="1">
+    <thead style="background-color:#6F8E74">
         <tr>
             <th>
                 序
-            </th>           
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
+                產品名稱
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductDescribe)
+                產品圖片
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th> *@
+            <th>
+                產品描述
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WishPrice)
+                期望價格
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                地址
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.MemberId)
+            </th> *@
+            <th>
+                建立日期
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Remark)
+                備註
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @{
-            int count = 0;
-            foreach (var item in Model) 
+            int count = 0 ;
+            foreach
+            (var item in Model) 
             {
                 count++;
-                <tr>
+        <tr>
             <td>
                 @count
-            </td>            
-            <td>
+            </td>
+                    <td class="fixed-width">
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductImage)
+                <img src="~/images/@item.ProductImage" width="90" height="140" />
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.ProductDescribe)
             </td>
@@ -67,9 +84,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.MemberId)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
@@ -77,11 +94,12 @@
                 @Html.DisplayFor(modelItem => item.Remark)
             </td>
             <td>
-                @Html.ActionLink("修改", "Edit", new {id=item.WishListId})                
-                @Html.ActionLink("刪除", "Delete", new {id=item.WishListId})
+                @Html.ActionLink("修改", "Edit", "WishList", new { id = item.WishListId }, new { @class = "btn btn-outline-success" })
+                @Html.ActionLink("刪除", "Delete", "WishList", new { id = item.WishListId },
+                             new { onclick = "return confirm('確定要刪除嗎?')" , @class = "btn btn-outline-danger" })
             </td>
         </tr>
-}
+    }
 }
     </tbody>
 </table>

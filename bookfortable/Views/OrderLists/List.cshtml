@@ -1,0 +1,338 @@
+﻿@model IEnumerable<bookfortable.Models.OrderList>
+
+@{
+    ViewData["Title"] = "訂單";
+}
+@section Styles{
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        
+    </style>
+}
+
+<h1>訂單一覽表</h1>
+
+<p>
+    <a asp-action="Create">新增訂單</a>
+</p>
+@* @using (Html.BeginForm())
+{
+    @:關鍵字 @Html.TextBox("txtKeyword")
+    <input type="submit" value="查詢" />
+} *@
+<table class="display animated--fade-in" id="Listajax">
+    <thead class="badge-brown-3">
+        <tr>
+            <th>
+                功能
+            </th>
+            <th>
+                訂單流水號
+                @* @Html.DisplayNameFor(model => model.Oidramd) *@
+            </th>
+            <th>
+                訂單日期
+                @* @Html.DisplayNameFor(model => model.OrderDate) *@
+            </th>
+            <th>
+                會員
+                @* @Html.DisplayNameFor(model => model.IsMember) *@
+            </th>
+            <th>
+                付款日期
+                @* @Html.DisplayNameFor(model => model.PayDate) *@
+            </th>
+            <th>
+                付款狀態
+                @* @Html.DisplayNameFor(model => model.IsPayed) *@
+            </th>
+            <th>
+                訂單金額
+                @* @Html.DisplayNameFor(model => model.OrderTotal) *@
+            </th>
+            <th>
+                送貨指定時間
+                @* @Html.DisplayNameFor(model => model.ShippingTimeReq) *@
+            </th>
+            <th>
+                訂單狀態
+                @* @Html.DisplayNameFor(model => model.OrderState) *@
+            </th>
+            <th>
+                送貨方法
+                @* @Html.DisplayNameFor(model => model.ShippingMethod) *@
+            </th>
+            <th>
+                取貨付款
+                @* @Html.DisplayNameFor(model => model.Is711Pay) *@
+            </th>
+            <th>
+                7-11門市
+                @* @Html.DisplayNameFor(model => model.Store711) *@
+            </th>
+            <th>
+                購買人姓名
+                @* @Html.DisplayNameFor(model => model.CustomerName) *@
+            </th>
+            <th>
+                購買人電話
+                @* @Html.DisplayNameFor(model => model.CustomerPhone) *@
+            </th>
+            <th>
+                購買人電郵
+                @* @Html.DisplayNameFor(model => model.CustomerEmail) *@
+            </th>
+            <th>
+                購買人地址1
+                @* @Html.DisplayNameFor(model => model.CustomerAdd1) *@
+            </th>
+            <th>
+                購買人地址2
+                @* @Html.DisplayNameFor(model => model.CustomerAdd2) *@
+            </th>
+            <th>
+                購買人地址3
+                @* @Html.DisplayNameFor(model => model.CustomerAdd3) *@
+            </th>
+            <th>
+                收件人姓名
+                @* @Html.DisplayNameFor(model => model.ShippingName) *@
+            </th>
+            <th>
+                收件人電話
+                @* @Html.DisplayNameFor(model => model.ShippingPhone) *@
+            </th>
+            <th>
+                收件人地址1
+                @* @Html.DisplayNameFor(model => model.ShippingAdd1) *@
+            </th>
+            <th>
+                收件人地址2
+                @* @Html.DisplayNameFor(model => model.ShippingAdd2) *@
+            </th>
+            <th>
+                收件人地址3
+                @* @Html.DisplayNameFor(model => model.ShippingAdd3) *@
+            </th>
+            <th>
+                手機載具
+                @* @Html.DisplayNameFor(model => model.Phinvoice) *@
+            </th>
+            <th>
+                公司統編
+                @* @Html.DisplayNameFor(model => model.Cpinvoice) *@
+            </th>
+            <th>
+                公司抬頭
+                @* @Html.DisplayNameFor(model => model.Cptitle) *@
+            </th>
+            <th>
+                付款方式
+                @* @Html.DisplayNameFor(model => model.PayMethod) *@
+            </th>
+            <th>
+                折扣碼
+                @* @Html.DisplayNameFor(model => model.DiscountCode) *@
+            </th>
+            <th>
+                折扣金額
+                @* @Html.DisplayNameFor(model => model.DiscountPrice) *@
+            </th>
+            <th>
+                運費
+                @* @Html.DisplayNameFor(model => model.ShippingFeed) *@
+            </th>
+            <th>
+                紅利點
+                @* @Html.DisplayNameFor(model => model.Points) *@
+            </th>
+            <th>
+                訂單備註
+                @* @Html.DisplayNameFor(model => model.OrderListNote) *@
+            </th>
+@*             <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail)
+            </th> *@
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Oid">修改</a> ||
+                <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oidramd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMember)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPayed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingTimeReq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Is711Pay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store711)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAdd1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAdd2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAdd3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingAdd1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingAdd2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingAdd3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phinvoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cpinvoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cptitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingFeed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderListNote)
+            </td>
+            
+
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script>
+        new DataTable('#Listajax', {
+            dom: 'Bfrtip',
+            scrollX: true,
+
+            buttons: [
+                {
+                    extend: 'colvis',
+                    collectionLayout: 'fixed columns',
+                    collectionTitle: '欄位顯示設定',
+                    columnText: function (dt, idx, title) {
+                        return (idx + 1) + ': ' + title;
+                    },
+                    postfixButtons: ['colvisRestore']
+                }
+            ],
+            // columns: [
+            //     // {
+            //     //     "data": "Oidramd",
+            //     //     "width": "30000px"
+            //     // }
+            
+            // ]
+            
+
+            columnDefs: [
+                { targets: 0, width: "50px", orderable: false },//功能
+                { targets: 1, width: "100px" },//訂單流水號
+                { targets: 2, width: "100px" },//訂單日期
+                { targets: 3, width: "40px" },//會員
+                { targets: 4, width: "100px" },//付款日期
+                { targets: 5, width: "70px" },//付款狀態
+                { targets: 6, width: "70px" },//訂單金額
+                { targets: 7, width: "100px" },//送貨指定時間
+                { targets: 8, width: "70px" },//訂單狀態
+                { targets: 9, width: "70px" },//送貨方法
+                { targets: 10, width: "70px" },//取貨付款
+                { targets: 11, width: "80px" },//7-11門市
+                { targets: 12, width: "80px" }, //購買人姓名
+                { targets: 13, width: "100px" },//購買人電話
+                { targets: 14, width: "110px" },//購買人電郵
+                { targets: 15, width: "90px" },//購買人地址1
+                { targets: 16, width: "90px" },//購買人地址2
+                { targets: 17, width: "200px" },//購買人地址3
+                { targets: 18, width: "80px" },//收件人姓名
+                { targets: 19, width: "100px" },//收件人電話
+                { targets: 20, width: "90px" },//收件人地址1
+                { targets: 21, width: "90px" },//收件人地址2
+                { targets: 22, width: "200px" },//收件人地址3
+                { targets: 23, width: "80px" },//手機載具條碼
+                { targets: 24, width: "80px" },//公司統編
+                { targets: 25, width: "100px" },//公司抬頭
+                { targets: 26, width: "70px" },//付款方式
+                { targets: 27, width: "90px" },//折扣碼
+                { targets: 28, width: "70px" },//折扣金額
+                { targets: 29, width: "50px" },//運費
+                { targets: 30, width: "50px" }, //紅利點
+                { targets: 31, width: "120px" },//訂單備註
+            ]
+        });
+
+    </script>
+}

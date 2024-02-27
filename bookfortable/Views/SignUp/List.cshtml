@@ -1,0 +1,73 @@
+﻿@model IEnumerable<bookfortable.Models.SingUp>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create"></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               活動名稱
+            </th>
+            <th>
+                活動日期
+            </th>
+            <th>
+               活動地點
+            </th>
+            <th>
+               活動承辦人
+            </th>
+            <th>
+               活動類型
+            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.Event)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th> *@
+           @*  <th></th> *@
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eventhost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event.EventId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.MAccount)
+            </td>
+            <td>
+               
+                <a asp-action="Details" asp-route-id="@item.SignUpId">Details</a> |
+                <a asp-action="Create" asp-route-id="@item.SignUpId">新增報名</a>|
+                <a asp-action="Create" asp-route-id="@item.SignUpId">取消報名</a>|
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
