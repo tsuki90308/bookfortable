@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using bookfortable.Models;
+﻿using bookfortable.Models;
 using bookfortable.ViewModels;
+using Bookfortable.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace bookfortable.Controllers
 {
@@ -30,6 +26,17 @@ namespace bookfortable.Controllers
         {
             FinalContext db = new FinalContext();
             IEnumerable<OrderList> datas = null;
+
+            //布林值轉換字元
+            List<OrderListViewModel> list = new List<OrderListViewModel>();
+            //foreach (OrderList os in datas)
+            //{
+            //    OrderListViewModel osvm = new OrderListViewModel();
+            //    //osvm.list = (OrderList)datas;
+            //    //osvm.OSisMember = Convert.ToString(os.IsMember);
+            //}
+
+
             if (string.IsNullOrEmpty(vm.txtKeyword))
                 datas = from p in db.OrderLists
                         select p;

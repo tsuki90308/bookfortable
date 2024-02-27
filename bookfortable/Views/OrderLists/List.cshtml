@@ -3,11 +3,82 @@
 @{
     ViewData["Title"] = "訂單";
 }
-@section Styles{
+@section Styles {
     <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
     <style>
-        
+        .accordion {
+            max-width: 100%;
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            margin-bottom: 10px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .accordion-header {
+            padding: 15px 20px;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(151, 205, 207);
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1.3px;
+            color: #444;
+            transition: background-color 0.3s ease;
+            /* text-align:right; */
+        }
+
+            .accordion-header:hover {
+                background-color: rgb(52, 151, 146);
+                color: white;
+            }
+
+            .accordion-header::after {
+                text-align: right;
+                content: '\002B';
+                font-size: 24px;
+                font-weight: bold;
+                color: #666;
+                transition: transform 0.3s ease;
+            }
+
+            .accordion-header.active::after {
+                color: white;
+                transform: rotate(225deg);
+            }
+
+            .accordion-header.active {
+                background-color: rgb(52, 151, 146);
+                color: white;
+            }
+
+        .accordion a{
+            color:white
+        }
+
+            
+
+        .accordion-content {
+            padding: 20px;
+            background-color: white;
+            border: 2px solid rgb(52, 151, 146);
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+            letter-spacing: 0.11em;
+            display: none;
+        }
     </style>
 }
 
@@ -16,11 +87,101 @@
 <p>
     <a asp-action="Create">新增訂單</a>
 </p>
-@* @using (Html.BeginForm())
-{
-    @:關鍵字 @Html.TextBox("txtKeyword")
-    <input type="submit" value="查詢" />
-} *@
+<div class="accordion" style="width:100%">
+    @foreach (var item in Model)
+    {
+        <div class="accordion-item">
+            <p class="accordion-header">
+                @* 單號-成立訂單時間 *@
+                @Html.DisplayFor(modelItem => item.Oidramd) &ensp; ( @Html.DisplayFor(modelItem => item.OrderDate) ) &ensp;&ensp;&ensp;
+                <br />
+                @{
+                    if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "0")
+                    {
+                        <text>郵寄 - 待付款</text>
+                    }
+                    else if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "1")
+                    {
+                        <text>郵寄 - 已付款</text>
+                    }
+                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "0")
+                    {
+                        <text>7-11純取貨 - 待付款</text>
+                    }
+                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "1")
+                    {
+                        <text>7-11純取貨 - 已付款</text>
+                    }
+                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "1")
+                    {
+                        <text>7-11取貨付款</text>
+                    }
+                }
+                
+                @{
+                    //郵寄-已付款
+                    if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "1")
+                    {
+                        <span style="margin-left:auto;">
+                            <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
+                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        </span>
+                    }
+                    //郵寄-待付款
+                    else if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "0")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                    }
+                    //7-11純取-待付款
+                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "0")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                    }
+                    //7-11純取-已付款
+                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "1")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
+                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                    }
+                    //7-11取貨付款
+                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "1")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
+                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                    }
+                }
+
+            </p>
+
+            <div class="accordion-content">
+                <p>
+                    @{
+                        if (item.IsMember.ToString() == "1")
+                        {
+                            <text>會員ID: </text>
+                        }
+                        else
+                        {
+                            <text>訪客</text>
+                        }
+                    }
+                    &ensp; 訂單詳情: @Html.DisplayFor(modelItem => item.OrderDetailId)
+                    &ensp; 訂單金額: @Html.DisplayFor(modelItem => item.OrderTotal)
+                </p>
+                <p>
+                    駁二藝術特區的前身為高雄港倉庫，建於1973年，過去儲放魚粉與砂糖，隨著產業轉型，一度遭遺忘閒置；直到2000年高雄市政府因尋找國慶煙火施放地點的機緣下，才讓這些舊倉庫起死回生、開創新生命，見證高雄港的繁華、沒落、再起與轉型。
+                </p>
+            </div>
+        </div>
+    }
+
+    </div>
+
 <table class="display animated--fade-in" id="Listajax">
     <thead class="badge-brown-3">
         <tr>
@@ -30,6 +191,10 @@
             <th>
                 訂單流水號
                 @* @Html.DisplayNameFor(model => model.Oidramd) *@
+            </th>
+            <th>
+                訂單詳情
+                @* @Html.DisplayNameFor(model => model.OrderDetailID) *@
             </th>
             <th>
                 訂單日期
@@ -151,128 +316,189 @@
                 訂單備註
                 @* @Html.DisplayNameFor(model => model.OrderListNote) *@
             </th>
-@*             <th>
-                @Html.DisplayNameFor(model => model.Member)
+            @*             <th>
+            @Html.DisplayNameFor(model => model.Member)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderDetail)
+            @Html.DisplayNameFor(model => model.OrderDetail)
             </th> *@
-            
+
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Oid">修改</a> ||
-                <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Oidramd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsMember)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PayDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPayed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingTimeReq)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderState)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingMethod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Is711Pay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store711)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerAdd1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerAdd2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerAdd3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingAdd1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingAdd2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingAdd3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phinvoice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cpinvoice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cptitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PayMethod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingFeed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Points)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderListNote)
-            </td>
-            
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Oid">修改</a> ||
+                    <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Oidramd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDetailId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @{
+                        if (item.IsMember.ToString() == "0")
+                        {
+                            <text>否</text>
+                            
+                        }
+                        else
+                        {
+                            <text>是</text>
+                            
+                        }
+                    }
+                    @* @Html.DisplayFor(modelItem => item.OSisMember) *@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayDate)
+                </td>
+                <td>
+                    @{
+                        if (item.IsPayed.ToString() == "0")
+                        {
+                            <text>尚未付款</text>
 
-        </tr>
-}
+                        }
+                        else
+                        {
+                            <text>已付款</text>
+
+                        }
+                    }
+                    @* @Html.DisplayFor(modelItem => item.IsPayed) *@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingTimeReq)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderState)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingMethod)
+                </td>
+                <td>
+                    @{
+                        if (item.Is711Pay.ToString() == "0")
+                        {
+                            <text>否</text>
+
+                        }
+                        else
+                        {
+                            <text>是</text>
+
+                        }
+                    }
+                   @*  @Html.DisplayFor(modelItem => item.Is711Pay) *@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store711)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerAdd1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerAdd2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerAdd3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingAdd1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingAdd2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingAdd3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phinvoice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cpinvoice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cptitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayMethod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingFeed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Points)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderListNote)
+                </td>
+
+
+            </tr>
+        }
     </tbody>
 </table>
-@section Scripts{
+    
+        
+
+@section Scripts {
     <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script>
+            $(function () {
+                $('.accordion-header').on('click', function () {
+                    //重設所有header跟content的狀態
+                    //判斷當點擊的header沒有active的樣式時才執行
+                    if (!$(this).hasClass("active")) {
+                        $('.accordion-content').slideUp();
+                    }
+
+                    $('.accordion-header').removeClass("active")
+                    $(this).toggleClass("active");
+                    $(this).siblings().slideToggle();
+                })
+                $('.accordion-header').first().click();
+            })
+         
+                
+    </script>
     <script>
         new DataTable('#Listajax', {
             dom: 'Bfrtip',
@@ -294,9 +520,9 @@
             //     //     "data": "Oidramd",
             //     //     "width": "30000px"
             //     // }
-            
+
             // ]
-            
+
 
             columnDefs: [
                 { targets: 0, width: "50px", orderable: false },//功能
