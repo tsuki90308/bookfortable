@@ -17,9 +17,9 @@ public partial class DiscountCodeCart
 
     public DateTime? DiscountEnd { get; set; }
 
-    public int? IsMemberDiscount { get; set; }
+    public bool? IsMemberDiscount { get; set; }
 
-    public int? IsPartnerDiscount { get; set; }
+    public bool? IsPartnerDiscount { get; set; }
 
     public string PartnerName { get; set; }
 
@@ -29,7 +29,7 @@ public partial class DiscountCodeCart
 
     public string PartnerManagerPhone { get; set; }
 
-    public int? IsActivate { get; set; }
+    public bool? IsActivate { get; set; }
 
     public decimal? DiscountPrice { get; set; }
 
