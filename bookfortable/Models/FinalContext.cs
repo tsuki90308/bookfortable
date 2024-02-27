@@ -49,7 +49,7 @@ public partial class FinalContext : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False;TrustServerCertificate=true");
+//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -351,6 +351,8 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.CreationDate).HasColumnType("datetime");
             entity.Property(e => e.ProductDescribe).HasMaxLength(500);
+            entity.Property(e => e.ProductImage).HasMaxLength(50);
+            entity.Property(e => e.ProductName).HasMaxLength(50);
             entity.Property(e => e.Remark).HasMaxLength(500);
             entity.Property(e => e.WishPrice).HasColumnType("money");
 
