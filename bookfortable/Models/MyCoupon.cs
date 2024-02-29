@@ -13,6 +13,8 @@ public partial class MyCoupon
 
     public int MemberId { get; set; }
 
+    public bool IsUsed { get; set; }
+
     public virtual DiscountCodeCart Dicount { get; set; }
 
     public virtual Member Member { get; set; }
