@@ -100,9 +100,9 @@
                         <ul>
 
                             <li class="active"><a asp-controller="Quiz" asp-action="index">測驗</a></li>
-                            <li><a href="./shop.html">Shop</a></li>
+                            <li><a href="./shop.html">活動</a></li>
                             <li>
-                                <a href="#">Pages</a>
+                                <a href="#">願望清單</a>
                                 <ul class="dropdown">
                                     <li><a href="./about.html">About Us</a></li>
                                     <li><a href="./shop-details.html">Shop Details</a></li>
@@ -111,8 +111,8 @@
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contacts</a></li>
+                            <li><a href="./blog.html">聊天室</a></li>
+                            <li><a href="./contact.html">關於我們</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -241,6 +241,7 @@
     <script src="~/js/mixitup.min.js"></script>
     <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

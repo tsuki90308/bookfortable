@@ -38,7 +38,7 @@ namespace bookfortable.Models
             set { _orderlist.OrderDate = value; }
         }
         [DisplayName("會員")]
-        public int? IsMember
+        public bool? IsMember
         {
             get { return _orderlist.IsMember; }
             set { _orderlist.IsMember = value; }
@@ -56,7 +56,7 @@ namespace bookfortable.Models
             set { _orderlist.PayDate = value; }
         }
         [DisplayName("付款狀態")]
-        public int? IsPayed
+        public bool? IsPayed
         {
             get { return _orderlist.IsPayed; }
             set { _orderlist.IsPayed = value; }
@@ -86,7 +86,7 @@ namespace bookfortable.Models
             set { _orderlist.ShippingMethod = value; }
         }
         [DisplayName("7-11貨到付款")]
-        public int? Is711Pay
+        public bool? Is711Pay
         {
             get { return _orderlist.Is711Pay; }
             set { _orderlist.Is711Pay = value; }

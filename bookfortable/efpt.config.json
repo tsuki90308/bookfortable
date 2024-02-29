@@ -60,6 +60,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[PickingOrder]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Product]",
          "ObjectType": 0
       },
@@ -68,7 +72,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[QuestionRecord]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Relation]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Result]",
          "ObjectType": 0
       },
       {

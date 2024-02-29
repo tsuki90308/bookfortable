@@ -5,17 +5,17 @@ using System.Collections.Generic;
 
 namespace bookfortable.Models;
 
-public partial class MyCoupon
+public partial class QuestionRecord
 {
-    public int McId { get; set; }
+    public int Id { get; set; }
 
-    public int DicountId { get; set; }
+    public int? MemberId { get; set; }
 
-    public int MemberId { get; set; }
+    public int? ResultId { get; set; }
 
-    public bool IsUsed { get; set; }
-
-    public virtual DiscountCodeCart Dicount { get; set; }
+    public DateOnly? Date { get; set; }
 
     public virtual Member Member { get; set; }
+
+    public virtual Result Result { get; set; }
 }

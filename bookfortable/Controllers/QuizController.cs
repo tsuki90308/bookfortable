@@ -17,5 +17,7 @@ namespace Bookfortable.Controllers
             return View(db.Questions);
         }
 
+
+
     }
 }
