@@ -1,0 +1,94 @@
+﻿
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    color: palevioletred; /* 將文字顏色改為黑色 */
+    font-weight: bold;
+}
+
+header {
+    background-color: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    color: purple;
+    padding: 20px;
+    text-align: left; /* 將標題置左 */
+    font-weight: bold;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+main {
+    padding: 20px;
+}
+
+.banner {
+    background-color: #fff; /* 將最新活動的背景色改為白色 */
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.about {
+    background-color: #f0f0f0; /* 將關於我們的背景色改為淺灰色 */
+    padding: 20px;
+}
+
+footer {
+    background-color: plum;
+    color: black;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+/* 以下是新增的效果 */
+
+.jumbotron {
+    background-color: #f8f9fa; /* 更改 Jumbotron 的背景顏色 */
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem; /* 增加 Jumbotron 圓角 */
+}
+
+    .jumbotron h1 {
+        color: #6c757d; /* 更改 Jumbotron 標題的文字顏色 */
+    }
+
+.accordion-item {
+    background-color: #fff; /* 手風琴每個項目的背景色 */
+    border-radius: 0.5rem; /* 增加手風琴項目的圓角 */
+    margin-bottom: 1rem;
+    border: 1px solid #dee2e6; /* 增加手風琴項目的邊框 */
+}
+
+.accordion-header {
+    background-color: #f8f9fa; /* 手風琴標題的背景色 */
+    border-bottom: 1px solid #dee2e6; /* 手風琴標題的底部邊框 */
+}
+
+.accordion-button {
+    color: #212529; /* 手風琴標題按鈕的文字顏色 */
+    font-weight: bold; /* 手風琴標題按鈕的字體加粗 */
+}
+
+.accordion-body {
+    padding: 1rem; /* 手風琴內容的填充 */
+}
+
+
+
