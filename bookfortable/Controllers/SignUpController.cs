@@ -35,8 +35,7 @@ public class SignUpController : Controller
     [HttpPost]
     public IActionResult Create(CEventWrap viewModel)
     {
-        if (ModelState.IsValid)
-        {
+        
             try
             {
                 _db.SingUps.Add(viewModel.SingUps);
@@ -48,7 +47,7 @@ public class SignUpController : Controller
                 ModelState.AddModelError("", "報名失敗，請稍後再試。");
                 return View(viewModel);
             }
-        }
+        
         return View(viewModel);
     }
 

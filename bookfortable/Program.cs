@@ -43,7 +43,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=BookTag}/{action=List}/{id?}");
+    pattern: "{controller=Eventfront}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

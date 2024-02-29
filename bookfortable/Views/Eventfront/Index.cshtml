@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>書籍活動網站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+            color:palevioletred; /* 將文字顏色改為黑色 */
+            font-weight: bold;
+        }
+
+        header {
+            background-color: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+            color:purple;
+            padding: 20px;
+            text-align: left; /* 將標題置左 */
+            font-weight:bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            nav ul li {
+                display: inline;
+                margin-right: 20px;
+            }
+
+                nav ul li a {
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+        main {
+            padding: 20px;
+        }
+
+        .banner {
+            background-color: #fff; /* 將最新活動的背景色改為白色 */
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .about {
+            background-color: #f0f0f0; /* 將關於我們的背景色改為淺灰色 */
+            padding: 20px;
+        }
+
+        footer {
+            background-color: plum;
+            color: black;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+        /* 以下是新增的效果 */
+
+        .jumbotron {
+            background-color: #f8f9fa; /* 更改 Jumbotron 的背景顏色 */
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem; /* 增加 Jumbotron 圓角 */
+        }
+
+            .jumbotron h1 {
+                color: #6c757d; /* 更改 Jumbotron 標題的文字顏色 */
+            }
+
+        .accordion-item {
+            background-color: #fff; /* 手風琴每個項目的背景色 */
+            border-radius: 0.5rem; /* 增加手風琴項目的圓角 */
+            margin-bottom: 1rem;
+            border: 1px solid #dee2e6; /* 增加手風琴項目的邊框 */
+        }
+
+        .accordion-header {
+            background-color: #f8f9fa; /* 手風琴標題的背景色 */
+            border-bottom: 1px solid #dee2e6; /* 手風琴標題的底部邊框 */
+        }
+
+        .accordion-button {
+            color: #212529; /* 手風琴標題按鈕的文字顏色 */
+            font-weight: bold; /* 手風琴標題按鈕的字體加粗 */
+        }
+
+        .accordion-body {
+            padding: 1rem; /* 手風琴內容的填充 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="text-align: left;">歡迎來到書服的活動</h1> <!-- 將標題置左 -->
+        <nav>
+            <ul>
+                <li><a href="#">首頁</a></li>
+                <li><a href="#">活動列表</a></li>
+                <li><a href="#">聯絡我們</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h1 class="display-4">書服活動詳細介紹</h1> <!-- 更改 Jumbotron 的標題樣式 -->
+            <p class="lead">歡迎來到我們的網站，這裡有最新的活動信息以及關於我們的介紹。</p>
+            <hr class="my-4"> <!-- 增加水平分隔線 -->
+            <p>快來參加我們的活動吧！</p>
+        </div>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="about_us">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        關於我們
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="about_us" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        這裡可以放關於網站或組織的描述。
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="message_board">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        留言板
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="message_board" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        留下你參與活動的想法和照片吧。
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="monthly_event">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        月月抽書寵粉活動
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="monthly_event" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        凡是會員都可以參加每個月的抽書活動，書服寵粉幫您寄送到家。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>版權所有 &copy; 2024 書服活動網站</p>
+    </footer>
+
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

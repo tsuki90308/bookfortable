@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace bookfortable.Controllers
 {
-    public class EventControllerfront : Controller
+    public class EventfrontController : Controller
     {
         private FinalContext db = new FinalContext();
         public IActionResult Index()
