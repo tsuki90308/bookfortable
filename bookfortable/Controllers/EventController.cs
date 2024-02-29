@@ -56,9 +56,9 @@ namespace bookfortable.Controllers
             {
                 if (pIn.photo != null)
                 {
-                    string photoName = Guid.NewGuid().ToString() + ".jpg";
-                    pEdit.FIamgePath = photoName;
-                    pIn.photo.CopyTo(new FileStream(_environment.WebRootPath + "/images/" + photoName, FileMode.Create));
+                    //string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    //pEdit.FIamgePath = photoName;
+                    //pIn.photo.CopyTo(new FileStream(_environment.WebRootPath + "/images/" + photoName, FileMode.Create));
                 }
 
                 pEdit.EventName = pIn.EventName;

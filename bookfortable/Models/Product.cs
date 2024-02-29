@@ -29,9 +29,7 @@ public partial class Product
 
     public string Isbn { get; set; }
 
-
-
-    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+    public virtual ICollection<PickingOrder> PickingOrders { get; set; } = new List<PickingOrder>();
 
     public virtual ICollection<Relation> Relations { get; set; } = new List<Relation>();
 
