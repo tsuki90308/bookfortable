@@ -1,0 +1,147 @@
+﻿@model List<Bookfortable.Models.CShoppingCartItem>
+
+@{
+    ViewData["Title"] = "CartView";
+}
+@section Styles {
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        .table {
+            text-align: center;
+            vertical-align: middle;
+            
+        }
+
+        .table th{
+            letter-spacing: 0.5em;
+        }
+
+        .table td {
+            vertical-align: middle;
+            letter-spacing: 3.5px;
+        }
+
+        a:link{
+            color:lightgray;
+        }
+    </style>
+}
+<h2>購物車車</h2>
+<p>
+    @Html.ActionLink("結帳購物車", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <!--序號-->
+        </th>
+            
+        <th colspan="2">
+            盲盒內容
+        </th>
+        
+        <th>
+            <!--數量-->
+            @Html.DisplayNameFor(model => model[0].count)
+        </th>
+        <th>
+            <!--單價-->
+            @Html.DisplayNameFor(model => model[0].price)
+        </th>
+        <th>
+            <!--小計-->
+            @Html.DisplayNameFor(model => model[0].小計)
+        </th>
+        <th>
+            <!--修改數量&刪除-->
+        </th>
+    </tr>
+
+    @{
+        int count = 0;
+        decimal pay = 0;
+        decimal tax = 0;
+        decimal sum = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            pay += item.小計;
+
+            <tr>
+                <td>
+                    <!--序號-->
+                    @count
+                </td>
+
+                <td>
+                    <!--盲盒內容圖片欄-->
+                    <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
+                    <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
+                </td>
+                <td>
+                    <!--偏好兼修改-->
+                    @Html.DisplayFor(modelItem => item.productType)
+                    <br />
+                    @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
+                    
+                    
+                </td>
+                <td>
+                    <!--數量-->
+                    <a class="btn btn-info" href="/Shopping/AddItem?TempBoxId=@item.productId&&redirect=1">+</a>
+                    @Html.TextBox("txtCount", item.count, new { htmlAttributes = new { @class = "form-control" } })
+                    <!--@Html.DisplayFor(modelItem => item.count)-->
+                    <a class="btn btn-info" href="/Shopping/AddItem?TempBoxId=@item.productId">-</a>
+                </td>
+                <td>
+                    <!--單價-->
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    <!--小計-->
+                    @Html.DisplayFor(modelItem => item.小計)
+                </td>
+                <td>
+                    <!--修改數量&刪除-->
+                    @Html.ActionLink("改數量", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("取消", "Edit", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+        tax = pay * 0.05M;
+        sum = pay + tax;
+    }
+</table>
+<li>交易金額：@pay.ToString("###,###,##0")</li>
+<li>稅　　額：@tax.ToString("###,###,##0")</li>
+<li>應付金額：@sum.ToString("###,###,##0")</li>
+
+@section scripts {
+    <script>
+        //數量的修正
+        // JavaScript function to increment count
+        function incrementCount() {
+            var countElement = document.getElementById("count");
+            countElement.innerHTML = parseInt(countElement.innerHTML) + 1;
+        }
+
+        // JavaScript function to decrement count
+        function decrementCount() {
+            var countElement = document.getElementById("count");
+            var currentCount = parseInt(countElement.innerHTML);
+            if (currentCount > 0) {
+                countElement.innerHTML = currentCount - 1;
+            }
+        }
+
+        // Attach click event handlers to buttons
+        document.querySelector('.incrementBtn').addEventListener('click', function () {
+            incrementCount();
+        });
+
+        document.querySelector('.decrementBtn').addEventListener('click', function () {
+            decrementCount();
+        });
+    </script>
+}
