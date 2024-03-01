@@ -11,7 +11,8 @@ namespace Bookfortable.Models
         public int count { get; set; }
         [DisplayName("單價")]
         public decimal price { get; set; }
-        public decimal 小計 { get { return this.count * this.price; } }
+        public decimal 小計 { get; set; }
+        //public decimal 小計 { get { return this.count * this.price; } }
         public TempBox product { get; set; }
     }
 }

@@ -2,15 +2,38 @@
 
 @{
     ViewData["Title"] = "CartView";
+    Layout = "_FrontLayout";
 }
 @section Styles {
-    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    
+    
     <style>
+        #cart-titile{
+            text-align:center;
+        }
+
+        #cart-titile p{
+            color: lightgray;
+            font-size:17px;
+        }
+        .b-part{
+            letter-spacing:7px;
+        }
+
+        .b-tight{
+            letter-spacing: -1px;
+        }
+
+        #cart-titile .URhere {
+            color:dimgray;
+            font-weight:bolder;
+        }
+
         .table {
+            color: dimgray;
             text-align: center;
             vertical-align: middle;
-            
+            font-size: 15px;
         }
 
         .table th{
@@ -25,12 +48,62 @@
         a:link{
             color:lightgray;
         }
+
+        #CartDetails{
+            width:1000px;
+            margin:3px auto;
+            padding:3px;
+            text-align: right;
+        }
+
+        #CartDetails .text-avg{
+            width:100px;
+            height:25px;
+            line-height:25px;
+            font-weight:bold;
+            text-align-last:justify;
+        }
+
+        .num-right {
+            width:100px;
+            height: 25px;
+            line-height: 25px;
+            text-align:right;
+        }
+
+        #CartDetails a {
+            display: inline-block;
+        }
+
+        #DiscountTypeIn{
+            width: 1000px;
+            margin: 3px auto;
+            padding: 3px;
+        }
+
+        #DiscountTypeIn p{
+            color:lightcoral;
+            font-size:smaller;
+            letter-spacing:2px;
+        }
     </style>
 }
 <h2>購物車車</h2>
 <p>
     @Html.ActionLink("結帳購物車", "Create")
 </p>
+
+<div id="cart-titile">
+    <p>
+        <a class="b-part URhere">&emsp;購物清單&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part">&emsp;填寫資料&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part">&emsp;訂單完成&emsp;</a>
+    </p>
+</div>
+<br />
+<br />
 <table class="table">
     <tr>
         <th>
@@ -61,87 +134,133 @@
     @{
         int count = 0;
         decimal pay = 0;
-        decimal tax = 0;
+        decimal shipping = 100;
         decimal sum = 0;
         foreach (var item in Model)
-        {
+        {           
             count++;
+            item.小計 = item.price * item.count;
             pay += item.小計;
 
-            <tr>
-                <td>
-                    <!--序號-->
-                    @count
-                </td>
+                <tr>
+                    <td>
+                        <!--序號-->
+                        @count
+                    </td>
 
-                <td>
-                    <!--盲盒內容圖片欄-->
-                    <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
-                    <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
-                </td>
-                <td>
-                    <!--偏好兼修改-->
-                    @Html.DisplayFor(modelItem => item.productType)
-                    <br />
-                    @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
-                    
-                    
-                </td>
-                <td>
-                    <!--數量-->
-                    <a class="btn btn-info" href="/Shopping/AddItem?TempBoxId=@item.productId&&redirect=1">+</a>
-                    @Html.TextBox("txtCount", item.count, new { htmlAttributes = new { @class = "form-control" } })
-                    <!--@Html.DisplayFor(modelItem => item.count)-->
-                    <a class="btn btn-info" href="/Shopping/AddItem?TempBoxId=@item.productId">-</a>
-                </td>
-                <td>
-                    <!--單價-->
-                    @Html.DisplayFor(modelItem => item.price)
-                </td>
-                <td>
-                    <!--小計-->
-                    @Html.DisplayFor(modelItem => item.小計)
-                </td>
-                <td>
-                    <!--修改數量&刪除-->
-                    @Html.ActionLink("改數量", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("取消", "Edit", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
+                    <td>
+                        <!--盲盒內容圖片欄-->
+                        <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
+                        <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
+                    </td>
+                    <td>
+                        <!--偏好兼修改-->
+                        @Html.DisplayFor(modelItem => item.productType)
+                        <br />
+                        @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
+                        
+                        
+                    </td>
+                    <td>
+                        <!--數量-->
+                        <button class="btn btn-info btn-sm" onclick="decreaseCount(@(count))">-</button>
+                        <span id="@Html.Raw("countDisplay" + count)">@Html.DisplayFor(modelItem => item.count)</span>
+                        <button class="btn btn-info btn-sm" onclick="increaseCount(@(count))">+</button>
+                    </td>
+                    <td>
+                        <!--單價-->
+                        @Html.DisplayFor(modelItem => item.price)
+                    </td>
+                    <td>
+                        <!--小計-->
+
+                    <span id="@Html.Raw("subtotalDisplay" + count)">@Html.DisplayFor(modelItem => item.小計)</span>
+                    </td>
+                    <td>
+                        <!--修改數量&刪除-->
+                        @Html.ActionLink("改數量", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("取消", "Edit", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
         }
-        tax = pay * 0.05M;
-        sum = pay + tax;
+        
     }
 </table>
-<li>交易金額：@pay.ToString("###,###,##0")</li>
-<li>稅　　額：@tax.ToString("###,###,##0")</li>
-<li>應付金額：@sum.ToString("###,###,##0")</li>
+
+<div id="DiscountTypeIn">
+    <input type="text" id="discountcode" name="account" size="20" autofocus placeholder="大小寫需相同" autocomplete="off">
+    <input type="button" class="btn btn-info btn-sm" value="折扣碼"/>
+    <p>折扣碼狀態顯示</p>
+</div>
+
+<div id="CartDetails">
+    <div><label class="text-avg">總金額：</label><a class="num-right">@pay.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">運費：</label><a class="num-right">@shipping.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">運費折抵：</label><a class="num-right">-@shipping.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">折扣碼折抵：</label><a class="num-right"></a></div>
+    <div><label class="text-avg">結帳金額：</label><a class="num-right">@pay.ToString("###,###,##0")</a></div>
+</div>
+
 
 @section scripts {
     <script>
         //數量的修正
         // JavaScript function to increment count
-        function incrementCount() {
-            var countElement = document.getElementById("count");
-            countElement.innerHTML = parseInt(countElement.innerHTML) + 1;
+        function increaseCount(i) {
+            console.log(i);
+            var countDisplay = '#countDisplay' + i;
+            var subtotalDisplay = '#subtotalDisplay' + i;
+            // 获取当前 count 的值
+            var currentCount = parseInt($(countDisplay).text());
+
+            // 增加 count 的值
+            currentCount++;
+
+            // 计算新的小计值
+            var newSubtotal = currentCount * parseFloat($(subtotalDisplay).text()); // 使用parseFloat确保price是浮点数
+
+            // 更新显示
+            updateDisplay(countDisplay, i, currentCount, newSubtotal);
         }
 
         // JavaScript function to decrement count
-        function decrementCount() {
-            var countElement = document.getElementById("count");
-            var currentCount = parseInt(countElement.innerHTML);
-            if (currentCount > 0) {
-                countElement.innerHTML = currentCount - 1;
-            }
+        function decreaseCount(i) {
+            console.log(i);
+            var countDisplay = '#countDisplay' + i;
+            var subtotalDisplay = '#subtotalDisplay' + i;
+            // 获取当前 count 的值
+            var currentCount = parseInt($(countDisplay).text());
+
+            // 减少 count 的值
+            currentCount--;
+
+            // 计算新的小计值
+            var newSubtotal = currentCount * parseFloat($(subtotalDisplay).text()); // 使用parseFloat确保price是浮点数
+
+            // 更新显示
+            updateDisplay(countDisplay, i, currentCount, newSubtotal);
         }
 
-        // Attach click event handlers to buttons
-        document.querySelector('.incrementBtn').addEventListener('click', function () {
-            incrementCount();
-        });
+        function updateDisplay(countDisplay, i, currentCount, newSubtotal) {
+            // 更新显示的 count
+            var countDisplay = '#countDisplay' + i;
+            var subtotalDisplay = '#subtotalDisplay' + i;
+            $(countDisplay).text(currentCount);
+            // 更新显示的小计
+            $(subtotalDisplay).text(newSubtotal.toFixed(2)); // 使用toFixed确保显示两位小数
 
-        document.querySelector('.decrementBtn').addEventListener('click', function () {
-            decrementCount();
-        });
+            // 发送 AJAX 请求到后端，更新服务器上的数据
+            // $.ajax({
+            //     url: '@Url.Action("UpdateCount", "ShoppingController")',
+            //     type: 'POST',
+            //     data: { newCount: newCount },
+            //     success: function (response) {
+            //         // 可选：在成功后执行其他操作
+            //     },
+            //     error: function (error) {
+            //         // 可选：在错误时执行其他操作
+            //     }
+            // });
+        }
     </script>
 }

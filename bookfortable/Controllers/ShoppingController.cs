@@ -59,7 +59,20 @@ namespace Bookfortable.Controllers
             return RedirectToAction("List");
         }
 
+        [HttpPost]
+        public ActionResult UpdateCount(int newCount, decimal newSubtotal)
+        {
+            CShoppingCartItem item = new CShoppingCartItem
+            {
+                count = newCount,
+                小計 = newSubtotal
+            };
 
+            // 在这里更新服务器上的数据，例如：item.count = newCount;
+
+            // 可选：返回任何适当的响应
+            return Json(new { success = true, message = "Count updated successfully" });
+        }
 
         //購物車頁首
         public IActionResult CartView()
