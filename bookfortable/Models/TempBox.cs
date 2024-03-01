@@ -23,7 +23,6 @@ public partial class TempBox
 
     public virtual Member Member { get; set; }
 
-
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual ICollection<PickingOrder> PickingOrders { get; set; } = new List<PickingOrder>();

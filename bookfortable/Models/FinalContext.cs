@@ -43,6 +43,8 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Question> Questions { get; set; }
+
     public virtual DbSet<Relation> Relations { get; set; }
 
     public virtual DbSet<SingUp> SingUps { get; set; }
@@ -343,6 +345,15 @@ public partial class FinalContext : DbContext
                 .HasColumnName("SupplierID");
             entity.Property(e => e.UnitPrice).HasColumnType("money");
             entity.Property(e => e.VersionInfo).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Question>(entity =>
+        {
+            entity.ToTable("Question");
+
+            entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
+            entity.Property(e => e.QuestionName).HasMaxLength(50);
+            entity.Property(e => e.QuestionOptions).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Relation>(entity =>

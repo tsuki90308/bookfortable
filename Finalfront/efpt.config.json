@@ -64,6 +64,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Question]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Relation]",
          "ObjectType": 0
       },

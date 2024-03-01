@@ -1,0 +1,92 @@
+﻿
+
+
+<div class="quiz-container">
+    <div class="question">
+        <h1>測驗</h1>
+        <p>以下哪個是正確的？</p>
+    </div>
+    <div class="options">
+        <div class="option">
+            <input type="radio" id="option1" name="answer" value="option1">
+            <label for="option1">選項1</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="option2" name="answer" value="option2">
+            <label for="option2">選項2</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="option3" name="answer" value="option3">
+            <label for="option3">選項3</label>
+        </div>
+    </div>
+    <button type="submit">提交</button>
+</div>
+
+@section Scripts{
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            max-width: 600px;
+        }
+
+        .question {
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .option {
+            flex-basis: 30%;
+        }
+
+            .option input[type="radio"] {
+                display: none;
+            }
+
+            .option label {
+                display: block;
+                background-color: #f0f0f0;
+                border: 2px solid #ccc;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                text-align: center;
+            }
+
+            .option input[type="radio"]:checked + label {
+                background-color: #a0a0a0;
+                color: #fff;
+            }
+
+        button {
+            display: block;
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+}
