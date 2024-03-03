@@ -45,6 +45,7 @@ app.MapControllerRoute(
     name: "default",
 //pattern: "{controller=Quiz}/{action=Result}");
 pattern: "{controller=Home}/{action=Test}");
+//pattern: "{controller=Home}/{action=index}");
 app.MapRazorPages();    
 
 app.Run();

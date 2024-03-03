@@ -402,6 +402,7 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.ResultId).HasColumnName("ResultID");
             entity.Property(e => e.ResultImg).HasMaxLength(50);
             entity.Property(e => e.ResultMsg).HasMaxLength(100);
+            entity.Property(e => e.ResultName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<SingUp>(entity =>

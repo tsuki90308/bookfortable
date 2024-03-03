@@ -13,5 +13,7 @@ public partial class Result
 
     public string ResultImg { get; set; }
 
+    public string ResultName { get; set; }
+
     public virtual ICollection<QuestionRecord> QuestionRecords { get; set; } = new List<QuestionRecord>();
 }
