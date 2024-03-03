@@ -17,6 +17,11 @@ namespace Bookfortable.Controllers
             return View(db.Questions);
         }
 
+        public IActionResult Result()
+        {
+            FinalContext db = new FinalContext();
+            return View(db.Results);
+        }
 
 
     }
