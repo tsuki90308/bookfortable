@@ -43,8 +43,8 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-pattern: "{controller=Quiz}/{action=Result}");
-//pattern: "{controller=Home}/{action=Test}");
+//pattern: "{controller=Quiz}/{action=Result}");
+pattern: "{controller=Home}/{action=Test}");
 app.MapRazorPages();    
 
 app.Run();
