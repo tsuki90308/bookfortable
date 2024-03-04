@@ -39,6 +39,8 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<OrderList> OrderLists { get; set; }
 
+    public virtual DbSet<PickingOrder> PickingOrders { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Question> Questions { get; set; }
@@ -53,9 +55,9 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<WishList> WishLists { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False");
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -101,12 +103,8 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.IsMemberDiscount).HasColumnName("isMemberDiscount");
             entity.Property(e => e.IsPartnerDiscount).HasColumnName("isPartnerDiscount");
             entity.Property(e => e.PartnerManager).HasMaxLength(30);
-            entity.Property(e => e.PartnerManagerEmail)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.PartnerManagerPhone)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.PartnerManagerEmail).HasMaxLength(50);
+            entity.Property(e => e.PartnerManagerPhone).HasMaxLength(50);
             entity.Property(e => e.PartnerName).HasMaxLength(30);
         });
 
@@ -180,6 +178,7 @@ public partial class FinalContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("mPassword");
             entity.Property(e => e.MPoints).HasColumnName("mPoints");
+            entity.Property(e => e.MSubscription).HasColumnName("mSubscription");
         });
 
         modelBuilder.Entity<Message>(entity =>
@@ -201,6 +200,8 @@ public partial class FinalContext : DbContext
         {
             entity.HasKey(e => e.McId);
 
+            entity.Property(e => e.IsUsed).HasColumnName("isUsed");
+
             entity.HasOne(d => d.Dicount).WithMany(p => p.MyCoupons)
                 .HasForeignKey(d => d.DicountId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -217,14 +218,16 @@ public partial class FinalContext : DbContext
             entity.HasKey(e => e.Odid);
 
             entity.Property(e => e.Odid).HasColumnName("ODID");
+            entity.Property(e => e.BookTag2string).HasMaxLength(255);
             entity.Property(e => e.OrderDetailId)
                 .HasMaxLength(40)
                 .HasColumnName("OrderDetailID");
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.Price).HasColumnType("money");
+            entity.Property(e => e.TempBoxId).HasColumnName("TempBoxID");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_OrderDetails_Product");
+            entity.HasOne(d => d.TempBox).WithMany(p => p.OrderDetails)
+                .HasForeignKey(d => d.TempBoxId)
+                .HasConstraintName("FK_OrderDetails_TempBox");
         });
 
         modelBuilder.Entity<OrderList>(entity =>
@@ -244,13 +247,9 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.CustomerAdd1).HasMaxLength(5);
             entity.Property(e => e.CustomerAdd2).HasMaxLength(7);
             entity.Property(e => e.CustomerAdd3).HasMaxLength(50);
-            entity.Property(e => e.CustomerEmail)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+            entity.Property(e => e.CustomerEmail).HasMaxLength(50);
             entity.Property(e => e.CustomerName).HasMaxLength(50);
-            entity.Property(e => e.CustomerPhone)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.CustomerPhone).HasMaxLength(50);
             entity.Property(e => e.DiscountCode).HasMaxLength(50);
             entity.Property(e => e.DiscountPrice).HasColumnType("money");
             entity.Property(e => e.Is711Pay).HasColumnName("is711Pay");
@@ -262,7 +261,7 @@ public partial class FinalContext : DbContext
                 .HasColumnName("OIDramd");
             entity.Property(e => e.OrderDate).HasColumnType("datetime");
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
-            entity.Property(e => e.OrderListNote).HasMaxLength(50);
+            entity.Property(e => e.OrderListNote).HasMaxLength(255);
             entity.Property(e => e.OrderState).HasMaxLength(20);
             entity.Property(e => e.OrderTotal).HasColumnType("money");
             entity.Property(e => e.PayDate).HasColumnType("datetime");
@@ -289,6 +288,44 @@ public partial class FinalContext : DbContext
             entity.HasOne(d => d.OrderDetail).WithMany(p => p.OrderLists)
                 .HasForeignKey(d => d.OrderDetailId)
                 .HasConstraintName("FK_OrderList_OrderDetails");
+        });
+
+        modelBuilder.Entity<PickingOrder>(entity =>
+        {
+            entity.HasKey(e => e.Pkoid);
+
+            entity.ToTable("PickingOrder");
+
+            entity.Property(e => e.Pkoid).HasColumnName("PKOID");
+            entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+            entity.Property(e => e.OrderDetailsId).HasColumnName("OrderDetailsID");
+            entity.Property(e => e.OrderListId).HasColumnName("OrderListID");
+            entity.Property(e => e.Pkoramd)
+                .HasMaxLength(50)
+                .HasColumnName("PKOramd");
+            entity.Property(e => e.PriceRange).HasColumnType("money");
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.TempBoxId).HasColumnName("TempBoxID");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.PickingOrders)
+                .HasForeignKey(d => d.EmployeeId)
+                .HasConstraintName("FK_PickingOrder_Employees");
+
+            entity.HasOne(d => d.OrderDetails).WithMany(p => p.PickingOrders)
+                .HasForeignKey(d => d.OrderDetailsId)
+                .HasConstraintName("FK_PickingOrder_OrderDetails");
+
+            entity.HasOne(d => d.OrderList).WithMany(p => p.PickingOrders)
+                .HasForeignKey(d => d.OrderListId)
+                .HasConstraintName("FK_PickingOrder_PickingOrder");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.PickingOrders)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_PickingOrder_Product");
+
+            entity.HasOne(d => d.TempBox).WithMany(p => p.PickingOrders)
+                .HasForeignKey(d => d.TempBoxId)
+                .HasConstraintName("FK_PickingOrder_TempBox");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -366,12 +403,16 @@ public partial class FinalContext : DbContext
             entity.ToTable("TempBox");
 
             entity.Property(e => e.BoxId).HasColumnName("BoxID");
-            entity.Property(e => e.BookTag2string)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.Price)
-                .HasColumnType("money")
-                .HasColumnName("price");
+            entity.Property(e => e.BookTag2string).HasMaxLength(255);
+            entity.Property(e => e.BuildDate).HasColumnType("datetime");
+            entity.Property(e => e.CustomerEmail).HasMaxLength(50);
+            entity.Property(e => e.CustomerPhone).HasMaxLength(50);
+            entity.Property(e => e.MemberId).HasColumnName("MemberID");
+            entity.Property(e => e.PriceRange).HasColumnType("money");
+
+            entity.HasOne(d => d.Member).WithMany(p => p.TempBoxes)
+                .HasForeignKey(d => d.MemberId)
+                .HasConstraintName("FK_TempBox_Members");
         });
 
         modelBuilder.Entity<TradeList>(entity =>
