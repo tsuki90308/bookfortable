@@ -5,21 +5,28 @@
     Layout = "_FrontLayout";
 }
 <style>
-     .radio_btn label {
+    .radio_btn label {
         margin: 0 24px;
+        /* width:20px */
     }
-    
+
     .radio {
         border-radius: 25px !important;
         background-color: #FFEFD5;
         border: 1px solid #FFEFD5;
+        color: black;
         /* height: 75px !important; */
     }
-    .btn{
-        width: 100px ;
-        
+
+    .btn {
+        width: 250px;
     }
- 
+
+        .btn.active.radio {
+            background-color: #b7b7a4; /* 更改背景颜色 */
+            border-color: #b7b7a4; /* 更改边框颜色 */
+            color: white; /* 更改文字颜色 */
+        }
 </style>
 
 
@@ -33,172 +40,171 @@
             var Qname = "No_" + count.ToString();
             // Console.Write(count);
             // Console.Write(Qname);
-                 <div class="row">
-                    <div class="mx-auto col-lg-12">
-                            <div class="section-title">
-                                <span></span>
-                                @* <h2>讓我們為您縮小範圍，挑選出最合適的盲包選擇：不論您們相隔多遠、送禮對象的年齡或是您們處於的關係。</h2> *@
-                                <h2>@q.QuestionName</h2>
-                            </div>
-                        </div>
-
-                    <div class="mx-auto col-12 justify-content-center">
-
-                            <div class="blog__item blog__item__text d-flex flex-column  text-center ">
-                                <div class="btn-group btn-group-toggle radio_btn" data-toggle="buttons">
-                                    <label class="btn btn-secondary active radio">
-                                <input type="radio" name="@Qname" class="likebtn" style="text-align:center;width:20vw" value="2" id="option1"> 喜歡
-                                    </label>
-                                    <label class="btn btn-secondary radio" style=" border-radius:25px">
-                                <input type="radio" name="@Qname" class="likebtn"  style="text-align:center" value="1" id="option2"> 普通
-                                    </label>
-
-                                    <label class="btn btn-secondary radio">
-                                <input type="radio" name="@Qname" class="likebtn" style="text-align:center" value="0" id="option3"> 不喜歡
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+            <div class="row mt-3">
+                <div class="mx-auto col-lg-12 mt-5">
+                    <div class="section-title">
+                        <span></span>
+                        @* <h2>讓我們為您縮小範圍，挑選出最合適的盲包選擇：不論您們相隔多遠、送禮對象的年齡或是您們處於的關係。</h2> *@
+                        <h2>@q.QuestionName</h2>
+                    </div>
                 </div>
+
+                <div class="mx-auto col-8 justify-content-center">
+
+                    <div class="blog__item blog__item__text d-flex flex-column justify-content-center align-items-center text-center">
+                        <div class="btn-group btn-group-toggle radio_btn" data-toggle="buttons">
+                            <label class="btn active radio col-4">
+                                <input type="radio" name="@Qname" class="likebtn" style="text-align:center;" value="2" id="option1"> 喜歡
+                            </label>
+                            <label class="btn radio col-4" style=" border-radius:25px">
+                                <input type="radio" name="@Qname" class="likebtn" style="text-align:center" value="1" id="option2"> 普通
+                            </label>
+
+                            <label class="btn radio col-4" style="">
+                                <input type="radio" name="@Qname" class="likebtn" style="text-align:center " value="0" id="option3"> 不喜歡
+                            </label>
+                        </div>
+                    </div>
+                </div> 
+            </div>
             count++;
-                    }
-                    }
+        }
+    }
 
 
-        </section>
-        <div class="row justify-content-center mb-5">
-        <a class="btn btn-outline-secondary">送出</a>
-        </div>
-        
-            @section Scripts {
-        <script>
-            var sum = 0, x1 = 0, x2 = 0, x3 = 0, x4 = 0, x5 = 0, x6 = 0,
-                x7 = 0, x8 = 0, x9 = 0, x10 = 0, x11 = 0, x12 = 0;
+</section>
+<div class="row justify-content-center mb-5">
+    <a class="btn btn-success" style="border-radius:25px;color:white;">送出</a>
+</div>
+@section Scripts {
+    <script>
+        var sum = 0, x1 = 0, x2 = 0, x3 = 0, x4 = 0, x5 = 0, x6 = 0,
+            x7 = 0, x8 = 0, x9 = 0, x10 = 0, x11 = 0, x12 = 0;
 
-            function Sum() {
-                sum = parseInt(x1) + parseInt(x2) + parseInt(x3) + parseInt(x4) +
-                    parseInt(x5) + parseInt(x6) + parseInt(x7) + parseInt(x8) +
-                    parseInt(x9) + parseInt(x10) + parseInt(x11) + parseInt(x12);
-              
-            }
+        function Sum() {
+            sum = parseInt(x1) + parseInt(x2) + parseInt(x3) + parseInt(x4) +
+                parseInt(x5) + parseInt(x6) + parseInt(x7) + parseInt(x8) +
+                parseInt(x9) + parseInt(x10) + parseInt(x11) + parseInt(x12);
 
+        }
 
 
-            $("input[name='No_1']:radio").change(function () {
-                // alert($('input[name="likebtn1"]:radio:checked').val());
 
-                x1 = $('input[name="No_1"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_2']:radio").change(function () {
-                ;
-                x2 = $('input[name="No_2"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_3']:radio").change(function () {
+        $("input[name='No_1']:radio").change(function () {
+            // alert($('input[name="likebtn1"]:radio:checked').val());
 
-                x3 = $('input[name="No_3"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_4']:radio").change(function () {
+            x1 = $('input[name="No_1"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_2']:radio").change(function () {
+            ;
+            x2 = $('input[name="No_2"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_3']:radio").change(function () {
 
-                x4 = $('input[name="No_4"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_5']:radio").change(function () {
+            x3 = $('input[name="No_3"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_4']:radio").change(function () {
 
-                x5 = $('input[name="No_5"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_6']:radio").change(function () {
+            x4 = $('input[name="No_4"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_5']:radio").change(function () {
 
-                x6 = $('input[name="No_6"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_7']:radio").change(function () {
+            x5 = $('input[name="No_5"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_6']:radio").change(function () {
 
-                x7 = $('input[name="No_7"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_8']:radio").change(function () {
+            x6 = $('input[name="No_6"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_7']:radio").change(function () {
 
-                x8 = $('input[name="No_8"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_9']:radio").change(function () {
+            x7 = $('input[name="No_7"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_8']:radio").change(function () {
 
-                x9 = $('input[name="No_9"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_10']:radio").change(function () {
+            x8 = $('input[name="No_8"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_9']:radio").change(function () {
 
-                x10 = $('input[name="No_10"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_11']:radio").change(function () {
+            x9 = $('input[name="No_9"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_10']:radio").change(function () {
 
-                x11 = $('input[name="No_11"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
-            $("input[name='No_12']:radio").change(function () {
+            x10 = $('input[name="No_10"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_11']:radio").change(function () {
 
-                x12 = $('input[name="No_12"]:radio:checked').val();
-                Sum();
-                console.log(sum);
-            });
+            x11 = $('input[name="No_11"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
+        $("input[name='No_12']:radio").change(function () {
+
+            x12 = $('input[name="No_12"]:radio:checked').val();
+            Sum();
+            console.log(sum);
+        });
         $("a").click(function () {
             console.log(sum);
             window.location.href = "/Quiz/Result?score=" + sum;
         });
 
-            // document.addEventListener("DOMContentLoaded", () => {
-            //     var likebtns = document.querySelectorAll(".likebtn")
-            //     var normalbtns = document.querySelectorAll(".normalbtn")
-            //     var dislikebtns = document.querySelectorAll(".dislikebtn")
-            //     var score = 0;
-            //     function addscoreAndDisable(event) {
-            //         if (!event.target.disabled) {
-            //             score += 2;
-            //             console.log(score);
-            //             event.target.removeEventListener("click", addscoreAndDisable);
-            //             // event.target.disabled = true;
-            //         }
-            //     }
-            //     function addonescoreAndDisable(event) {
-            //         if (!event.target.disabled) {
-            //             score += 1;
-            //             console.log(score);
-            //             event.target.removeEventListener("click", addonescoreAndDisable);
-            //             // event.target.disabled = true;
-            //         }
-            //     }
-            //     for (let i = 0; i < likebtns.length; i++) {
-            //         likebtns[i].addEventListener("click", addscoreAndDisable); // 將函式的參考傳遞給 addEventListener，並在按鈕被點擊時執行
-            //     }
-            //     for (let i = 0; i < normalbtns.length; i++) {
-            //         normalbtns[i].addEventListener("click", addonescoreAndDisable);
-            //     }
+        // document.addEventListener("DOMContentLoaded", () => {
+        //     var likebtns = document.querySelectorAll(".likebtn")
+        //     var normalbtns = document.querySelectorAll(".normalbtn")
+        //     var dislikebtns = document.querySelectorAll(".dislikebtn")
+        //     var score = 0;
+        //     function addscoreAndDisable(event) {
+        //         if (!event.target.disabled) {
+        //             score += 2;
+        //             console.log(score);
+        //             event.target.removeEventListener("click", addscoreAndDisable);
+        //             // event.target.disabled = true;
+        //         }
+        //     }
+        //     function addonescoreAndDisable(event) {
+        //         if (!event.target.disabled) {
+        //             score += 1;
+        //             console.log(score);
+        //             event.target.removeEventListener("click", addonescoreAndDisable);
+        //             // event.target.disabled = true;
+        //         }
+        //     }
+        //     for (let i = 0; i < likebtns.length; i++) {
+        //         likebtns[i].addEventListener("click", addscoreAndDisable); // 將函式的參考傳遞給 addEventListener，並在按鈕被點擊時執行
+        //     }
+        //     for (let i = 0; i < normalbtns.length; i++) {
+        //         normalbtns[i].addEventListener("click", addonescoreAndDisable);
+        //     }
 
-            // });
-
-
+        // });
 
 
 
 
-        </script>
-            @*  <script>
+
+
+    </script>
+    @*  <script>
         document.addEventListener("DOMContentLoaded", () => {
             var likebtns = document.querySelectorAll(".likebtn")
             var normalbtns = document.querySelectorAll(".normalbtn")
@@ -239,5 +245,5 @@
     </script>
  *@
 
-            }
+}
 

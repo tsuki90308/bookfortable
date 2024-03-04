@@ -3,22 +3,34 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "_FrontLayout";
-}
-<div class="row justify-content-center">
-<div class="card border-0" style="width: 18rem;">
-    <img src="~/img/@Model.ResultImg" class="card-img-top" alt="...">
-@*     <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        
-    </div> *@
 
-</div>
-    <div class="card border-0" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">@Model.ResultName</h5>
-            <p class="card-text">@Model.ResultMsg</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+}
+<style>
+    .card-text {
+        letter-spacing: 5px;
+    }
+</style>
+
+<div class="row mt-5">
+    <div class="col-5 justify-content-center d-flex">
+        <div class="card border-0" style="width: 18rem;">
+            <img src="~/img/@Model.ResultImg" class="card-img-top" alt="...">
+            @*     <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+            </div> *@
+
+        </div>
+    </div>
+    <div class="col-7 justify-content-center">
+        <div class="card border-0" style="width: 500px;">
+            <div class="card-body">
+                <h1 class="card-title">@Model.ResultName</h1>
+                <h4 class="card-text">@Model.ResultMsg</h4>
+                <h1 class="mt-4"></h1>
+                <a href="#" class="btn btn-success">Go somewhere</a>
+            </div>
         </div>
     </div>
 </div>
