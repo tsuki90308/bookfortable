@@ -6,12 +6,27 @@
 
 }
 <style>
+    
+        @@font-face {
+            font-family: 'thepeakfontbeta_v0_101';
+            src: url('/fonts/thepeakfontbeta_v0_101.ttf') format('truetype');
+        }
+
+    .desc {
+        font-family: 'thepeakfontbeta_v0_101';
+    }
+
     .card-text {
         letter-spacing: 5px;
+        line-height:65px;
+        font-size:30px;
+        margin:auto
     }
+    
+   
 </style>
 
-<div class="row mt-5">
+@*<div class="row mt-5">
     <div class="col-5 justify-content-center d-flex">
         <div class="card border-0" style="width: 18rem;">
             <img src="~/img/@Model.ResultImg" class="card-img-top" alt="...">
@@ -21,7 +36,7 @@
 
             </div> *@
 
-        </div>
+       @* </div>
     </div>
     <div class="col-7 justify-content-center">
         <div class="card border-0" style="width: 500px;">
@@ -29,6 +44,39 @@
                 <h1 class="card-title">@Model.ResultName</h1>
                 <h4 class="card-text">@Model.ResultMsg</h4>
                 <h1 class="mt-4"></h1>
+                <a href="#" class="btn btn-success">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class="card justify-content-center d-flex border-0" style="max-width: 1500px;height:800px">
+    <div class="row no-gutters align-items-center">
+        <div class="col-md-4">
+            <img src="~/img/@Model.ResultImg" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                @{
+                    if(Model.ResultName == "盜賊")
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:blueviolet; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                    else if(Model.ResultName == "治癒")
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:greenyellow; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                    else if(Model.ResultName == "戰士")
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:maroon; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                    else
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:gold; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                }
+                
+                <p class="card-text desc" style="margin-bottom: 20px">@Model.ResultMsg</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 <a href="#" class="btn btn-success">Go somewhere</a>
             </div>
         </div>
