@@ -74,6 +74,62 @@ namespace Bookfortable.Controllers
             return Json(new { success = true, message = "Count updated successfully" });
         }
 
+        public IActionResult Createbox()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Createbox(TempBox t)
+        {
+            FinalContext db = new FinalContext();
+            db.TempBoxes.Add(t);
+            db.SaveChanges();
+            CTempBoxWrap tbw = new CTempBoxWrap();
+            tbw.tempbox = t;
+            return RedirectToAction("CartView");
+        }
+
+        public IActionResult Deletebox(int? id)
+        {
+            if (id != null)
+            {
+                FinalContext db = new FinalContext();
+                TempBox tb = db.TempBoxes.FirstOrDefault(p => p.BoxId == id);
+                if (tb != null)
+                {
+                    db.TempBoxes.Remove(tb);
+                    db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("CartView");
+        }
+
+        [HttpPost]
+        public IActionResult ApplyDiscount([FromBody] CDiscountCodeViewModel vm)
+        {
+            bool isValidDiscount = false;
+
+            DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(
+                d => d.DiscountCode.Equals(vm.txtDiscountCode) &&
+                d.IsMemberDiscount.Equals(vm.boolIsMemberDiscount) &&
+                d.IsActivate.Equals(vm.boolIsActivate) &&
+                d.DiscountPrice.Equals(vm.DiscountPrice));
+
+            if (discountcode != null && discountcode.DiscountCode.Equals(vm.txtDiscountCode) && discountcode.IsActivate == true)
+            {
+                isValidDiscount = true;
+
+            }
+            ViewBag.IsValidDiscount = isValidDiscount;
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            if (cart == null)
+                return RedirectToAction("List");
+            return View("CartView", cart);
+        }
+
         //購物車頁首
         public IActionResult CartView()
         {
