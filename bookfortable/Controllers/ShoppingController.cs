@@ -110,24 +110,31 @@ namespace Bookfortable.Controllers
         public IActionResult ApplyDiscount([FromBody] CDiscountCodeViewModel vm)
         {
             bool isValidDiscount = false;
+            decimal? discountPrice = 0;
+            DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(d => d.DiscountCode.Equals(vm.txtDiscountCode) && d.IsActivate == true);
 
-            DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(
-                d => d.DiscountCode.Equals(vm.txtDiscountCode) &&
-                d.IsMemberDiscount.Equals(vm.boolIsMemberDiscount) &&
-                d.IsActivate.Equals(vm.boolIsActivate) &&
-                d.DiscountPrice.Equals(vm.DiscountPrice));
+            //DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(
+            //    d => d.DiscountCode.Equals(vm.txtDiscountCode) &&
+            //    //d.IsMemberDiscount.Equals(vm.boolIsMemberDiscount) &&
+            //    d.IsActivate.Equals(1)); //&&
+            //d.DiscountPrice.Equals(vm.DiscountPrice));
 
             if (discountcode != null && discountcode.DiscountCode.Equals(vm.txtDiscountCode) && discountcode.IsActivate == true)
             {
                 isValidDiscount = true;
+                discountPrice = discountcode.DiscountPrice;
 
             }
-            ViewBag.IsValidDiscount = isValidDiscount;
-            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-            if (cart == null)
-                return RedirectToAction("List");
-            return View("CartView", cart);
+
+            return Content(discountPrice.ToString());
+            //  return Json({ });
+
+            //ViewBag.IsValidDiscount = isValidDiscount;
+            //string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            //List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            //if (cart == null)
+            //    return RedirectToAction("List");
+            //return View("CartView", cart);
         }
 
         //購物車頁首
@@ -143,6 +150,17 @@ namespace Bookfortable.Controllers
                 return RedirectToAction("List");
             return View(cart);
 
+        }
+
+        //未成為訂單明細的資料
+        public IActionResult checkout()
+        {
+            FinalContext db = new FinalContext();
+
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+
+            return View("CheckOut");
         }
     }
 }

@@ -141,6 +141,7 @@
 <br />
 <br />
 <table class="table">
+    <thead>
     <tr>
         <th>
             <!--序號-->
@@ -166,7 +167,8 @@
             <!--修改數量&刪除-->
         </th>
     </tr>
-
+    </thead>
+    <tbody>
     @{
         int count = 0;
         decimal pay = 0;
@@ -177,50 +179,49 @@
             count++;
             item.小計 = item.price * item.count;
             pay += item.小計;
-
-                                <tr>
-                                    <td>
-                                        <!--序號-->
-                                        @count
-                                    </td>
-
-                                    <td>
-                                        <!--盲盒內容圖片欄-->
-                                        <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
-                                        <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
-                                    </td>
-                                    <td>
-                                        <!--偏好兼修改-->
-                                        @Html.DisplayFor(modelItem => item.productType)
-                                        <br />
-                                        @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
-                                        
-                                        
-                                    </td>
-                                    <td>
-                                        <!--數量-->
-                                        <button class="btn btn-info btn-sm" onclick="decreaseCount(@(count))">-</button>
-                                        <span id="@Html.Raw("countDisplay" + count)">@Html.DisplayFor(modelItem => item.count)</span>
-                                        <button class="btn btn-info btn-sm" onclick="increaseCount(@(count))">+</button>
-                                    </td>
-                                    <td>
-                                        <!--單價-->
-                                        @Html.DisplayFor(modelItem => item.price)
-                                    </td>
-                                    <td>
-                                        <!--小計-->
-
-                                    <span id="@Html.Raw("subtotalDisplay" + count)">@Html.DisplayFor(modelItem => item.小計)</span>
-                                    </td>
-                                    <td>
-                                        <!--刪除-->
-                                    <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
-                                    <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <!--序號-->
+                                                                            @count
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--盲盒內容圖片欄-->
+                                                                            <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
+                                                                            <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--偏好兼修改-->
+                                                                            @Html.DisplayFor(modelItem => item.productType)
+                                                                            <br />
+                                                                            @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--數量與修改-->
+                                                                            <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
+                                                                            <span id="@Html.Raw("countDisplay" + count)">@Html.DisplayFor(modelItem => item.count)</span>
+                                                                            <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--單價-->
+                                                                            @Html.DisplayFor(modelItem => item.price)
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--小計-->
+                                                                            <span id="@Html.Raw("subtotalDisplay" + count)">@Html.DisplayFor(modelItem => item.小計)</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--刪除-->
+                                                                            <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
+                                                                            <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                                                                        </td>
+                                                                    </tr>
         }
         
+
+       
+        
     }
+    </tbody>
 </table>
 <div id="cart-titile">
     <button class="btn btn-info btn-lg b-part" onclick="location.href='@Url.Action("Createbox", new {  })'">新增盲盒</button>
@@ -282,47 +283,23 @@
                     <label class="st1" for="deliveryWay">配送方式</label>
                 </td>
                 <td>
-                    <select class="form-select form-select-sm" id="deliveryWay">
-                        <option selected>請選擇配送方式</option>
-                        <option value="宅配">宅配</option>
-                        <option value="7-11純取貨">7-11純取貨</option>
-                        <option value="7-11取貨付款">7-11取貨付款</option>
-                        <option value="郵局i郵箱">郵局i郵箱</option>
+                <select class="form-select form-select-sm" id="deliveryWay">
+                    <!--
+                        // <option selected>請選擇配送方式</option>
+                        // <option value="宅配">宅配</option>
+                        // <option value="7-11純取貨">7-11純取貨</option>
+                        // <option value="7-11取貨付款">7-11取貨付款</option>
+                        // <option value="郵局i郵箱">郵局i郵箱</option>
+                        -->
                     </select>
                 </td>
             </tr>
 
         </table>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    var deliveryWayDropdown = $('#deliveryWay');
+// <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    $(document).ready(function () {
-        $('#deliveryArea').change(function () {
-                var selectedDeliveryArea = $(this).val();
 
-                deliveryWayDropdown.empty();
-
-                // Add default option
-                deliveryWayDropdown.append('<option selected>請選擇配送方式</option>');
-
-                // Add options based on selectedDeliveryArea
-                if (selectedDeliveryArea === '臺灣本島') {
-                    $('input[value="7-11取貨付款"]').prop('disabled', false);
-                    $('select[value="7-11純取貨"]').prop('disabled', false);
-                    deliveryWayDropdown.append('<option value="宅配">宅配</option>');
-                    deliveryWayDropdown.append('<option value="7-11純取貨">7-11純取貨</option>');
-                    deliveryWayDropdown.append('<option value="郵局i郵箱">郵局i郵箱</option>');
-                    deliveryWayDropdown.append('<option value="7-11取貨付款">7-11取貨付款</option>');
-                } else if (selectedDeliveryArea === '臺灣離島') {
-                  $('input[value="7-11取貨付款"]').prop('disabled', true);
-                    deliveryWayDropdown.append('<option value="宅配">宅配</option>');
-                    deliveryWayDropdown.append('<option value="7-11純取貨">7-11純取貨</option>');
-                }
-        });
-    });
-</script>
 
 <br />
     <div id="DiscountTypeIn">
@@ -331,41 +308,7 @@
         <p class="red" id="SpApplyDiscount"></p>
     </div>
     
-    <script>
-        function applyDiscount() {
-            let discountCode = document.getElementById("discountcode").value;
-            let spapdc = document.getElementById("SpApplyDiscount");
-            $.ajax({
-                url: '@Url.Action("ApplyDiscount", "Shopping")',
-                type: 'POST',
-                contentType: 'application/json',  // Explicitly set the content type to JSON
-                data: JSON.stringify({ txtDiscountCode: discountCode }),
-                success: function (result) {
-                    // 根据服务器端返回的结果更新视图
-                    // 例如，可以根据 result 更新 isValidDiscount 和 message 变量
-                    // 这里仅为示例，请根据实际情况进行调整
-                    if (discountcode == "") {
-                        spapdc.innerHTML = "尚未輸入折扣碼"
-                        console.log(discountcode);
-                    }
-                    else if (isValidDiscount) {
-                        spapdc.innerHTML = "有效折扣碼"
-                        console.log(isValidDiscount);
-                    } else {
-                        console.log(isValidDiscount);
-                        spapdc.innerHTML = "輸入錯誤 / 折扣碼過期"
-                    }
-
-                    // 更新视图中的消息
-                    $(".red").text(message).removeClass("green lightcoral").addClass(messageClass);
-                },
-                error: function () {
-                    // 处理错误情况
-                    console.log("Error applying discount.");
-                }
-            });
-        }
-    </script>
+  
  
     
 
@@ -373,11 +316,14 @@
         <div><label class="text-avg">總金額：</label><a class="num-right" id="@Html.Raw("subtotalDisplay" + count)">@pay.ToString("###,###,##0")</a></div>
         <div><label class="text-avg">運費：</label><a class="num-right">@shipping.ToString("###,###,##0")</a></div>
         <div><label class="text-avg">運費折抵：</label><a class="num-right">-@shipping.ToString("###,###,##0")</a></div>
-        <div><label class="text-avg">折扣碼折抵：</label><a class="num-right"></a></div>
+        <div><label class="text-avg">折扣碼折抵：</label><a class="num-right" id="dcprice">0</a></div>
         <div><label class="text-avg">紅利折抵：</label><a class="num-right"></a></div>
         <div class="b-tight">――――――――――――――</div>
         <div><label class="text-avg">結帳金額：</label><a class="num-right">@pay.ToString("###,###,##0")</a></div>
         <div class="red">會員紅利: 000 點</div>
+        <div id="cart-titile">
+            <button class="btn btn-info btn-lg b-part" onclick="location.href='@Url.Action("Createbox", new {  })'">新增盲盒</button>
+        </div>
     </div>
 
 
@@ -385,63 +331,41 @@
         <script src="https://kit.fontawesome.com/6da9884828.js" crossorigin="anonymous"></script>
         <script>
             //數量的修正
-            // JavaScript function to increment count
-            function increaseCount(i) {
-                console.log(i);
-                var countDisplay = '#countDisplay' + i;
-                var subtotalDisplay = '#subtotalDisplay' + i;
-                // 获取当前 count 的值
-                var currentCount = parseInt($(countDisplay).text());
+            function increaseCount(event) {
+                //根據此筆的數量 * 價格得到小計
+                //更新總計
+                //更新資料庫的購買數量
+                const btn = $(event.target);
+          
+                const row = btn.parents('tr');
+                const spnQty = row.find('td:nth-child(4)').find('span');
 
-                // 增加 count 的值
-                currentCount++;
-
-                // 计算新的小计值
-                var newSubtotal = currentCount * parseFloat($(subtotalDisplay).text()); // 使用parseFloat确保price是浮点数
-
-                // 更新显示
-                updateDisplay(countDisplay, i, currentCount, newSubtotal);
+                let qty = spnQty.text();  //數量
+                qty = parseInt(qty) + 1;
+                
+                const price = row.find('td:nth-child(5)').text(); //單價
+                row.find('td:nth-child(6)').text(qty * price); //更新小計
+                spnQty.text(qty); //更新數量
             }
 
             // JavaScript function to decrement count
-            function decreaseCount(i) {
-                console.log(i);
-                var countDisplay = '#countDisplay' + i;
-                var subtotalDisplay = '#subtotalDisplay' + i;
-                // 获取当前 count 的值
-                var currentCount = parseInt($(countDisplay).text());
+            function decreaseCount(event) {
+                //根據此筆的數量 * 價格得到小計
+                //更新總計
+                const btn = $(event.target);
 
-                // 减少 count 的值
-                currentCount--;
+                const row = btn.parents('tr');
+                const spnQty = row.find('td:nth-child(4)').find('span');
+                let qty = spnQty.text();  //數量
+                qty = parseInt(qty) - 1;
 
-                // 计算新的小计值
-                var newSubtotal = currentCount * parseFloat($(subtotalDisplay).text()); // 使用parseFloat确保price是浮点数
+                const price = row.find('td:nth-child(5)').text(); //單價
+                row.find('td:nth-child(6)').text(qty * price); //更新小計
+                spnQty.text(qty); //更新數量
 
-                // 更新显示
-                updateDisplay(countDisplay, i, currentCount, newSubtotal);
             }
 
-            function updateDisplay(countDisplay, i, currentCount, newSubtotal) {
-                // 更新显示的 count
-                var countDisplay = '#countDisplay' + i;
-                var subtotalDisplay = '#subtotalDisplay' + i;
-                $(countDisplay).text(currentCount);
-                // 更新显示的小计
-                $(subtotalDisplay).text(newSubtotal.toFixed(2)); // 使用toFixed确保显示两位小数
-
-                // 发送 AJAX 请求到后端，更新服务器上的数据
-                // $.ajax({
-                //     url: '@Url.Action("UpdateCount", "ShoppingController")',
-                //     type: 'POST',
-                //     data: { newCount: newCount },
-                //     success: function (response) {
-                //         // 可选：在成功后执行其他操作
-                //     },
-                //     error: function (error) {
-                //         // 可选：在错误时执行其他操作
-                //     }
-                // });
-            }
+            
             function confirmDelete(deleteUrl) {
                 var result = confirm("刪除後無法復原, 確定要刪除嗎？");
 
@@ -451,4 +375,92 @@
                 }
             }
         </script>
+
+    <script>
+        const deliveies = { "臺灣本島": ["宅配", "7-11純取貨", "7-11取貨付款", "郵局i郵箱"], "臺灣離島": ["宅配", "7-11純取貨", "郵局i郵箱"] };
+        let dvway = $("#deliveryWay");
+        console.log("這是你要的陣列", deliveies);
+        //dvway.empty();
+
+        $(document).ready(function () {
+            $('#deliveryArea').on('change', (event) => {
+                const selectedArea = $(event.target).val();
+                console.log("Selected Area:", selectedArea);
+                const way = deliveies[$(event.target).val()];
+                console.log("Selected way:", way);
+                dvway.empty();
+               
+                
+                way.forEach((item) => {
+                    dvway.append(`<option value="${item}">${item}</option>`)
+                    if (selectedArea === "臺灣離島") {
+                        $('input[value="7-11取貨付款"]').prop('disabled', true);
+                    } else if (selectedArea === "臺灣本島") {
+                        $('input[value="7-11取貨付款"]').prop('disabled', false);
+                    }
+                    // console.log(item)
+                })
+                dvway.niceSelect('update')
+            })
+
+            // $("#deliveryArea").change(function () {
+            //     var selectedOption = $(this).val();
+            //     if (selectedOption === "臺灣本島") {
+            //         console.log("觸發台灣本島事件!!");
+            //         dvway.append("<option>請選擇配送方式</option>");
+            //     }
+            // });
+        });
+
+        // $('#deliveryArea').change(function () {
+        //     var dvarea = $(this).val();
+
+        //     if (dvarea === '臺灣本島') {
+        //         $('input[value="7-11取貨付款"]').prop('disabled', false);
+        //         dvway.append("<option selected>請選擇配送方式</option>");
+        //     } else if (dvarea === '臺灣離島') {
+        //         $('input[value="7-11取貨付款"]').prop('disabled', true);
+        //     }
+        // });
+    </script>
+
+    <script>
+        function applyDiscount() {
+            let discountCode = document.getElementById("discountcode").value;
+            let spapdc = document.getElementById("SpApplyDiscount");
+
+            if (discountcode === "") {
+                spapdc.innerHTML = "尚未輸入折扣碼"
+            } else {
+                //ajax
+                $.ajax({
+                    url: '@Url.Action("ApplyDiscount", "Shopping")',
+                    type: 'POST',
+                    contentType: 'application/json',  // Explicitly set the content type to JSON
+                    data: JSON.stringify({ txtDiscountCode: discountCode }),
+                    success: function (result) {
+                        console.log(result);
+                        // 根据服务器端返回的结果更新视图
+                        // 例如，可以根据 result 更新 isValidDiscount 和 message 变量
+                        // 这里仅为示例，请根据实际情况进行调整
+                        if (result !== "0") {
+                            spapdc.innerHTML = ` 有效折扣碼，折扣金額為 ${result}`
+                            $('#dcprice').text(result);
+                            // 1console.log(isValidDiscount);
+                        } else {
+                            // console.log(isValidDiscount);
+                            spapdc.innerHTML = "輸入錯誤 / 折扣碼過期"
+                        }
+
+                        // 更新视图中的消息
+                        //  $(".red").text(message).removeClass("green lightcoral").addClass(messageClass);
+                    },
+                    error: function () {
+                        // 处理错误情况
+                        console.log("Error applying discount.");
+                    }
+                });
+            }
+        }
+    </script>
     }
