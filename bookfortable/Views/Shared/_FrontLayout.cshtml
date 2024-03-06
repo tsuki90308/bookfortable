@@ -72,6 +72,10 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
+                                @*哦 可以欸*@
+                                @* @if(string.IsNullOrEmpty(Context.Session.GetString())){
+                                    
+                                } *@
                                 <a asp-action="Login" asp-controller="LogIn">登入</a>
                                 <a href="#">提問</a>
                             </div>

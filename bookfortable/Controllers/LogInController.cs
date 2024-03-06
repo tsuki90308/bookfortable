@@ -10,11 +10,12 @@ namespace Bookfortable.Controllers
     {
         public IActionResult Index()
         {
+            //已登入可以訪問
             if (HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_LOGINGED_USER))
             {
                 return View();
             }
-            return RedirectToAction("Login");
+            return RedirectToAction("Login");//未登入返回登入//但不需要qq
         }
 
         public IActionResult Login()
@@ -33,5 +34,14 @@ namespace Bookfortable.Controllers
             }
             return View();
         }
+
+        //public IActionResult Test()
+        //{
+        //    string json = HttpContext.Session.GetString(CShoppingDictionary.SK_LOGINGED_USER);
+        //    if (!string.IsNullOrEmpty(json))
+        //    {
+        //        Member mbr = JsonSerializer.Deserialize<Member>(json);
+        //    }
+        //}
     }
 }
