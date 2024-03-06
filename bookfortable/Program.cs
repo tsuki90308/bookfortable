@@ -43,7 +43,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Test}");
+    pattern: "{controller=LogIn}/{action=Login}");
 app.MapRazorPages();
 
 app.Run();
