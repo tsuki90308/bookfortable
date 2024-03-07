@@ -8,74 +8,141 @@
 
 <h4>請輸入修改資訊</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="margin-bottom: 30px">
+    <div class="col-md-12">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" name="ProductId" value="@Model.ProductId" />
-@*             <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <input asp-for="ProductId" class="form-control" />
-                <span asp-validation-for="ProductId" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SupplierId" class="control-label"></label>
-                <input asp-for="SupplierId" class="form-control" />
-                <span asp-validation-for="SupplierId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="file" name="photo" />
 
-@*                 <label asp-for="ProductPhoto" class="control-label"></label>
-                <input asp-for="ProductPhoto" class="form-control" />
-                <span asp-validation-for="ProductPhoto" class="text-danger"></span> *@
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label"></label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="SupplierId" class="control-label"></label>
+                        <input asp-for="SupplierId" class="form-control" />
+                        <span asp-validation-for="SupplierId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="VersionInfo" class="control-label"></label>
+                        <input asp-for="VersionInfo" class="form-control" />
+                        <span asp-validation-for="VersionInfo" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="UnitPrice" class="control-label"></label>
-                <input asp-for="UnitPrice" class="form-control" />
-                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="UnitsInStock" class="control-label"></label>
-                <input asp-for="UnitsInStock" class="form-control" />
-                <span asp-validation-for="UnitsInStock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VersionInfo" class="control-label"></label>
-                <input asp-for="VersionInfo" class="form-control" />
-                <span asp-validation-for="VersionInfo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SellingPrice" class="control-label"></label>
-                <input asp-for="SellingPrice" class="form-control" />
-                <span asp-validation-for="SellingPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Isbn" class="control-label"></label>
-                <input asp-for="Isbn" class="form-control" />
-                <span asp-validation-for="Isbn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UnitPrice" class="control-label"></label>
+                        <input asp-for="UnitPrice" class="form-control" />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnitsInStock" class="control-label"></label>
+                        <input asp-for="UnitsInStock" class="form-control" />
+                        <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SellingPrice" class="control-label"></label>
+                        <input asp-for="SellingPrice" class="form-control" />
+                        <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Isbn" class="control-label"></label>
+                        <input asp-for="Isbn" class="form-control" />
+                        <span asp-validation-for="Isbn" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="ProductPhoto" class="control-label">現有封面照片</label>
+                            <input asp-for="ProductPhoto" class="form-control" />
+                            <span asp-validation-for="ProductPhoto" class="text-danger"></span>
+                            <img src="@Url.Content("~/images/" + Model.product.ProductPhoto)" style="max-height: 250px; margin-top: 10px;" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="photo" class="control-label">上傳更新圖片</label>
+                            <input type="file" id="photo" name="photo" class="form-control" />
+                            <div class="zone"></div>
+                            <img id="preview" src="#" alt="Your image will appear here." style="display: none; max-height: 250px; margin-top: 10px;" />
+                        </div>
+                        <div class="form-group">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="text-align: right">
+                            <input type="submit" value="儲存更新" class="btn btn-primary" onclick="confirmRenew(@Model.ProductId)" />
+                            <form asp-action="List">
+                                <button type="submit" class="btn btn-link">取消</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="List">取消</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.getElementById('photo').addEventListener('change', function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = new Image();
+                img.src = e.target.result;
+                img.onload = function () {
+                    document.getElementById('preview').src = img.src;
+                    document.getElementById('preview').style.display = 'block';
+                };
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('buttonUpload').addEventListener('click', function () {
+            var file = document.getElementById('photo').files[0];
+        });
+
+
+        function confirmRenew(productId) {
+            if (confirm('確定要儲存更新嗎？')) { // 将确认消息中的文本也修改为 "儲存更新"
+                location.href = '@Url.Action("Save", "Product")?id=' + productId;
+            }
+        }
+    </script>
+
+
+
 }
