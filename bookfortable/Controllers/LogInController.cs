@@ -10,23 +10,20 @@ namespace Bookfortable.Controllers
     {
         public IActionResult Index()
         {
-            //已登入可以訪問
-            if (HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_LOGINGED_USER))
-            {
-                return View();
-            }
-            return RedirectToAction("Login");//未登入返回登入//但不需要qq
+            return View();
         }
 
         public IActionResult Login()
         {
             return View();
         }
+
+        //回傳view版
         [HttpPost]
         public IActionResult Login(CLoginViewModel vm)
         {
             Member mbr = (new FinalContext().Members.FirstOrDefault(m => m.MAccount.Equals(vm.textAccount) && m.MPassword.Equals(vm.textPassword)));
-            if(mbr != null && mbr.MPassword.Equals(vm.textPassword))
+            if (mbr != null && mbr.MPassword.Equals(vm.textPassword))
             {
                 string json = JsonSerializer.Serialize(mbr);
                 HttpContext.Session.SetString(CShoppingDictionary.SK_LOGINGED_USER, json);
@@ -34,6 +31,13 @@ namespace Bookfortable.Controllers
             }
             return View();
         }
+
+        //回傳json
+        //[HttpPost]
+        //public IActionResult getLogin(CLoginViewModel vm)
+        //{
+        //    string json = HttpContext.Session.GetString()
+        //}
 
         //public IActionResult Test()
         //{
@@ -43,5 +47,20 @@ namespace Bookfortable.Controllers
         //        Member mbr = JsonSerializer.Deserialize<Member>(json);
         //    }
         //}
+
+
+        public IActionResult addMember()
+        {
+            return View();
+        }
+
+            [HttpPost]
+        public IActionResult addMember(Member p) { 
+            FinalContext db = new FinalContext();
+            db.Members.Add(p);
+            db.SaveChanges();
+
+            return RedirectToAction("Login");
+        }
     }
 }
