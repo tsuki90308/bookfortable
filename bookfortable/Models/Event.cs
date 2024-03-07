@@ -19,11 +19,14 @@ public partial class Event
 
     public int EventhostId { get; set; }
 
-    public string FIamgePath { get; set; }
+    public string EventDescription { get; set; }
 
     public string Eventhost { get; set; }
 
     public string EventType { get; set; }
+
+    public string EventImage { get; set; }
+
 
     public virtual EvenType EventTypeNavigation { get; set; }
 

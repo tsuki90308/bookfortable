@@ -20,10 +20,4 @@ public partial class TempBox
     public string CustomerEmail { get; set; }
 
     public DateTime? BuildDate { get; set; }
-
-    public virtual Member Member { get; set; }
-
-    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
-
-    public virtual ICollection<PickingOrder> PickingOrders { get; set; } = new List<PickingOrder>();
 }

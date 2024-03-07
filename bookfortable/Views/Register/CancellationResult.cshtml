@@ -1,0 +1,33 @@
+﻿@model bookfortable.Models.Event
+@{
+    Layout = "_FrontLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取消報名成功</title>
+    <!-- 如果有需要，可以在這裡添加其他樣式或腳本 -->
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3 class="text-center">取消報名成功</h3>
+                        <p class="text-center">您已成功取消報名該活動。</p>
+                        <!-- 如果有需要，可以在這裡添加其他顯示信息或按鈕 -->
+                        <div class="text-center">
+                            <a href="@Url.Action("List", "Eventfront")" class="btn btn-primary">返回首頁</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

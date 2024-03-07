@@ -56,10 +56,10 @@ namespace Bookfortable.Models
             set { _tempbox.BuildDate = value; }
         }
 
-        public virtual Member Member
-        {
-            get { return _tempbox.Member; }
-            set { _tempbox.Member = value; }
-        }
+        //public virtual Member Member
+        //{
+        //    get { return _tempbox.Member; }
+        //    set { _tempbox.Member = value; }
+        //}
     }
 }

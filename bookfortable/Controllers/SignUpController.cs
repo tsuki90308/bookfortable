@@ -8,7 +8,7 @@ using System.Linq;
 
 public class SignUpController : Controller
 {
-    private readonly FinalContext _db;
+    private readonly FinalContext _db;  //全域變數
 
     public SignUpController(FinalContext dbContext)
     {
@@ -16,6 +16,7 @@ public class SignUpController : Controller
     }
 
     // 顯示報名列表頁面
+    //根據會員編號帶出會員報名的資料
     public IActionResult List()
     {
         List<SingUp> signUps = _db.SingUps.ToList();
@@ -26,9 +27,13 @@ public class SignUpController : Controller
     [HttpGet]
     public IActionResult Create(int id)
     {
-        CEventWrap cEventWrap = new CEventWrap();
-        cEventWrap.MemberId = id;
-        return View(cEventWrap);
+        //id是活動編號
+        //根據活動編號去資料庫讀取使用者要報名的活動
+       var theEvent =  _db.Events.Find(id);
+        //CEventWrap cEventWrap = new CEventWrap();
+        //cEventWrap.MemberId = id;
+       // return View(cEventWrap);
+       return View(theEvent);
     }
 
     // 處理創建報名表單的邏輯

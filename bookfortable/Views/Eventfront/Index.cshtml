@@ -1,66 +1,81 @@
-﻿@{
-    Layout = "_Layout";
+﻿@model IEnumerable<bookfortable.Models.Event>
+@{
+    Layout = "_FrontLayout";
 }
 
+<div class="eventHeader">
+    <h1 class="title">書服 - 您的閱讀夥伴</h1>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Home")">首頁</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("List", "Eventfront")">活動列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">聯絡我們</a>
+        </li>
+    </ul>
+</div>
 
-    <div>
-        <h1 style="text-align: left;">歡迎來到書服的活動</h1> <!-- 將標題置左 -->
-        <nav>
-            <ul>
-                <li><a href="#">首頁</a></li>
-                <li><a href="#">活動列表</a></li>
-                <li><a href="#">聯絡我們</a></li>
-            </ul>
-        </nav>
-    </div>
-    <main>
-        <div class="jumbotron">
-            <h1 class="display-4">書服活動詳細介紹</h1> <!-- 更改 Jumbotron 的標題樣式 -->
-            <p class="lead">歡迎來到我們的網站，這裡有最新的活動信息以及關於我們的介紹。</p>
-            <hr class="my-4"> <!-- 增加水平分隔線 -->
-            <p>快來參加我們的活動吧！</p>
+
+
+
+<div class="container">
+    <div class="row">
+      
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title title">書服的企業理念</h5>
+                </div>
+                <div class="card-body">
+                    <p>我們是書服，致力於為用戶提供盲盒服務，讓選書不再是煩惱。我們擁有多元的書籍，讓您有更多的選擇，享受閱讀的樂趣。</p>
+                    <p>我們的理念是為用戶打造一個方便快捷的書籍選購平台，讓每個人都能輕鬆地找到自己喜愛的書籍，豐富自己的閱讀生活。</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title title">活動</h5>
+                </div>
+                <div class="card-body">
+                    <p>書服積極參與各種環保活動，我們鼓勵讀者通過回收和再利用書籍來保護環境。</p>
+                    <p>我們也推動二手書的利用與交換，幫助書籍找到新的主人，同時減少資源浪費。</p>
+                    <p>此外，書服致力於傳播文化，通過各種活動和項目來促進閱讀和文學的發展。</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title title">月月寵粉</h5>
+                    <p class="card-text">書服寵粉抽書是書服公司推出的一項活動，旨在回饋並與讀者互動。這個活動不僅是為了感謝那些忠實的讀者，也是為了吸引新的讀者加入書服的閱讀社群。</p>
+                    <p>在這個活動中，書服會定期舉辦抽獎活動，向社群中的一些幸運讀者贈送免費書籍。這些書籍可能是最新上市的暢銷書，也可能是一些讀者比較感興趣的特定類型的書籍。</p>
+                    <p>通常，書服會在社交媒體平台或官方網站上宣布抽獎活動的詳細信息，包括參加方式、獎品和抽獎時間。</p>
+                </div>
+            </div>
+
         </div>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="about_us">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        關於我們
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="about_us" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        這裡可以放關於網站或組織的描述。
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="message_board">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        留言板
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="message_board" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        留下你參與活動的想法和照片吧。
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="monthly_event">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        月月抽書寵粉活動
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="monthly_event" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        凡是會員都可以參加每個月的抽書活動，書服寵粉幫您寄送到家。
-                    </div>
+
+        <div class="col-6">
+            <div class="card">
+                <div class="ca rd-body">
+                    <h5 class="card-title title">攜手支持！公益捐書</h5>
+                    <p class="card-text">親愛的讀者們，書服誠摯地邀請您參與我們的公益捐書活動，一起幫助弱勢學子獲得更多閱讀的機會和資源。在當今社會，閱讀是人類知識與智慧的橋樑，然而，有些孩子因為家庭環境或經濟條件的限制，無法享受到充足的閱讀機會。</p>
+                    <p>因此，我們發起這個捐書活動，希望能夠通過您的慷慨捐助，讓更多弱勢學子能夠擁有自己的書籍，開啟閱讀的大門，探索知識的海洋。您的每一本捐贈的書籍都將成為孩子們學習和成長的力量，為他們的未來之路增添一份溫暖和希望。</p>
+                    <p>參與方式非常簡單，您可以攜帶您不再需要的書籍到我們指定的收集點，或者在我們的官網上進行線上捐贈。無論是新書還是舊書，無論是故事書還是教科書，每一本書籍都將為孩子們的閱讀之路增添一份色彩和可能。</p>
+                    <p>讓我們攜手共創一個充滿愛心和希望的閱讀社區，讓每個孩子都能夠享受到閱讀的樂趣和收穫。感謝您的支持和參與！</p>
+                    <p>參與方式非常簡單，您可以攜帶您不再需要的書籍到我們指定的收集點，</p>
+                    <p>或者在我們的官網上進行線上捐贈。無論是新書還是舊書，無論是故事書還是教科書，每一本書籍都將為孩子們的閱讀之路增添一份色彩和可能。</p>
+                    <p>讓我們攜手共創一個充滿愛心和希望的閱讀社區，讓每個孩子都能夠享受到閱讀的樂趣和收穫。</p>
                 </div>
             </div>
         </div>
-    </main>
-    <div>
-        <p>版權所有 &copy; 2024 書服活動網站</p>
+      @*   <div class="right-content">
+  @*   <div class="card">
+        <div class="card-body">
+            <h5 class="card-title title">說書人招募</h5>
+            <p class="card-text">書服決定展開一項名為「說書人」的志願者募集活動，這一個計畫旨在結合志願者的熱情和對閱讀的熱愛，為社區帶來更多精彩的文化體驗。</p>
+            <p>書服為志願者們提供了全面的培訓和支持。他們舉辦了一系列的培訓課程和工作坊，包括閱讀技巧、說故事技巧、公眾演講等</p>
+            <p>幫助志願者們提升自己的表達能力和溝通能力，更好地傳達閱讀的價值和意義。</p>
+        </div>
     </div>
-
-
+</div> *@ 

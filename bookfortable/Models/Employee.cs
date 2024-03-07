@@ -14,6 +14,4 @@ public partial class Employee
     public string EPassword { get; set; }
 
     public virtual ICollection<Event> Events { get; set; } = new List<Event>();
-
-    public virtual ICollection<PickingOrder> PickingOrders { get; set; } = new List<PickingOrder>();
 }

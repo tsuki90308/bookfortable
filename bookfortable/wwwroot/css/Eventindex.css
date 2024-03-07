@@ -8,7 +8,7 @@ body{
     font-weight: bold;
 }
 
-header {
+.eventHeader {
     background-color: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
     color: purple;
     padding: 20px;
@@ -16,38 +16,38 @@ header {
     font-weight: bold;
 }
 
-nav ul {
+navevent {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-    nav ul li {
-        display: inline;
-        margin-right: 20px;
-    }
+ulevent {
+    display: inline;
+    margin-right: 20px;
+}
 
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
+eventlione {
+    color: #fff;
+    text-decoration: none;
+}
 
-main {
+eventmain {
     padding: 20px;
 }
 
 .banner {
-    background-color: #fff; /* 將最新活動的背景色改為白色 */
+    background-color: #fff;  將最新活動的背景色改為白色 
     padding: 20px;
     margin-bottom: 20px;
 }
 
 .about {
-    background-color: #f0f0f0; /* 將關於我們的背景色改為淺灰色 */
+    background-color: #f0f0f0;  將關於我們的背景色改為淺灰色 
     padding: 20px;
 }
 
-footer {
+.eventfooter {
     background-color: plum;
     color: black;
     padding: 10px 20px;
@@ -56,39 +56,133 @@ footer {
     width: 100%;
     text-align: center;
 }
-/* 以下是新增的效果 */
 
-.jumbotron {
-    background-color: #f8f9fa; /* 更改 Jumbotron 的背景顏色 */
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-    border-radius: 0.5rem; /* 增加 Jumbotron 圓角 */
+
+/* CSS for Cards */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-    .jumbotron h1 {
-        color: #6c757d; /* 更改 Jumbotron 標題的文字顏色 */
+/* 卡片樣式 */
+.card {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* 增加底部間距 */
+}
+
+/* 按鈕樣式 */
+.btn {
+    border-radius: 20px; /* 增加按鈕的圓角 */
+    padding: 10px 20px; /* 增加按鈕的內邊距 */
+    font-size: 16px; /* 增加按鈕的字體大小 */
+    font-weight: bold; /* 加粗按鈕的字體 */
+}
+
+.card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.card img {
+        width: 110%;
+        height: 200px; /* Adjust height as needed */
+        object-fit: cover;
+        float: right; /* 圖片靠右 */
+    }
+ 
+
+ .card .content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        color: white;
+        transition: background 0.3s ease-in-out;
+}
+
+ .card:hover .content {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+ }
+
+.card-title {
+    color: mediumpurple; /* 標題顏色 */
+    font-size:20px; /* 標題字體大小 */
+    font-weight: bold; /* 標題字體加粗 */
+    text-align:left;
+}
+
+
+.card-text {
+    font-size: 1rem; /* Adjust font size as needed */
+    margin-bottom: 15px;
+}
+
+/** 標題改為紫色 */
+h1, h2, h3, h4, h5, h6 {
+    color: purple;
+}
+
+/* 報名按鈕設置為紫色 */
+.btn-primary, .btn-purple {
+    background-color: purple;
+    border-color: purple;
+    color: white; /* 白色文字 */
+}
+
+.btn-purple:hover {
+        background-color: #6a0dad; /* Set button hover background color */
+        border-color: #6a0dad; /* Set button hover border color */
+}
+
+/*標題動態美化*/
+#activity-list {
+    display: inline-block; /* 讓元素以行內塊的形式呈現 */
+    transition: transform 0.3s ease-in-out;
+    margin: 0 auto; /* 水平居中 */
+    background-color: mediumpurple; /* 將活動列表的背景色改為淡紫色 */
+    color: #6a0dad !important; /* 將活動列表的文字顏色改為紫色 */
+}
+
+    #activity-list:hover {
+        transform: scale(1.1); /* 滑鼠懸停時讓元素放大 */
     }
 
-.accordion-item {
-    background-color: #fff; /* 手風琴每個項目的背景色 */
-    border-radius: 0.5rem; /* 增加手風琴項目的圓角 */
-    margin-bottom: 1rem;
-    border: 1px solid #dee2e6; /* 增加手風琴項目的邊框 */
+    #activity-list a {
+        display: block; /* 設置元素為塊級元素，使其佔據整行 */
+        padding: 10px; /* 添加內邊距，增加可點擊區域 */
+    }
+
+/* 全局樣式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
 }
 
-.accordion-header {
-    background-color: #f8f9fa; /* 手風琴標題的背景色 */
-    border-bottom: 1px solid #dee2e6; /* 手風琴標題的底部邊框 */
+/* 標題樣式 */
+.title {
+    font-size: 45px;
+    font-weight: bold;
 }
 
-.accordion-button {
-    color: #212529; /* 手風琴標題按鈕的文字顏色 */
-    font-weight: bold; /* 手風琴標題按鈕的字體加粗 */
+/* 頁面標頭樣式 */
+.eventHeader {
+    background-color:pink;
+    padding: 20px; /* 上下間距 */
+    color: none;
+    text-align: center;
+    margin-bottom: 20px; /* 與手風琴的間距 */
 }
 
-.accordion-body {
-    padding: 1rem; /* 手風琴內容的填充 */
+/* 導航樣式 */
+.nav-tabs .nav-link {
+    color:mediumpurple;
 }
-
-
 
