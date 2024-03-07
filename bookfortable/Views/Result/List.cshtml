@@ -1,0 +1,79 @@
+﻿@model IEnumerable<bookfortable.Models.Result>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>結果</h1>
+@using (Html.BeginForm())
+{
+    <div class="d-flex">
+        <div class="me-auto">
+            <a asp-action="Create" class="btn btn-outline-success">新增問題</a>
+        </div>
+        <div class="search">
+
+            @*  關鍵字 @Html.TextBox("txtKeyword") *@
+            <label class="my-auto">關鍵字<input type="text" id="txtKeyword" name="txtkeyword" /></label>
+            <input type="submit" value="查詢" class=" btn btn-primary mx-2" />
+
+        </div>
+
+
+    </div>
+}
+<p>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultMsg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultTag)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResultMsg)
+                    </td>
+                    <td>
+                        <img src="~/img/@item.ResultImg" style="width:100px"/>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResultName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResultTag)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Result" asp-route-id="@item.ResultId" class="link-edit btn btn-outline-success"><i class="fas fa-pen"></i></a>
+                        <a asp-action="Delete" asp-controller="Result" asp-route-id="@item.ResultId" class="link-delete btn btn-outline-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

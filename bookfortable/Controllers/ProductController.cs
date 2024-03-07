@@ -79,7 +79,7 @@ namespace bookfortable.Controllers
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
                 p.product.ProductPhoto = photoName;
                 p.photo.CopyTo(new FileStream(_enviro.WebRootPath + "images" + photoName, FileMode.Create));
-            }
+            } 
             db.Products.Add(p.product);
             db.SaveChanges();
             return RedirectToAction("List");

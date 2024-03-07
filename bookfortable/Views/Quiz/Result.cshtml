@@ -22,33 +22,14 @@
         font-size:30px;
         margin:auto
     }
+
+    .cardtag {
+        font-size:50px
+    }
     
    
 </style>
 
-@*<div class="row mt-5">
-    <div class="col-5 justify-content-center d-flex">
-        <div class="card border-0" style="width: 18rem;">
-            <img src="~/img/@Model.ResultImg" class="card-img-top" alt="...">
-            @*     <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-            </div> *@
-
-       @* </div>
-    </div>
-    <div class="col-7 justify-content-center">
-        <div class="card border-0" style="width: 500px;">
-            <div class="card-body">
-                <h1 class="card-title">@Model.ResultName</h1>
-                <h4 class="card-text">@Model.ResultMsg</h4>
-                <h1 class="mt-4"></h1>
-                <a href="#" class="btn btn-success">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-</div>*@
 <div class="card justify-content-center d-flex border-0" style="max-width: 1500px;height:800px">
     <div class="row no-gutters align-items-center">
         <div class="col-md-4">
@@ -63,7 +44,7 @@
                     }
                     else if(Model.ResultName == "治癒")
                     {
-                        <h1 class="card-title justify-content-center d-flex desc" style="color:greenyellow; margin-bottom: 50px">@Model.ResultName</h1>
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:forestgreen; margin-bottom: 50px">@Model.ResultName</h1>
                     }
                     else if(Model.ResultName == "戰士")
                     {
@@ -76,8 +57,8 @@
                 }
                 
                 <p class="card-text desc" style="margin-bottom: 20px">@Model.ResultMsg</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                <a href="#" class="btn btn-success">Go somewhere</a>
+                <p class="card-text cardtag desc"><small class="text-muted">@Model.ResultTag</small></p>
+                <a href="#" class="btn btn-success mt-5">Go somewhere</a>
             </div>
         </div>
     </div>

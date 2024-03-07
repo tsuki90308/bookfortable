@@ -15,5 +15,7 @@ public partial class Result
 
     public string ResultName { get; set; }
 
+    public string ResultTag { get; set; }
+
     public virtual ICollection<QuestionRecord> QuestionRecords { get; set; } = new List<QuestionRecord>();
 }

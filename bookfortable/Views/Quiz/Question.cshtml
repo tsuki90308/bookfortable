@@ -168,35 +168,7 @@
             window.location.href = "/Quiz/Result?score=" + sum;
         });
 
-        // document.addEventListener("DOMContentLoaded", () => {
-        //     var likebtns = document.querySelectorAll(".likebtn")
-        //     var normalbtns = document.querySelectorAll(".normalbtn")
-        //     var dislikebtns = document.querySelectorAll(".dislikebtn")
-        //     var score = 0;
-        //     function addscoreAndDisable(event) {
-        //         if (!event.target.disabled) {
-        //             score += 2;
-        //             console.log(score);
-        //             event.target.removeEventListener("click", addscoreAndDisable);
-        //             // event.target.disabled = true;
-        //         }
-        //     }
-        //     function addonescoreAndDisable(event) {
-        //         if (!event.target.disabled) {
-        //             score += 1;
-        //             console.log(score);
-        //             event.target.removeEventListener("click", addonescoreAndDisable);
-        //             // event.target.disabled = true;
-        //         }
-        //     }
-        //     for (let i = 0; i < likebtns.length; i++) {
-        //         likebtns[i].addEventListener("click", addscoreAndDisable); // 將函式的參考傳遞給 addEventListener，並在按鈕被點擊時執行
-        //     }
-        //     for (let i = 0; i < normalbtns.length; i++) {
-        //         normalbtns[i].addEventListener("click", addonescoreAndDisable);
-        //     }
-
-        // });
+  
 
 
 
@@ -204,46 +176,7 @@
 
 
     </script>
-    @*  <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            var likebtns = document.querySelectorAll(".likebtn")
-            var normalbtns = document.querySelectorAll(".normalbtn")
-            var dislikebtns = document.querySelectorAll(".dislikebtn")
-            var totalScoreElement = document.getElementById('totalScore');
-            var calculateBtn = document.getElementById('calculateBtn');
-            var score = 0;
 
-            function addscoreAndDisable(event) {
-                if (!event.target.disabled) {
-                    score += 2;
-                    console.log(score);
-                    event.target.removeEventListener("click", addscoreAndDisable);
-                }
-            }
-
-            function addonescoreAndDisable(event) {
-                if (!event.target.disabled) {
-                    score += 1;
-                    console.log(score);
-                    event.target.removeEventListener("click", addonescoreAndDisable);
-                }
-            }
-
-            for (let i = 0; i < likebtns.length; i++) {
-                likebtns[i].addEventListener("click", addscoreAndDisable);
-            }
-
-            for (let i = 0; i < normalbtns.length; i++) {
-                normalbtns[i].addEventListener("click", addonescoreAndDisable);
-            }
-
-            calculateBtn.addEventListener('click', () => {
-                totalScoreElement.textContent = "總分：" + score;
-            });
-
-        });
-    </script>
- *@
 
 }
 
