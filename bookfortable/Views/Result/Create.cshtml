@@ -1,0 +1,48 @@
+﻿@model bookfortable.Models.Result
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>新增結果</h1>
+
+<h4>請輸入結果</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ResultMsg" class="control-label"></label>
+                <input asp-for="ResultMsg" class="form-control" />
+                <span asp-validation-for="ResultMsg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImg" class="control-label"></label>
+                <input asp-for="ResultImg" class="form-control" />
+                <span asp-validation-for="ResultImg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultName" class="control-label"></label>
+                <input asp-for="ResultName" class="form-control" />
+                <span asp-validation-for="ResultName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultTag" class="control-label"></label>
+                <input asp-for="ResultTag" class="form-control" />
+                <span asp-validation-for="ResultTag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="送出並新增" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">取消</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

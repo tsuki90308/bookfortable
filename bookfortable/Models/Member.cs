@@ -31,6 +31,8 @@ public partial class Member
 
     public virtual ICollection<OrderList> OrderLists { get; set; } = new List<OrderList>();
 
+    public virtual ICollection<QuestionRecord> QuestionRecords { get; set; } = new List<QuestionRecord>();
+
     public virtual ICollection<SingUp> SingUps { get; set; } = new List<SingUp>();
 
     public virtual ICollection<TradeList> TradeLists { get; set; } = new List<TradeList>();

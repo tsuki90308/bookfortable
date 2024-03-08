@@ -43,7 +43,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Eventfront}/{action=Index}/{id?}");
-app.MapRazorPages();
+//pattern: "{controller=Quiz}/{action=Result}");
+pattern: "{controller=Home}/{action=Test}");
+//pattern: "{controller=Home}/{action=index}");
+
+app.MapRazorPages();    
 
 app.Run();
