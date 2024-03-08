@@ -1,17 +1,11 @@
 ﻿using bookfortable.Models;
 using bookfortable.ViewModels;
-using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookfortable.Controllers
 {
     public class ResultController : Controller
     {
-        private IWebHostEnvironment _enviro = null;
-        public ResultController(IWebHostEnvironment p)
-        {
-            _enviro = p;
-        }
         public IActionResult List(BKeywordViewModel vm)
         {
             FinalContext db = new FinalContext();
@@ -37,26 +31,17 @@ namespace Bookfortable.Controllers
             Result prod = db.Results.FirstOrDefault(p => p.ResultId == id);
             if (prod == null)
                 return RedirectToAction("List");
-            CResultWrap cp = new CResultWrap();
-            cp.result = prod;
-            return View(cp);
+
+            return View(prod);
         }
         [HttpPost]
-        public IActionResult Edit(CResultWrap pIn)
+        public IActionResult Edit(Result pIn)
         {
             FinalContext db = new FinalContext();
             Result pEdit = db.Results.FirstOrDefault(p => p.ResultId == pIn.ResultId);
             if (pEdit != null)
             {
-                if (pIn.photo != null)
-                {
-                    string photoName =Guid.NewGuid().ToString()+".jpg";
-                    pEdit.ResultImg = photoName;
-                    pIn.photo.CopyTo(new FileStream(Path.Combine(_enviro.WebRootPath, "img", photoName), FileMode.Create));
-                }
                 pEdit.ResultName = pIn.ResultName;
-                pEdit.ResultMsg = pIn.ResultMsg;
-                pEdit.ResultTag = pIn.ResultTag;
                 //pEdit.FPhone = pIn.FName;
 
                 db.SaveChanges();
@@ -84,23 +69,10 @@ namespace Bookfortable.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CResultWrap p)
+        public IActionResult Create(Result p)
         {
             FinalContext db = new FinalContext();
-            if (p.photo !=null)
-            { 
-                string photoName = DateTime.Now.ToString("yyyyMMddHHmmssfff") +".jpg";
-                p.ResultImg = photoName;
-            
-                using(FileStream fs = new FileStream(Path.Combine(_enviro.WebRootPath , "img" , photoName), FileMode.Create))
-                {
-                    p.photo.CopyTo(fs);
-                }
-                p.result.ResultImg = photoName;
-            }
-
-
-            db.Results.Add(p.result);
+            db.Results.Add(p);
             db.SaveChanges();
             return RedirectToAction("List");
 
