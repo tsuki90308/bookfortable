@@ -1,0 +1,59 @@
+﻿@model Bookfortable.Models.CResultWrap
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>結果修改</h1>
+
+<h4>修改結果</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="ResultId" value="@Model.ResultId" />
+            <div class="form-group">
+                <label asp-for="ResultName" class="control-label"></label>
+                <input asp-for="ResultName" class="form-control" />
+                <span asp-validation-for="ResultName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultMsg" class="control-label"></label>
+                <input asp-for="ResultMsg" class="form-control" />
+                <span asp-validation-for="ResultMsg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImg" class="control-label"></label>
+                <input asp-for="ResultImg" class="form-control" />
+                <span asp-validation-for="ResultImg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultImg" class="control-label"></label>
+                <input type="file" id="photo" name="photo" asp-for="ResultImg" class="form-control" />
+                <span asp-validation-for="ResultImg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultName" class="control-label"></label>
+                <input asp-for="ResultName" class="form-control" />
+                <span asp-validation-for="ResultName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultTag" class="control-label"></label>
+                <input asp-for="ResultTag" class="form-control" />
+                <span asp-validation-for="ResultTag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="儲存" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">取消</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
