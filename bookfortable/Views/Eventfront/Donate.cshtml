@@ -1,0 +1,56 @@
+﻿@model IEnumerable<bookfortable.Models.Event>
+@{
+    Layout = "_FrontLayout";
+}
+
+<div class="eventHeader">
+   @*  <h1 class="title">書服-活動列表</h1> *@
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Eventfront")">首頁</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("List", "Eventfront")">活動列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">聯絡我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("AboutUs", "Eventfront")">關於我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Fans", "Eventfront")">月月寵粉</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Donate", "Eventfront")">公益捐書</a>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center">
+                <h1 class="section-heading text-uppercase title" style="color: #6a0dad; font-size: 48px; font-weight: bold;">攜手支持！公益捐書</h1>
+                <p class="section-subheading" style="color: #888; font-size: 30px; font-style: italic;">讓愛心延續，為弱勢學子帶來更多閱讀機會</p>
+            </div>
+            <div class="about-item text-center">
+                <p style="font-size: 24px; line-height: 1.6; color: #333;">尊敬的讀者，書服公司誠摯地邀請您參與我們的公益捐書活動。這是一場讓愛心延續的活動，我們希望透過您的參與，為弱勢孩子帶來更多閱讀的機會。</p>
+                <p style="font-size: 24px; line-height: 1.6; color: #333;">在現今社會中，許多孩子因家庭環境或經濟原因，無法享受到充足的閱讀機會。我們相信每一本書籍都是知識的寶藏，可以為孩子們的未來增添無限可能。</p>
+                <p style="font-size: 24px; line-height: 1.6; color: #333;">您的慷慨捐贈將為這些孩子的學習和成長提供強大的支持，為他們打開通往知識的大門。讓我們攜手共同創建一個充滿愛心和希望的閱讀社區。</p>
+            </div>
+            <div class="text-center mt-5">
+                <button onclick="contactPerson()" class="btn btn-purple btn-lg" style="font-size: 30px; padding: 15px 40px;">立即捐贈</button>
+               </div>
+            </div>
+     </div>
+</div>
+               <script>
+                    function contactPerson() {
+                        // 替换成你的联系方式，例如邮箱、电话等
+                        var contactInfo = "姓名：張大大\n電話：0974556123\n電子信箱：Avencheng12@gmail.com\n謝謝您留下的資料 將會有專人和您聯繫";
+
+                        // 弹出提示框显示联系方式
+                        alert(contactInfo);
+                    }
+                </script>

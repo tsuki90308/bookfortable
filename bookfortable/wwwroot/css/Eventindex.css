@@ -48,12 +48,11 @@ eventmain {
 }
 
 .eventfooter {
-    background-color: plum;
     color: black;
     padding: 10px 20px;
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 20%;
     text-align: center;
 }
 
@@ -138,32 +137,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-purple:hover {
-        background-color: #6a0dad; /* Set button hover background color */
-        border-color: #6a0dad; /* Set button hover border color */
+        background-color: #6a0dad;  Set button hover background color 
+        border-color: #6a0dad;  Set button hover border color 
 }
 
-/*標題動態美化*/
-#activity-list {
-    display: inline-block; /* 讓元素以行內塊的形式呈現 */
-    transition: transform 0.3s ease-in-out;
-    margin: 0 auto; /* 水平居中 */
-    background-color: mediumpurple; /* 將活動列表的背景色改為淡紫色 */
-    color: #6a0dad !important; /* 將活動列表的文字顏色改為紫色 */
+#activity-list a.text-purple {
+    font-size: 30px;
+    color: #6a0dad;
+    background-color: pink;
+    border: none; /* 去除边框 */
+    margin: 0;
+    transition: transform 0.3s ease-in-out; /* 添加过渡效果 */
+
 }
 
-    #activity-list:hover {
-        transform: scale(1.1); /* 滑鼠懸停時讓元素放大 */
-    }
 
-    #activity-list a {
-        display: block; /* 設置元素為塊級元素，使其佔據整行 */
-        padding: 10px; /* 添加內邊距，增加可點擊區域 */
-    }
+#activity-list:hover {
+    font-size: 40px;
+    transform: translateX(10px) /* 滑鼠懸停時讓元素放大 */
+}
+
 
 /* 全局樣式 */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
+    margin: 0;
 }
 
 /* 標題樣式 */
@@ -186,3 +185,119 @@ body {
     color:mediumpurple;
 }
 
+/* 段落标题样式 */
+.section-heading {
+    font-size: 36px;
+    color: #6a0dad; /* 紫色 */
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* 段落副标题样式 
+.section-subheading {
+    font-size: 30px;  调整字体大小 
+    font-style: italic;
+    color: #444;  加深字体颜色 
+    margin-bottom: 40px;
+
+}*/
+.section-about {
+    background-color: #f5f5f5;
+    padding: 50px 0;
+}
+
+.about-item {
+    margin-bottom: 30px;
+    text-align:left;
+}
+
+    .about-item span.fa {
+        font-size: 30px; /* 調整圖標大小 */
+        /*margin-right: 15px;  /* 調整圖標與文字的間距 */
+        float: left; /* 使圖標浮動到左側 */
+        margin: 0 10px 0 0;
+    }
+
+    .about-item h4 {
+        margin-top: 0; /* 調整文字與圖標的垂直對齊 */
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .about-item p {
+        line-height: 1.8;
+    }
+
+    .about-item.service span.fa {
+        margin-left: 0; /* 調整服務項目的圖標位置 */
+    }
+
+    .about-item:hover {
+        background-color: #f2f2f2;
+    }
+
+        .about-item:hover h4 {
+            text-decoration: underline;
+        }
+
+        .about-item:hover span.fa {
+            animation: fa-spin 2s infinite linear;
+        }
+
+@keyframes fa-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.section-heading {
+    /* 設定初始狀態 */
+    opacity: 0;
+    transform: translateY(100px);
+    /* 設定動畫效果 */
+    animation: heading-animation 2s ease-in-out forwards;
+}
+
+@keyframes heading-animation {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-subheading {
+    /* 設定初始狀態 */
+    opacity: 0;
+    transform: translateY(-200px);
+    /* 設定動畫效果 */
+    animation: subheading-animation 2s ease-in-out forwards;
+}
+
+@keyframes subheading-animation {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .section-heading,
+    .section-subheading {
+        top: 0px;
+    }
+}
