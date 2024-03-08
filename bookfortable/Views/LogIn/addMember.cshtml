@@ -1,0 +1,50 @@
+﻿@model bookfortable.Models.Member
+
+@{
+    ViewData["Title"] = "addMember";
+    Layout = "~/Views/Shared/_FrontLayout.cshtml";
+}
+
+<h1>addMember</h1>
+
+<h4>Member</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="addMember">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MAccount" class="control-label"></label>
+                <input asp-for="MAccount" class="form-control" />
+                <span asp-validation-for="MAccount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MPassword" class="control-label"></label>
+                <input asp-for="MPassword" class="form-control" />
+                <span asp-validation-for="MPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MName" class="control-label"></label>
+                <input asp-for="MName" class="form-control" />
+                <span asp-validation-for="MName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MMail" class="control-label"></label>
+                <input asp-for="MMail" class="form-control" />
+                <span asp-validation-for="MMail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Login" class="btn btn-danger me-3">取消並返回登入</a><input type="submit" value="送出並新增" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ *@
