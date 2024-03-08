@@ -17,10 +17,10 @@
     </script>
 
     <template>
-    <RouterLink to="/">首頁</RouterLink>
+    <!-- <RouterLink to="/">首頁</RouterLink>
     <RouterLink to="/about">關於我們</RouterLink>
     <RouterLink to="/contact">聯絡我們</RouterLink>
-    <RouterLink to="/wishlist">願望清單</RouterLink> 
+    <RouterLink to="/wishlist">願望清單</RouterLink>  -->
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Male_Fashion Template">
@@ -156,6 +156,7 @@
         <!-- Latest Blog Section End -->
         
         <!-- Footer Section Begin -->
+       
         <footer class="footer">
             <div class="container">
                 <div class="row">
