@@ -29,11 +29,16 @@ namespace bookfortable.Models
             }
         }
 
+
         private SingUp _SingUps;
         public List<EvenType>? EventTypes { get; set; }
         public List<SelectListItem>? EventTypeOptions { get; set; }
 
-        
+        public List<SelectListItem>? EventAddressTypeOptions { get; set; }
+
+        public List<SelectListItem>? EventhostOptions { get; set; }
+
+        public List<SelectListItem>? signUpIdTypeOptions {  get; set; }
 
         public CEventWrap()
         {
