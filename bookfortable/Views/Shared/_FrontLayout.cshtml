@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Bookfortable.Models.CLoginDictionary;
+
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -73,10 +75,16 @@
                         <div class="header__top__right">
                             <div class="header__top__links">
                                 @*哦 可以欸*@
-                                @* @if(string.IsNullOrEmpty(Context.Session.GetString())){
-                                    
-                                } *@
-                                <a asp-action="Login" asp-controller="LogIn">登入</a>
+                                @{
+                                    if (CLoginDictionary.isLogin(Context))
+                                    {
+                                        <a asp-action="Logout" asp-controller="LogIn">登出</a>
+                                        <a asp-action="Index" asp-controller="LogIn">會員中心</a>
+                                    }
+                                    else{
+                                        <a asp-action="Login" asp-controller="LogIn">登入</a>
+                                    }
+                                }
                                 <a href="#">提問</a>
                             </div>
                             <div class="header__top__hover">

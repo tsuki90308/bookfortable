@@ -23,6 +23,7 @@ namespace Bookfortable.Controllers
 
         public IActionResult Login()
         {
+            TempData["Referer"] = Request.Headers["Referer"].ToString();
             return View();
         }
 
@@ -35,7 +36,12 @@ namespace Bookfortable.Controllers
             {
                 string json = JsonSerializer.Serialize(mbr);
                 HttpContext.Session.SetString(CLoginDictionary.SK_LOGINGED_USER, json);
-                return RedirectToAction("Index");
+
+                // 获取前一页面的 URL
+                string refererUrl = TempData["Referer"].ToString();
+                // 在这里可以根据具体情况进行重定向
+                return Redirect(refererUrl);
+                //return RedirectToAction("Index");
             }
             return View();
         }
@@ -50,10 +56,9 @@ namespace Bookfortable.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove(CLoginDictionary.SK_LOGINGED_USER);
-            string action = HttpContext.Session.GetString(CLoginDictionary.SK_PREVIUS_ACTION);
-            string controller = HttpContext.Session.GetString(CLoginDictionary.SK_PREVIUS_CONTROLLER);
-            if(action != null && controller != null)
-                return RedirectToAction(action, controller);
+            string refererUrl = TempData["Referer"].ToString();// 获取前一页面的 URL
+            if (refererUrl != null)
+                return Redirect(refererUrl);// 在这里可以根据具体情况进行重定向
             else return RedirectToAction("Index");
         }
 

@@ -6,7 +6,6 @@
 @{
     Layout = "_FrontLayout";
 
-    CLoginDictionary.recNow(ViewContext, Context);//記錄當前畫面
     //還原member物件
     string json = CLoginDictionary.getJson(CLoginDictionary.SK_LOGINGED_USER, Context);
     Member mbr = CLoginDictionary.mDeseliaze(json);
@@ -16,7 +15,7 @@
 @if(mbr != null)
 {
 <h2>歡迎，@mbr.MName！</h2>
-<h2>memberID:@mbr.MemberId！</h2>
+@* <h2>memberID:@mbr.MemberId！</h2>*@
 <a asp-action="Logout" asp-controller="LogIn" class="btn btn-primary">登出</a>
 }
 else
