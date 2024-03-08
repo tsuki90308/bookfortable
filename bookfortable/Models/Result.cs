@@ -18,6 +18,4 @@ public partial class Result
     public string ResultTag { get; set; }
 
     public virtual ICollection<QuestionRecord> QuestionRecords { get; set; } = new List<QuestionRecord>();
-
-    
 }
