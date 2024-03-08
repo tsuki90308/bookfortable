@@ -1,4 +1,4 @@
-﻿
+﻿@using Bookfortable.Models.CLoginDictionary
 @{
     ViewData["Title"] = "Login";
     Layout = "_FrontLayout";
@@ -8,6 +8,11 @@
     <div class="container w-50 p-5">
         <div class="p-5 flex-column row justify-content-center align-items-center border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)" >
             <h2>會員登入</h2>
+
+            @*哦 可以欸*@
+            @if(string.IsNullOrEmpty(Context.Session.GetString(CLoginDictionary.SK_LOGINGED_USER))){
+
+            }
 
             @using (Html.BeginForm())
             {
