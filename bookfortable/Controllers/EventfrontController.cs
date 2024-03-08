@@ -59,5 +59,19 @@ namespace bookfortable.Controllers
         {
             return View();
         }
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public IActionResult Fans()
+        {
+
+            return View();
+        }
+        public IActionResult Donate()
+        {
+            return View();
+        }
     }
 }

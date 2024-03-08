@@ -3,14 +3,36 @@
     Layout = "_FrontLayout";
 }
 
-
-
+<div class="eventHeader">
+    <h1 class="title">書服-活動列表</h1>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Eventfront")">首頁</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("List", "Eventfront")">活動列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">聯絡我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("AboutUs", "Eventfront")">關於我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Fans", "Eventfront")">月月寵粉</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Donate", "Eventfront")">公益捐書</a>
+        </li>
+    </ul>
+</div>
+@* 
 <p id="activity-list">
     <span class="badge badge-primary">
         <a asp-action="Create" class="text-purple" style="font-size: 25px;">活動列表</a>
     </span>
 </p>
-
+ *@
 
 <div class="container">
     <div class="row">

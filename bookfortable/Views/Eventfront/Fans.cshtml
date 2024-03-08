@@ -1,0 +1,54 @@
+﻿@model IEnumerable<bookfortable.Models.Event>
+@{
+    Layout = "_FrontLayout";
+}
+
+<div class="eventHeader">
+    @* <h1 class="title">書服-活動列表</h1> *@
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Eventfront")">首頁</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("List", "Eventfront")">活動列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">聯絡我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("AboutUs", "Eventfront")">關於我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Fans", "Eventfront")">月月寵粉</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Donate", "Eventfront")">公益捐書</a>
+        </li>
+    </ul>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <h2 class="card-title title text-center mb-4">月月寵粉抽書活動</h2>
+                    <p class="card-text text-center">書服寵粉抽書活動是書服公司專為書迷設計的一項獨特活動。我們將於每個月3號舉辦抽獎活動，讓幸運讀者有機會獲得精彩書籍。</p>
+                    <p class="card-text text-center">活動中，我們精心挑選最受讀者喜愛的書籍作為獎品，包括暢銷書、經典文學和新興作家的作品。</p>
+                    <p class="card-text text-center">您只需關注我們的官方社交媒體平台或網站，即可獲取參加活動的詳細信息，以及贏取精美書籍的機會。</p>
+                    <div class="text-center mt-4">
+                        <button id="lotteryBtn" class="btn btn-purple btn-lg px-5 py-3">立即參加抽獎</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('lotteryBtn').addEventListener('click', function () {
+        // 此处添加处理抽奖逻辑的代码，例如向后端发送请求进行抽奖操作
+        alert('恭喜您，您已成功參加抽獎！敬請期待中獎結果！');
+    });
+</script>
