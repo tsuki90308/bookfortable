@@ -1,10 +1,12 @@
-﻿@model IEnumerable<bookfortable.Models.Product>
+﻿@model X.PagedList.IPagedList<bookfortable.Models.Product>
+@using X.PagedList.Mvc.Core;
 
 @{
-    ViewData["Title"] = "List";
+    ViewBag.Title = "List";
 }
 
 <style>
+
 
     h1 {
         margin-top: 40px; /* 上邊距 */
@@ -54,17 +56,17 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
+
+    .pagination .page-link {
+        color: #656D74;
+    }
+
 </style>
-
-
-
-</style>
-
-
 
 
 <h1>書籍資料一覽</h1>
 
+@* 麵包屑 *@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">總覽</a></li>
@@ -72,146 +74,201 @@
     </ol>
 </nav>
 
-@using (Html.BeginForm())
-{
-    @: 關鍵字 @Html.TextBox("txtKeyword")
-    <input type="submit" value="查詢" />
-    <a asp-action="ClearSearch">清空查詢</a>
 
-}
-@{
-    int totalCount = Model.Count();
-    <h5 style="color: red; margin-top: 30px;">共有 @totalCount 筆相關資料</h5>
-}
-
+@* 這是關鍵字查詢+顯示筆數 *@
 <div class="container">
-    @*     <nav aria-label="Page navigation example">
-    <ul class="pagination">
-    <li class="page-item">
-    <a class="page-link" href="#" aria-label="Previous">
-    <span aria-hidden="true">&laquo;</span>
-    <span class="sr-only">Previous</span>
-    </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-    <a class="page-link" href="#" aria-label="Next">
-    <span aria-hidden="true">&raquo;</span>
-    <span class="sr-only">Next</span>
-    </a>
-    </li>
-    </ul>
-    </nav> *@
+    <div class="row" style="margin-top:1.5rem">
+        <div class="col-12">
+            @using (Html.BeginForm(new { page = 1 }))
+            {
+                @: 關鍵字 @Html.TextBox("txtKeyword")
+                <input type="submit" value="查詢" />
+                <a asp-action="ClearSearch">清空查詢</a>
+            }
 
-
-    <div style="text-align: right;">
-        <a asp-action="Create" class="btn btn-secondary btn-lg">＋新增書籍資料</a>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    序號
-                    @*                 @Html.DisplayNameFor(model => model.ProductId) *@
-                </th>
-                <th>
-                    書籍名稱
-
-                    @*                 @Html.DisplayNameFor(model => model.ProductName) *@
-                </th>
-                <th>
-                    出版社
-                    @*                 @Html.DisplayNameFor(model => model.SupplierId) *@
-                </th>
-                <th>
-                    封面照片
-                    @*                 @Html.DisplayNameFor(model => model.ProductPhoto) *@
-                </th>
-                <th>
-                    書籍介紹
-                    @*                 @Html.DisplayNameFor(model => model.Description) *@
-                </th>
-                @*                 <th>
-                單價
-                @Html.DisplayNameFor(model => model.UnitPrice)
-                </th>
-                <th>
-                庫存量
-
-                @Html.DisplayNameFor(model => model.UnitsInStock)
-                </th>
-                <th>
-                版本資訊
-                @Html.DisplayNameFor(model => model.VersionInfo)
-                </th>
-                <th>
-                售價
-                @Html.DisplayNameFor(model => model.SellingPrice)
-                </th>
-                <th>
-                國際索書號
-                @Html.DisplayNameFor(model => model.Isbn)
-                </th> *@
-            </tr>
-        </thead>
-        <tbody>
             @{
-                int count = 0;
-                foreach (var item in Model)
+                int totalCount = ViewBag.TotalCount;
+                int totalRecordsCount = ViewBag.TotalRecordsCount;
+                if (totalCount > 0 && totalCount != totalRecordsCount)
                 {
-                    count++;
-                    <tr>
-                        <td>
-                            @count
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SupplierId)
-                        </td>
-                        <td>
-                            <img src="~/images/@item.ProductPhoto" width="110" height="120" />
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        @*                       <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-                </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.UnitsInStock)
-                </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.VersionInfo)
-                </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.SellingPrice)
-                </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.Isbn)
-                </td>*@
-                        <td>
-                            @*Html.ActionLink("編輯", "Edit", new { id = item.ProductId }) |*@
-                            <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Edit", new { id = item.ProductId })'">編輯</button>
-                            @*Html.ActionLink("刪除", "Delete", "Product", new { id = item.ProductId }, new { onclick = "return confirm('確定要刪除嗎')" })*@
-                            <button type="button" class="btn btn btn-warning btn-sm" onclick="confirmDelete('@item.ProductId')">刪除</button>
-                            <button class="btn btn-info btn-sm" onclick="toggleDetails(this)">顯示詳細資料</button>
-                            <div class="details" style="display: none;">
-                                @{
-                                    ViewData["Title"] = "Create";
-                                }
-                        </td>
-
-                    </tr>
+                    <h6 style="color: red; margin-top: 20px;">查詢結果：共 @totalCount 筆相關資料</h6>
+                }
+                else if (totalCount == 0)
+                {
+                    <h6 style="color: red; margin-top: 20px;">你查詢的資料沒有相關結果</h6>
                 }
             }
-        </tbody>
-    </table>
-
+        </div>
+    </div>
 </div>
+
+
+@* 這是分頁資料+新增書籍的按鈕 *@
+<div class="container">
+    <div class="row" style="margin-top:2rem ">
+        <div class="col-md-6 ">
+            <div class="text-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination ">
+                        @if (Model.HasPreviousPage)
+                        {
+                            <li class="page-item ">
+                                <a class="page-link" href="@Url.Action("List", new { page = Model.PageNumber - 1 })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.PageCount; i++)
+                        {
+                            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("List", new { page = i })">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("List", new { page = Model.PageNumber + 1 })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            <a asp-action="Create" class="btn btn-secondary">＋新增書籍資料</a>
+        </div>
+    </div>
+</div>
+
+@* 這是表格內容 *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                序號
+            </th>
+            <th>
+                書籍名稱
+            </th>
+            <th>
+                出版社
+            </th>
+            <th>
+                版本資訊
+            </th>
+            <th>
+                書籍介紹
+            </th>
+            <th>
+                資料編輯
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SupplierId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VersionInfo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-dark btn-sm" onclick="location.href='@Url.Action("Edit", new { id = item.ProductId })'">編 輯</button>
+                        <button type="button" class="btn btn-warning btn-sm " onclick="confirmDelete('@item.ProductId')">刪 除</button>
+
+                        <button class="btn btn-info btn-sm" style="margin-top:10px ;" onclick="toggleDetails(this)">◥ 顯示詳細資料</button>
+                        <div id="versionInfo" style="display: none;"></div>
+                    </td>
+                </tr>
+
+                <tr id="detailsRow" style="display: none;">
+                    <td colspan="6">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>單價</td>
+                                            <td>@Html.DisplayFor(modelItem => item.UnitPrice)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>庫存量</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UnitsInStock) &nbsp;
+                                                @if (item.UnitsInStock < 5)
+                                                {
+                                                    <span class="badge rounded-pill bg-warning text-light">庫存量不足</span>
+                                                }
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>售價</td>
+                                            <td>@Html.DisplayFor(modelItem => item.SellingPrice)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>國際索書號</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Isbn)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>封面照片</td>
+                                            <td><img src="~/images/@item.ProductPhoto" width="150" height="167" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <div class="details" style="display: none">
+                    @{
+                        ViewData["Title"] = "Create";
+                    }
+                </div>
+            }
+        }
+    </tbody>
+</table>
 
 <script>
     function confirmDelete(productId) {
@@ -219,24 +276,14 @@
             location.href = '@Url.Action("Delete", "Product")?id=' + productId;
         }
     }
-
-    // document.getElementById("previous").addEventListener("click", function (event) {
-    //     event.preventDefault(); // 防止點擊鏈接時頁面跳轉
-    //     // 在這裡添加上一頁的邏輯
-    // });
-
-    // document.getElementById("next").addEventListener("click", function (event) {
-    //     event.preventDefault(); // 防止點擊鏈接時頁面跳轉
-    //     // 在這裡添加下一頁的邏輯
-    // });
-
     function toggleDetails(button) {
-        var details = button.nextElementSibling;
-        if (details.style.display === "none") {
-            details.style.display = "block";
+        var versionInfoRow = button.parentNode.parentNode.nextElementSibling;
+        if (versionInfoRow.style.display === 'none') {
+            versionInfoRow.style.display = 'table-row'; // 顯示詳細資料行
+            button.textContent = '◣ 隱藏詳細資料'; // 修改按鈕文字
         } else {
-            details.style.display = "none";
+            versionInfoRow.style.display = 'none'; // 隱藏詳細資料行
+            button.textContent = '◥ 顯示詳細資料'; // 修改按鈕文字
         }
     }
 </script>
-
