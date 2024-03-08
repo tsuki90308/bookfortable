@@ -11,31 +11,11 @@ namespace bookfortable.Controllers
     public class ProductController : Controller
     {
 
-
-
         private IWebHostEnvironment _enviro = null;
         public ProductController(IWebHostEnvironment p)
         {
             _enviro = p;
         }
-
-        //public IActionResult List(PKeywordVewModel vm)
-        //{
-        //    FinalContext db = new FinalContext();
-        //    IEnumerable<Product> datas = null;
-        //    if (string.IsNullOrEmpty(vm.txtKeyword))
-        //        datas = from p in db.Products
-        //                select p;
-        //    else
-        //        datas = db.Products.Where(p =>
-        //            p.ProductName.Contains(vm.txtKeyword) ||
-        //            p.SupplierId.Contains(vm.txtKeyword) ||
-        //            p.ProductPhoto.Contains(vm.txtKeyword) ||
-        //            p.Description.Contains(vm.txtKeyword) ||
-        //            p.Isbn.ToString().Contains(vm.txtKeyword)
-        //        );
-        //    return View(datas);
-        //}
 
         public IActionResult List(PKeywordVewModel vm, int? page)
         {
@@ -108,31 +88,6 @@ namespace bookfortable.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult Create(Product p)
-        //{
-        //    FinalContext db = new FinalContext();
-        //    db.Products.Add(p);
-        //    db.SaveChanges();
-        //    return RedirectToAction("List");
-        //}
-
-        //[HttpPost]
-        //public IActionResult Create(CProductWrap p)
-        //{
-        //    FinalContext db = new FinalContext();
-        //    if (p.photo != null)
-        //    {
-        //        string photoName = Guid.NewGuid().ToString() + ".jpg";
-        //        p.product.ProductPhoto = photoName;
-        //        p.photo.CopyTo(new FileStream(_enviro.WebRootPath + "images" + photoName, FileMode.Create));
-        //    }
-        //    db.Products.Add(p.product);
-        //    db.SaveChanges();
-        //    return RedirectToAction("List");
-        //}
-
-
         [HttpPost]
         public IActionResult Create(CProductWrap p)
         {
@@ -179,18 +134,15 @@ namespace bookfortable.Controllers
             {
                 if (pIn.photo != null)
                 {
-                    // 生成新的文件名，基于当前时间戳
                     string photoName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".jpg";
                     pEdit.ProductPhoto = photoName;
 
-                    // 保存图像到文件系统中
                     using (FileStream fs = new FileStream(Path.Combine(_enviro.WebRootPath, "images", photoName), FileMode.Create))
                     {
                         pIn.photo.CopyTo(fs);
                     }
                 }
-
-                // 更新其他产品信息
+                                
                 pEdit.ProductId = pIn.ProductId;
                 pEdit.ProductName = pIn.ProductName;
                 pEdit.SupplierId = pIn.SupplierId;
@@ -206,7 +158,5 @@ namespace bookfortable.Controllers
             }
             return RedirectToAction("List");
         }
-
-
     }
 }
