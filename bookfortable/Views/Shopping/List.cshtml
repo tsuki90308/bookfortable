@@ -1,0 +1,61 @@
+﻿@model List<Bookfortable.Models.CTempBoxWrap>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "_FrontLayout";
+}
+
+<h1>虛擬賣場</h1>
+
+<p>
+    <a asp-action="CartView">檢視購物車車</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                序
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].BoxId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].BookTag2string)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].PriceRange)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BoxId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookTag2string)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PriceRange)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("加入購物車", "AddToCart", new { id = item.BoxId })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
