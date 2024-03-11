@@ -1,0 +1,86 @@
+﻿@model bookfortable.Models.Event
+@{
+    ViewData["Title"] = "報名結果";
+    Layout = "_FrontLayout";
+}
+@* <style>
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* 卡片樣式 */
+    .card {
+        width: 90%;
+        max-width: 600px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px; /* 增加底部間距 */
+    }
+
+    /* 按鈕樣式 */
+    .btn {
+        border-radius: 20px; /* 增加按鈕的圓角 */
+        padding: 10px 20px; /* 增加按鈕的內邊距 */
+        font-size: 16px; /* 增加按鈕的字體大小 */
+        font-weight: bold; /* 加粗按鈕的字體 */
+    }
+
+    /* 主要按鈕樣式 */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    /* 取消報名按鈕樣式 */
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+</style> *@
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">報名結果</h5>
+                    <p>感謝您的報名！您已成功報名以下活動：</p>
+                    <ul>
+                        <li>活動名稱：@Model.EventName</li>
+                        <li>活動日期：@Model.EventDate</li>
+                        <li>活動地點：@Model.EventAddress</li>
+                        <!-- 根據需要顯示更多活動信息 -->
+                    </ul>
+                    <p>如有疑問，請聯繫我們。</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <!-- 使用 Flexbox 來對齊元素 -->
+                        <a href="@Url.Action("List", "Eventfront")" class="btn btn-primary">返回首頁</a>
+                        <!-- 空白的 div 或 span，用來增加間距 -->
+                        <div></div>
+                        <!-- 取消報名按鈕 -->
+                        <form method="post" action="@Url.Action("CancelRegistration", "Register")">
+                            <input type="hidden" name="eventId" value="@Model.EventId" />
+                            <input type="hidden" name="memberId" value="@ViewBag.MemberId" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('確定要取消報名嗎？')">取消報名</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

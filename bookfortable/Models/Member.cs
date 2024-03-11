@@ -23,8 +23,6 @@ public partial class Member
 
     public int? MPoints { get; set; }
 
-    public bool? MSubscription { get; set; }
-
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 
     public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
@@ -33,9 +31,9 @@ public partial class Member
 
     public virtual ICollection<OrderList> OrderLists { get; set; } = new List<OrderList>();
 
-    public virtual ICollection<SingUp> SingUps { get; set; } = new List<SingUp>();
+    public virtual ICollection<QuestionRecord> QuestionRecords { get; set; } = new List<QuestionRecord>();
 
-    public virtual ICollection<TempBox> TempBoxes { get; set; } = new List<TempBox>();
+    public virtual ICollection<SingUp> SingUps { get; set; } = new List<SingUp>();
 
     public virtual ICollection<TradeList> TradeLists { get; set; } = new List<TradeList>();
 

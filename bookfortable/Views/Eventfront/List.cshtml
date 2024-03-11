@@ -1,0 +1,88 @@
+﻿@model IEnumerable<bookfortable.Models.Event>
+@{
+    Layout = "_FrontLayout";
+}
+
+<div class="eventHeader">
+    <h1 class="title">書服-活動列表</h1>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Eventfront")">首頁</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("List", "Eventfront")">活動列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">聯絡我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("AboutUs", "Eventfront")">關於我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Fans", "Eventfront")">月月寵粉</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Donate", "Eventfront")">公益捐書</a>
+        </li>
+    </ul>
+</div>
+@* 
+<p id="activity-list">
+    <span class="badge badge-primary">
+        <a asp-action="Create" class="text-purple" style="font-size: 25px;">活動列表</a>
+    </span>
+</p>
+ *@
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow">
+                    <!-- 修改圖片大小 -->
+                    <img src="~/images/@item.EventImage" class="card-img-top img-fluid" alt="@item.EventName">
+                    <div class="card-body">
+                        <!-- 放大 EventName -->
+                        <h5 class="card-title" style="font-size: 30px;" id="event-name">@item.EventName</h5>
+                        <p class="card-text">@item.EventDescription</p>
+
+                        <a asp-action="RegistrationResult" asp-controller="Register" asp-route-eventId="@item.EventId" class="btn btn-primary">報名</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script>
+
+    // 縮小 EventImage 圖片大小
+    var eventImages = document.querySelectorAll('.card-img-top');
+    eventImages.forEach(function (img) {
+        img.style.width = '250px'; // 修改寬度
+        img.style.height = 'auto'; // 保持高度自適應
+    });
+
+    // 放大 EventName 在頁面上
+    var eventName = document.getElementById('event-name');
+    eventName.style.fontSize = '30px'; // 改變字體大小
+
+    document.getElementById('activity-list').addEventListener('mouseover', function () {
+        this.style.color = 'pink'; /* 滑鼠懸停時改變文字顏色 */
+    });
+
+    document.getElementById('activity-list').addEventListener('mouseout', function () {
+        this.style.color = ''; /* 滑鼠離開時恢復文字顏色 */
+    });
+
+    // 获取活动列表元素
+    var activityList = document.getElementById('activity-list');
+
+    // 修改活动列表文字颜色为深紫色
+    activityList.style.color = '#6a0dad';
+
+  
+</script>

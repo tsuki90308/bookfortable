@@ -78,6 +78,4 @@ public partial class OrderList
     public virtual Member Member { get; set; }
 
     public virtual OrderDetail OrderDetail { get; set; }
-
-    public virtual ICollection<PickingOrder> PickingOrders { get; set; } = new List<PickingOrder>();
 }

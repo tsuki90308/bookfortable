@@ -1,4 +1,5 @@
-﻿@model bookfortable.Models.CEventWrap
+﻿@using System.Text.Json
+@model bookfortable.Models.CEventWrap
 @inject FinalContext final
 @{
     ViewData["Title"] = "Create";
@@ -8,7 +9,7 @@
 
 <h4></h4>
 <hr />
-<head>
+@* <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
@@ -20,16 +21,13 @@
 </head>
 <body>
 
-</body>
+</body> *@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-
-
-
             <div class="form-group">
-                <label asp-for="SingUps.MemberId" class="control-label">會員編號</label>
-                <input asp-for="SingUps.MemberId" class="form-control" />
+                <label asp-for="member.MemberId" class="control-label">會員編號</label>
+                <input asp-for="member.MemberId" class="form-control" />
                 <span asp-validation-for="MemberId" class="text-danger"></span>
             </div>
 
@@ -38,14 +36,14 @@
                 <label asp-for="S_EventName" class="control-label">活動名稱</label>
                 <div class="dropdown" data-input-id="selectedEventNameInput">
 
-                    <select asp-for="S_EventName" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventNameDropdown">
-                    @foreach(var typename in final.EvenTypes.ToList())
-                        {
-                            <option value="@typename.EvenTypeId" >@typename.EvenTypeName</option>
-                        }
+                    <select asp-for="S_EventName" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventNameDropdown" onchange="chooseEvent(event)">
+                    @foreach(var finalEvent in final.Events.ToList())
+                    {
+                        <option value="@finalEvent.EventId" >@finalEvent.EventName</option>
+                    }
                     </select>
 
-                    <span asp-validation-for="S_EventName" class="text-danger">請選擇活動名稱(必填)</span>
+                   
                 </div>
                 <style>
                     .dropdown-item.selected {
@@ -58,11 +56,12 @@
             <div class="form-group">
                  <label asp-for="S_EventDate" class="control-label">活動日期</label> 
                  <div class="input-group date">
-                    <input asp-for="S_EventDate" class="form-control datepicker" />
+                 
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                    </div> 
-                    <select asp-for="S_EventName" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventNameDropdown">
+                    </div>
+
+                    <select asp-for="S_EventDate" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventNameDropdown" onchange="chooseEvent(event)">
                         @foreach (var Date in final.Events.ToList())
                         {
                             <option value="@Date.EventId">@Date.EventDate</option>
@@ -70,7 +69,7 @@
                     </select>
                    
                 </div>
-                <span asp-validation-for="S_EventDate" class="text-danger">請填寫活動日期(必填)</span>
+                
             </div>
 
 
@@ -79,7 +78,7 @@
                 <label asp-for="S_EventAddress" class="control-label">活動地點</label>
                 <div class="dropdown" data-input-id="selectedEventAddressInput">
 
-                    <select asp-for="S_EventAddress" asp-items="Model.EventAddressTypeOptions" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventaddressDropdown">
+                    <select asp-for="S_EventAddress" asp-items="Model.EventAddressTypeOptions" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventaddressDropdown" onchange="chooseEvent(event)">
                     
 
                     @foreach(var EventAddress in final.Events.ToList())
@@ -95,7 +94,7 @@
                 <label asp-for="Eventhost" class="control-label">活動承辦人</label>
                 <div class="dropdown" data-input-id="selectedEventHostInput">
                  
-                    <select asp-for="Eventhost" asp-items="Model.EventhostOptions" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventhostDropdown">
+                    <select asp-for="Eventhost" asp-items="Model.EventhostOptions" class="btn btn-secondary dropdown-toggle" aria-labelledby="eventhostDropdown" onchange="chooseEvent(event)">
                       
 
                        @foreach (var host in final.Events.ToList())
@@ -105,7 +104,7 @@
                     </select>
 
                   
-                    <span asp-validation-for="Eventhost" class="text-danger">請選擇活動承辦人</span>
+                  
                 </div>
             </div>
 
@@ -144,12 +143,23 @@
 
 
     <script>
-        // $(document).ready(function () {
-        //     $('.datepicker').datepicker({
-        //         format: 'yyyy-mm-dd',
-        //         autoclose: true
-        //     });
-        // });
+            const eventsModel = @Html.Raw(JsonSerializer.Serialize(final.Events.ToList()))
+
+            // function chooseEvent(e) {
+            //     console.log(eventsModel)
+            //     console.log(e.target.value)
+            //     const selectedEvent = eventsModel.find(x => x.eventId == e.target.value)
+            //     console.log(selectedEvent)
+                // $("#event-date").val('')
+               function chooseEvent(e) {
+                const selectedValue = e.target.value;
+                console.log("所選選項的值: " + selectedValue);
+
+                // 找到選中事件的完整物件
+                const selectedEvent = eventsModel.find(event => event.EventId == selectedValue);
+                console.log("選中的事件: ", selectedEvent);
+
+            }
 
             function confirmSignUp() {
                 // 獲取已選擇的活動相關資訊
@@ -165,17 +175,13 @@
                     type: 'POST',
                     url: '/SignUp/Create', // 請替換成實際的控制器和動作
                     data: {
-                        S_EventName: eventName,
-                        S_EventDate: eventDate,
-                        S_EventAddress: eventAddress,
-                        Eventhost: eventHost,
-                        // EventType: eventType,
-                        SingUps: {
-                            SignUpId: 0,
-                            MemberId: 1,
-                            // 根據您的模型屬性提供其他值
-                        },
-                        EventTypeId: 1
+                        // S_EventName: eventName,
+                        // S_EventDate: eventDate,
+                        // S_EventAddress: eventAddress,
+                        // Eventhost: eventHost, 
+                        // SignUpId: 0,
+                        //     MemberId: 1,
+                        // EventTypeId: 1
                     },
                     success: function (response) {
                         if (response.success) {

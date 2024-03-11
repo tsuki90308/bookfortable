@@ -40,6 +40,8 @@ namespace bookfortable.Models
 
         public List<SelectListItem>? signUpIdTypeOptions {  get; set; }
 
+        public Member member { get; set; }
+
         public CEventWrap()
         {
             _Events = new Event();

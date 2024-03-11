@@ -1,11 +1,12 @@
 ﻿using bookfortable.Models;
+using System.ComponentModel;
 
 namespace Bookfortable.Models
 {
     public class CTempBoxWrap
     {
         private TempBox _tempbox;
-        public TempBox TempBox
+        public TempBox tempbox
         {
             get { return _tempbox; }
             set { _tempbox = value; }
@@ -19,13 +20,13 @@ namespace Bookfortable.Models
             get { return _tempbox.BoxId; }
             set { _tempbox.BoxId = value; }
         }
-
+        [DisplayName("盲盒內容")]
         public string BookTag2string
         {
             get { return _tempbox.BookTag2string; }
             set { _tempbox.BookTag2string = value; }
         }
-
+        [DisplayName("價格範圍")]
         public decimal? PriceRange
         {
             get { return _tempbox.PriceRange; }
@@ -56,10 +57,10 @@ namespace Bookfortable.Models
             set { _tempbox.BuildDate = value; }
         }
 
-        public virtual Member Member
-        {
-            get { return _tempbox.Member; }
-            set { _tempbox.Member = value; }
-        }
+        //public virtual Member Member
+        //{
+        //    get { return _tempbox.Member; }
+        //    set { _tempbox.Member = value; }
+        //}
     }
 }

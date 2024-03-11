@@ -1,0 +1,66 @@
+﻿@model bookfortable.Models.Result
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_FrontLayout";
+
+}
+<style>
+    
+        @@font-face {
+            font-family: 'thepeakfontbeta_v0_101';
+            src: url('/fonts/thepeakfontbeta_v0_101.ttf') format('truetype');
+        }
+
+    .desc {
+        font-family: 'thepeakfontbeta_v0_101';
+    }
+
+    .card-text {
+        letter-spacing: 5px;
+        line-height:65px;
+        font-size:30px;
+        margin:auto
+    }
+
+    .cardtag {
+        font-size:50px
+    }
+    
+   
+</style>
+
+<div class="card justify-content-center d-flex border-0" style="max-width: 1500px;height:800px">
+    <div class="row no-gutters align-items-center">
+        <div class="col-md-4">
+            <img src="~/img/@Model.ResultImg" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                @{
+                    if(Model.ResultName == "盜賊")
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:blueviolet; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                    else if(Model.ResultName == "治癒")
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:forestgreen; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                    else if(Model.ResultName == "戰士")
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:maroon; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                    else
+                    {
+                        <h1 class="card-title justify-content-center d-flex desc" style="color:gold; margin-bottom: 50px">@Model.ResultName</h1>
+                    }
+                }
+                
+                <p class="card-text desc" style="margin-bottom: 20px">@Model.ResultMsg</p>
+                <p class="card-text cardtag desc"><small class="text-muted">@Model.ResultTag</small></p>
+                <a href="#" class="btn btn-success mt-5">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+

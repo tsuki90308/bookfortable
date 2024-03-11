@@ -1,0 +1,88 @@
+﻿@model IEnumerable<bookfortable.Models.Event>
+@{
+    Layout = "_FrontLayout";
+}
+<link rel="stylesheet" href="~/css/Eventindex.css" type="text/css" />
+<div class="eventHeader">
+    <h1 class="title">書服 - 您的閱讀夥伴</h1>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Eventfront")">首頁</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("List", "Eventfront")">活動列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">聯絡我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("AboutUs", "Eventfront")">關於我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Fans", "Eventfront")">月月寵粉</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Donate", "Eventfront")">公益捐書</a>
+        </li>
+    </ul>
+</div>
+
+
+
+
+<div class="container">
+    <div class="row">
+      
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title title">書服的企業理念</h5>
+                </div>
+                <div class="card-body">
+                    <p>我們是書服，致力於為用戶提供盲盒服務，讓選書不再是煩惱。我們擁有多元的書籍，讓您有更多的選擇，享受閱讀的樂趣。</p>
+                    <p>我們的理念是為用戶打造一個方便快捷的書籍選購平台，讓每個人都能輕鬆地找到自己喜愛的書籍，豐富自己的閱讀生活。</p>
+                    <a href="@Url.Action("AboutUs", "Eventfront")" class="btn btn-purple">了解更多</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title title">活動</h5>
+                </div>
+                <div class="card-body">
+                    <p>書服積極參與各種環保活動，我們鼓勵讀者通過回收和再利用書籍來保護環境。</p>
+                    <p>我們也推動二手書的利用與交換，幫助書籍找到新的主人，同時減少資源浪費。</p>
+                    <p>此外，書服致力於傳播文化，通過各種活動和項目來促進閱讀和文學的發展。</p>
+                    <a href="@Url.Action("List", "Eventfront")" class="btn btn-purple">了解更多</a>
+
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title title">月月寵粉</h5>
+                    <p class="card-text">書服寵粉抽書是書服公司推出的一項活動，旨在回饋並與讀者互動。這個活動不僅是為了感謝那些忠實的讀者，也是為了吸引新的讀者加入書服的閱讀社群。</p>
+                    <p>在這個活動中，書服會定期舉辦抽獎活動，向社群中的一些幸運讀者贈送免費書籍。這些書籍可能是最新上市的暢銷書，也可能是一些讀者比較感興趣的特定類型的書籍。</p>
+                    <p>通常，書服會在社交媒體平台或官方網站上宣布抽獎活動的詳細信息，包括參加方式、獎品和抽獎時間。</p>
+                    <a href="@Url.Action("Fans", "Eventfront")" class="btn btn-purple">了解更多</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-6">
+            <div class="card">
+                <div class="ca rd-body">
+                    <h5 class="card-title title">攜手支持！公益捐書</h5>
+                    <p class="card-text">親愛的讀者們，書服誠摯地邀請您參與我們的公益捐書活動，一起幫助弱勢學子獲得更多閱讀的機會和資源。在當今社會，閱讀是人類知識與智慧的橋樑，然而，有些孩子因為家庭環境或經濟條件的限制，無法享受到充足的閱讀機會。</p>
+                    <p>因此，我們發起這個捐書活動，希望能夠通過您的慷慨捐助，讓更多弱勢學子能夠擁有自己的書籍，開啟閱讀的大門，探索知識的海洋。您的每一本捐贈的書籍都將成為孩子們學習和成長的力量，為他們的未來之路增添一份溫暖和希望。</p>
+                    <p>參與方式非常簡單，您可以攜帶您不再需要的書籍到我們指定的收集點，或者在我們的官網上進行線上捐贈。無論是新書還是舊書，無論是故事書還是教科書，每一本書籍都將為孩子們的閱讀之路增添一份色彩和可能。</p>
+                    <p>讓我們攜手共創一個充滿愛心和希望的閱讀社區，讓每個孩子都能夠享受到閱讀的樂趣和收穫。感謝您的支持和參與！</p>
+                    <p>參與方式非常簡單，您可以攜帶您不再需要的書籍到我們指定的收集點，</p>
+                    <p>或者在我們的官網上進行線上捐贈。無論是新書還是舊書，無論是故事書還是教科書，每一本書籍都將為孩子們的閱讀之路增添一份色彩和可能。</p>
+                    <p>讓我們攜手共創一個充滿愛心和希望的閱讀社區，讓每個孩子都能夠享受到閱讀的樂趣和收穫。</p>
+                    <a href="@Url.Action("Donate", "Eventfront")" class="btn btn-purple">了解更多</a>
+                </div>
+            </div>
+        </div>
+     </div>
+ </div>
+
