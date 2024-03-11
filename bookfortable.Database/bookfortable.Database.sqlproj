@@ -77,8 +77,11 @@
     <Build Include="dbo.TempBox.Table.sql" />
     <Build Include="dbo.TradeList.Table.sql" />
     <Build Include="dbo.WishList.Table.sql" />
+    <Build Include="dbo.QuestionRecord.Table.sql" />
+    <Build Include="dbo.Result.Table.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bookfortable.Database.publish.xml" />
+    <None Include="bookfortable.local.xml" />
   </ItemGroup>
 </Project>
