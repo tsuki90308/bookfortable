@@ -10,9 +10,9 @@
             <h2>會員登入</h2>
 
             @*哦 可以欸*@
-            @if(string.IsNullOrEmpty(Context.Session.GetString(CLoginDictionary.SK_LOGINGED_USER))){
+            @* @if(string.IsNullOrEmpty(Context.Session.GetString(CLoginDictionary.SK_LOGINGED_USER))){
 
-            }
+            } *@
 
             @using (Html.BeginForm())
             {
@@ -26,13 +26,13 @@
                     <div class="form-group">
                         帳號
                         <div class="col-md-10">
-                            @Html.TextBox("textAccount", "", new { htmlAttributes = new { @class = "form-control" , @placeholder = "輸入帳號或email"} })
+                            @Html.TextBox("textAccount", "", new { @class = "form-control" , @placeholder = "輸入帳號或email"} )
                         </div>
                     </div>
                     <div class="form-group">
                         密碼
                         <div class="col-md-10">
-                            @Html.TextBox("textPassword", "", new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "Enter your password" } })
+                            @Html.TextBox("textPassword", "", new { @class = "form-control w-100", @type = "password", @placeholder = "Enter your password" } )
                         </div>
                     </div>
                     <div class="form-group">

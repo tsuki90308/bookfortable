@@ -23,6 +23,10 @@ namespace Bookfortable.Controllers
             }
             return View(list);
         }
+        public IActionResult GenerateBox()
+        {
+            return View();
+        }
         public IActionResult AddToCart(int? id)
         {
             if (id == null)
