@@ -25,8 +25,47 @@ namespace Bookfortable.Controllers
         }
         public IActionResult GenerateBox()
         {
+            FinalContext db = new FinalContext();
+            var datas = from b in db.BookTags select b;
+            CTempBoxWrap.booktags = new List<string>();
+            foreach (var t in datas)
+            {
+                CTempBoxWrap.booktags.Add(t.BtagName.ToString());
+            }
             return View();
         }
+
+        [HttpPost]
+        public IActionResult GenerateBox(CTempBoxWrap t)
+        {
+            List<string> list = CTempBoxWrap.chosen;
+            string str = string.Empty;
+            foreach(string s in list)
+            {
+                int now = list.IndexOf(s);
+                int last = list.Count - 1;
+
+                str += s;
+                if (now != last)
+                    str += ",";
+            }
+
+            TempBox tp = t.tempbox;
+            t.BookTag2string = str;
+            FinalContext db = new FinalContext();
+            db.TempBoxes.Add(tp);
+            db.SaveChanges();
+
+            return RedirectToAction("Generate");
+        }
+
+        [HttpPost]
+        public IActionResult TagList(List<string> chosenTags)
+        {
+            CTempBoxWrap.chosen = chosenTags;
+            return Json(new { success = true });
+        }
+
         public IActionResult AddToCart(int? id)
         {
             if (id == null)

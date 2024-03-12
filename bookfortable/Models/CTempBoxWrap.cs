@@ -38,13 +38,13 @@ namespace Bookfortable.Models
             get { return _tempbox.MemberId; }
             set { _tempbox.MemberId = value; }
         }
-
+        [DisplayName("手機號碼")]
         public string CustomerPhone
         {
             get { return _tempbox.CustomerPhone; }
             set { _tempbox.CustomerPhone = value; }
         }
-
+        [DisplayName("電子郵件")]
         public string CustomerEmail
         {
             get { return _tempbox.CustomerEmail; }
@@ -62,5 +62,13 @@ namespace Bookfortable.Models
         //    get { return _tempbox.Member; }
         //    set { _tempbox.Member = value; }
         //}
+        public static List<string> chosen { get; set; }
+
+        private static List<string> _booktags;
+        public static List<string> booktags
+        {
+            get { return _booktags ?? (_booktags = new List<string>()); } 
+            set { _booktags = value; }
+        }
     }
 }

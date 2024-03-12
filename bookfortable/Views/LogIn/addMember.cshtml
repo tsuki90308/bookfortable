@@ -9,7 +9,7 @@
         <h1>註冊會員</h1>
         <hr />
         <div class="row">
-            <div class="col-md-4">
+            <div class="form-horizontal">
                 <form asp-action="addMember">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-0 vol-md-10 row justify-content-center">
-                            <a asp-action="Login" class="btn btn-danger me-3">取消並返回登入</a><input type="submit" value="送出並新增" class="btn btn-success" />
+                            <a asp-action="Login" class="btn btn-danger me-3">返回</a><input type="submit" value="註冊" class="btn btn-success" />
                         </div>
                     </div>
                 </form>

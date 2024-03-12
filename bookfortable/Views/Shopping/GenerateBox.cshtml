@@ -1,60 +1,104 @@
-﻿@model bookfortable.Models.TempBox
+﻿@model Bookfortable.Models.CTempBoxWrap
 
 @{
     ViewData["Title"] = "GenerateBox";
+    Layout = "_FrontLayout";
 }
-
-<h1>GenerateBox</h1>
-
-<h4>TempBox</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="GenerateBox">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="BoxId" class="control-label"></label>
-                <input asp-for="BoxId" class="form-control" />
-                <span asp-validation-for="BoxId" class="text-danger"></span>
+<div class="container w-50 p-5">
+    <div class="p-5 flex-column row justify-content-center align-items-center border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)">
+        <h1>盲盒選項</h1>
+        <hr />
+        <div class="row">
+            <div class="form-horizontal">
+                <form asp-action="GenerateBox">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="BookTag2string" class="control-label"></label>
+                    </div>
+                    <div class="form-group"> @*多選框*@
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                            @* <label class="btn btn-secondary active">
+                                <input type="checkbox" checked> Checked
+                            </label> *@
+                            @{
+                                foreach (string str in Bookfortable.Models.CTempBoxWrap.booktags)
+                                {
+                                     <label class="btn btn-secondary m-1">
+                                     <input type="checkbox" id="@str" name="tags" value="@str" />@str
+                                     </label>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PriceRange" class="control-label"></label>
+                        <input asp-for="PriceRange" class="form-control" />
+                        <span asp-validation-for="PriceRange" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <hr />
+                        <label>訂購資料：</label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerPhone" class="control-label"></label>
+                        <input asp-for="CustomerPhone" class="form-control" />
+                        <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerEmail" class="control-label"></label>
+                        <input asp-for="CustomerEmail" class="form-control" />
+                        <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="加入購物車" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="BookTag2string" class="control-label"></label>
-                <input asp-for="BookTag2string" class="form-control" />
-                <span asp-validation-for="BookTag2string" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PriceRange" class="control-label"></label>
-                <input asp-for="PriceRange" class="form-control" />
-                <span asp-validation-for="PriceRange" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                <input asp-for="MemberId" class="form-control" />
-                <span asp-validation-for="MemberId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerPhone" class="control-label"></label>
-                <input asp-for="CustomerPhone" class="form-control" />
-                <span asp-validation-for="CustomerPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerEmail" class="control-label"></label>
-                <input asp-for="CustomerEmail" class="form-control" />
-                <span asp-validation-for="CustomerEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BuildDate" class="control-label"></label>
-                <input asp-for="BuildDate" class="form-control" />
-                <span asp-validation-for="BuildDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    var list = [];
+
+    $('label[name="tags"]').on("click", function () {
+        // 切换 label 的 active 类
+        $(this).toggleClass('active');
+
+        // 获取 checkbox 元素
+        var checkbox = $(this).find('input[type="checkbox"]');
+        var str = checkbox.val();
+
+        // 获取 checkbox 是否选中
+        var isChecked = checkbox.prop('checked');
+
+        if (isChecked) {
+            list.push(str);
+        }
+        else {
+            list.pop(str);
+        }
+
+        // 反转 checkbox 的选中状态
+        checkbox.prop('checked', !isChecked);
+
+        //傳送到後台
+        $.ajax({
+            type: 'POST',
+            url: '/Shopping/TagList',
+            data: { chosenTags:list  },
+            success: function (response) {
+                console.log('Data sent to the server successfully.');
+            },
+            error: function (error) {
+                console.error('Error sending data to the server.');
+            }
+        });
+    });
+</script>
 
