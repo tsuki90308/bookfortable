@@ -72,6 +72,12 @@
 
         .st2{
             padding-top:100px;
+            margin-bottom: 20px;
+        }
+
+        .st3 {
+            display: flex;
+            letter-spacing: 0.35em;
         }
 
         .text-avg {
@@ -102,10 +108,6 @@
             padding: 3px;
         }
 
-        .st2{
-            margin-bottom:20px;
-        }
-
         #CartDetails a {
             line-height: 25px;
             display: inline-block;
@@ -122,12 +124,36 @@
             font-size:smaller;
             letter-spacing:2px;
         }
+
+        .left{
+            text-align: left
+        }
+
+        fieldset {
+            width: 290px;
+            margin: 50px;
+            border: 1px solid #EAECEE;
+            border-radius: 10px;
+            padding-bottom:15px;
+        }
+
+        .formst1 {
+            width: 220px;
+            border-color: gray;
+            margin: 35px;
+            margin-top:10px;
+            margin-bottom: 20px;
+        }
+
+        legend{
+            font-size: 20px;
+            display: flex;
+            letter-spacing: 0.35em;
+            margin-left:15px;
+        }
     </style>
 }
 <h2>購物車車</h2>
-<p>
-    @Html.ActionLink("結帳購物車", "Create")
-</p>
 
 <div id="cart-titile">
     <p>
@@ -169,52 +195,55 @@
     </tr>
     </thead>
     <tbody>
-    @{
-        int count = 0;
-        decimal pay = 0;
-        decimal shipping = 100;
-        decimal sum = 0;
-        foreach (var item in Model)
-        {           
-            count++;
-            item.小計 = item.price * item.count;
-            pay += item.小計;
-                                                                <tr>
-                                                                    <td>
-                                                                        <!--序號-->
-                                                                        @count
-                                                                    </td>
-                                                                    <td>
-                                                                        <!--盲盒內容圖片欄-->
-                                                                        <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
-                                                                        <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
-                                                                    </td>
-                                                                    <td>
-                                                                        <!--偏好兼修改-->
-                                                                        @Html.DisplayFor(modelItem => item.productType)
-                                                                        <br />
-                                                                        @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
-                                                                    </td>
-                                                                    <td>
-                                                                        <!--數量與修改-->
-                                                                        <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
-                                                                        <span id="@Html.Raw("countDisplay" + count)">@Html.DisplayFor(modelItem => item.count)</span>
-                                                                        <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
-                                                                    </td>
-                                                                    <td>
-                                                                        <!--單價-->
-                                                                        @Html.DisplayFor(modelItem => item.price)
-                                                                    </td>
-                                                                    <td>
-                                                                        <!--小計-->
-                                                                        <span class="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <!--刪除-->
-                                                                        <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
-                                                                        <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
-                                                                    </td>
-                                                                </tr>
+        @{
+            int count = 0;
+            decimal pay = 0;
+            decimal shipping = 100;
+            decimal sum = 0;
+            decimal dcprice = 0;
+            foreach (var item in Model)
+            {           
+                count++;
+                item.小計 = item.price * item.count;
+                pay += item.小計;
+                sum = pay;
+                    <tr>
+                                                                        <td>
+                                                                            <!--序號-->
+                                                                            @count
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--盲盒內容圖片欄-->
+                                                                            <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
+                                                                            <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--偏好兼修改-->
+                                                                            @Html.DisplayFor(modelItem => item.productType)
+                                                                            <br />
+                                                                            @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--數量與修改-->
+                                                                            <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
+                                                                            <span id="@Html.Raw("countDisplay" + count)">@Html.DisplayFor(modelItem => item.count)</span>
+                                                                            <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--單價-->
+                                                                            @Html.DisplayFor(modelItem => item.price)
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--小計-->
+                                                                            <span class="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--刪除-->
+                                                                            <a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>
+                                                                            <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
+                                                                            <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                                                                        </td>
+                    </tr>
         }
         
 
@@ -224,17 +253,49 @@
     </tbody>
 </table>
 <div id="cart-titile">
-    <button class="btn btn-info btn-lg b-part" onclick="location.href='@Url.Action("Createbox", new {  })'">新增盲盒</button>
+    <button class="btn btn-info b-part" onclick="location.href='@Url.Action("Createbox", new {  })'">新增盲盒</button>
 </div>
 <br />
-<div id="simple-details">
-        <table>
+<form action="@Url.Action("Checkout", "OrderLists")" method="post" id="CartDetails">
+    <div><label class="text-avg">總金額：</label><a class="num-right" id="OGprice" name="OGprice">@pay.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">運費：</label><a class="num-right">@shipping.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">運費折抵：</label><a class="num-right">-@shipping.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">折扣碼折抵：</label><a class="num-right" id="dcprice" name="dcprice">@dcprice.ToString("###,###,##0")</a></div>
+    
+    <div class="b-tight">――――――――――――――</div>
+    <div><label class="text-avg">結帳金額：</label><a class="num-right" id="checkoutAmount" name="checkoutAmount">@sum.ToString("###,###,##0")</a></div>
+    <div class="red">會員紅利: 000 點</div>
+    <div id="DiscountTypeIn">
+        <input type="text" id="discountcode" name="txtDiscountCode" size="20" autofocus placeholder="大小寫需相同" autocomplete="off">
+        <input type="button" class="btn btn-info btn-sm" value="套用折扣碼" onclick="applyDiscount()" />
+        <p class="red" id="SpApplyDiscount"></p>
+    </div>
+    <div id="simple-details" class="row">
+        <fieldset class="col">
+            <legend>購買人基本資料</legend>
+            <div class="formst1">
+                <label class="st1" for="CustomerName">姓名</label>
+                <input class="form-control" type="text" id="CustomerName" name="CustomerName" required />
+            </div>
+            <div class="formst1">
+                <label class="st1" for="CustomerPhone">電話</label>
+                <input class="form-control" type="text" id="CustomerPhone" name="CustomerPhone" required />
+            </div>
+            <div class="formst1">
+                <label class="st1" for="CustomerEmail">電郵</label>
+                <input class="form-control" type="email" id="CustomerEmail" name="CustomerEmail" required />
+            </div>
+        </fieldset>
+        <table style="margin:50px;" class="col">
+            <tr>
+                <td>&emsp;&emsp;&emsp;&emsp;</td>
+            </tr>
             <tr>
                 <td>
                     <label class="st1" for="deliveryArea">配送地區</label>
                 </td>
                 <td>
-                   <select class="form-select form-select-sm" id="deliveryArea">
+                    <select class="form-select form-select-sm" id="deliveryArea" name="deliveryArea" required>
                         <option selected>請選擇配送地區</option>
                         <option value="臺灣本島">臺灣本島</option>
                         <option value="臺灣離島">臺灣離島</option>
@@ -248,27 +309,27 @@
                 <td>
                     <label class="st1" for="howtopay">付款方式</label>
                 </td>
-                <td>
+                <td class="left">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payRadios" id="howtopay" value="信用卡">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="信用卡">
                         <label class="form-check-label" for="">
                             信用卡
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payRadios" id="howtopay" value="ATM轉帳">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="ATM轉帳" checked>
                         <label class="form-check-label" for="">
                             ATM轉帳
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payRadios" id="howtopay" value="LINE PAY">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="LINE PAY">
                         <label class="form-check-label" for="">
                             LINE PAY
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payRadios" id="howtopay" value="7-11取貨付款">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="7-11取貨付款">
                         <label class="form-check-label" for="">
                             7-11取貨付款
                         </label>
@@ -283,48 +344,20 @@
                     <label class="st1" for="deliveryWay">配送方式</label>
                 </td>
                 <td>
-                <select class="form-select form-select-sm" id="deliveryWay">
-                    <!--
-                        // <option selected>請選擇配送方式</option>
-                        // <option value="宅配">宅配</option>
-                        // <option value="7-11純取貨">7-11純取貨</option>
-                        // <option value="7-11取貨付款">7-11取貨付款</option>
-                        // <option value="郵局i郵箱">郵局i郵箱</option>
-                        -->
+                    <select class="form-select form-select-sm" id="deliveryWay" name="deliveryWay">
                     </select>
                 </td>
             </tr>
-
         </table>
-</div>
-// <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
-
+    </div>   
+    <input type="submit" value="確認訂單" class="btn btn-info btn-lg b-part" />
+    <input type="hidden" id="dcprice" name="dcprice" value="@dcprice" />
+    <input type="hidden" id="OGprice" name="OGprice" value="@pay" />
+    <input type="hidden" id="sum" name="sum" value="@sum" />
+    <input type="hidden" id="shipping" name="shipping" value="@shipping" />
+</form>
 <br />
-    <div id="DiscountTypeIn">
-        <input type="text" id="discountcode" name="txtDiscountCode" size="20" autofocus placeholder="大小寫需相同" autocomplete="off">
-    <input type="button" class="btn btn-info btn-sm" value="套用折扣碼" onclick="applyDiscount()" />
-        <p class="red" id="SpApplyDiscount"></p>
-    </div>
-
-
-
-
-
-        <form id="CartDetails">
-            <div><label class="text-avg">總金額：</label><a class="num-right" id="OGprice">@pay.ToString("###,###,##0")</a></div>
-            <div><label class="text-avg">運費：</label><a class="num-right">@shipping.ToString("###,###,##0")</a></div>
-            <div><label class="text-avg">運費折抵：</label><a class="num-right">-@shipping.ToString("###,###,##0")</a></div>
-            <div><label class="text-avg">折扣碼折抵：</label><a class="num-right" id="dcprice"></a></div>
-            <div><label class="text-avg">紅利折抵：</label><a class="num-right"></a></div>
-            <div class="b-tight">――――――――――――――</div>
-            <div><label class="text-avg">結帳金額：</label><a class="num-right" id="checkoutAmount">@pay.ToString("###,###,##0")</a></div>
-            <div class="red">會員紅利: 000 點</div>
-            <div id="cart-titile">
-                <button class="btn btn-info btn-lg b-part" onclick="location.href='@Url.Action("Createbox", new {  })'">   前往結帳   </button>
-            </div>
-        </form>
+    
 
 }
 
@@ -332,10 +365,6 @@
     <script src="https://kit.fontawesome.com/6da9884828.js" crossorigin="anonymous"></script>
         //商品數量的修正
     <script>
-        
-        
-
-
         //數量的修正
         function increaseCount(event) {
             //根據此筆的數量 * 價格得到小計
@@ -368,11 +397,15 @@
                 total += Number($(this).find(".singileitemsum").text())
             })
             Pay.text(total);
+            $('OGprice').attr('value', total);
             const sum = $('#checkoutAmount')
             const discountprice = $('dcprice');
             const discountpriceVal = discountprice.text().replace('-', '');
-            sum.text(Number(total - discountpriceVal));
-            //console.log("這邊還是在算總計", sum.text());
+            
+            sum.text(total - discountpriceVal);
+            $('#sum').attr('value', total - discountpriceVal);
+            $('dcprice').attr('value', discountprice);
+            console.log("這邊還是在算總計", sum)
             total = 0;
             
                 
@@ -415,8 +448,9 @@
                 const discountprice = $('dcprice');
                 const discountpriceVal = discountprice.text().replace('-', '');
                 sum.text(Number(total - discountpriceVal));
-                
-                //console.log("這邊還是在算總計", sum.text());
+                $('#sum').attr('value', total - discountpriceVal);
+
+                // console.log("這邊還是在算總計", @sum);
                 total = 0;
             }
 
@@ -444,8 +478,9 @@
                 console.log("Selected Area:", selectedArea);
                 const way = deliveies[$(event.target).val()];
                 console.log("Selected way:", way);
-                dvway.empty();
-               
+                dvway.empty(); 
+                const paymentOption = document.querySelector('input[name="howtopay"]:checked');
+                console.log(paymentOption.value)
                 
                 way.forEach((item) => {
                     dvway.append(`<option value="${item}">${item}</option>`)
@@ -453,19 +488,11 @@
                         $('input[value="7-11取貨付款"]').prop('disabled', true);
                     } else if (selectedArea === "臺灣本島") {
                         $('input[value="7-11取貨付款"]').prop('disabled', false);
-                    }
+                    } 
                     // console.log(item)
                 })
                 dvway.niceSelect('update')
             })
-
-            // $("#deliveryArea").change(function () {
-            //     var selectedOption = $(this).val();
-            //     if (selectedOption === "臺灣本島") {
-            //         console.log("觸發台灣本島事件!!");
-            //         dvway.append("<option>請選擇配送方式</option>");
-            //     }
-            // });
         });
     </script>
 
@@ -486,14 +513,16 @@
                     data: JSON.stringify({ txtDiscountCode: discountCode }),
                     success: function (result) {
                         if (result !== "0") {
-                            const resultPrice = parseFloat(result).toFixed(0)
+                            const resultPrice = parseFloat(result).toFixed(0);
                             spapdc.innerHTML = `有效折扣碼，折扣金額為 ${resultPrice}`//套用折扣碼下方的文字
                             $('#dcprice').text(`-${resultPrice}`);//計算金額方塊中的折扣碼
                             //計算前先把總金額歸零
                             const OGprice = $('#OGprice');
                             const OGpriceVal = parseFloat(OGprice.text().replace(',', ''));
                             console.log(Number(OGpriceVal - resultPrice));
-                            $('#checkoutAmount').text(Number(OGpriceVal - resultPrice)).toLocaleString;
+                            const total = $('#checkoutAmount').text(Number(OGpriceVal - resultPrice)).toLocaleString;
+                            $('#sum').attr('value', OGpriceVal - resultPrice);
+                            
 
 
                         } else {

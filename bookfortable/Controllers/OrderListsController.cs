@@ -1,8 +1,11 @@
 ﻿using bookfortable.Models;
 using bookfortable.ViewModels;
+using Bookfortable.Models;
 using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace bookfortable.Controllers
 {
@@ -14,6 +17,55 @@ namespace bookfortable.Controllers
         {
             _context = context;
         }
+
+        //客戶端的放這裡
+        public async Task<IActionResult> Checkout(string deliveryWay, string howtopay, decimal dcprice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail)
+        {
+            FinalContext db = new FinalContext();
+            if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
+                return RedirectToAction("Shopping", "List");
+
+            string guid = Guid.NewGuid().ToString();
+            OrderList orderList = new OrderList();
+            orderList.Oidramd = guid;
+            orderList.OrderDate = DateTime.Now;
+            orderList.ShippingMethod = deliveryWay;
+            orderList.PayMethod = howtopay;
+            orderList.DiscountPrice = dcprice;
+            orderList.OrderTotal = sum;
+            orderList.DiscountCode = txtDiscountCode;
+            orderList.ShippingFeed = shipping;
+            orderList.CustomerName = CustomerName;
+            orderList.CustomerPhone = CustomerPhone;
+            orderList.CustomerEmail = CustomerEmail;
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            orderList.DiscountCode = txtDiscountCode;
+            db.OrderLists.Add(orderList);
+
+            ViewBag.CartItem = cart;
+
+            return View(orderList);
+
+        }
+
+
+
+        public async Task<IActionResult> CreateOrder()
+        {
+
+            return View();
+        }
+
+        public async Task<IActionResult> ReviewOrder()
+        {
+
+            return View();
+        }
+
+
+
+
 
         // GET: OrderLists
         public async Task<IActionResult> Index()

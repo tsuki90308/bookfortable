@@ -131,28 +131,36 @@
                     //郵寄-待付款
                     else if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "0")
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        <span style="margin-left:auto;">
+                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        </span>
                     }
                     //7-11純取-待付款
                     else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "0")
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        <span style="margin-left:auto;">
+                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        </span>
                     }
                     //7-11純取-已付款
                     else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "1")
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
-                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        <span style="margin-left:auto;">
+                            <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
+                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        </span>
                     }
                     //7-11取貨付款
                     else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "1")
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
-                        <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                        <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        <span style="margin-left:auto;">
+                            <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
+                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
+                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
+                        </span>
                     }
                 }
 
