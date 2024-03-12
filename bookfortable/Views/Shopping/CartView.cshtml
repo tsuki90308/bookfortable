@@ -30,6 +30,11 @@
             font-weight:bolder;
         }
 
+        #item-section{
+            margin-right:50px;
+            margin-left:50px;
+        }
+
         .table {
             color: dimgray;
             text-align: center;
@@ -166,100 +171,96 @@
 </div>
 <br />
 <br />
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            <!--序號-->
-        </th>
-            
-        <th colspan="2">
-            盲盒內容
-        </th>
+<div id="item-section">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <!--序號-->
+                </th>
+                <th colspan="2">
+                    盲盒內容
+                </th>
         
-        <th>
-            <!--數量-->
-            @Html.DisplayNameFor(model => model[0].count)
-        </th>
-        <th>
-            <!--單價-->
-            @Html.DisplayNameFor(model => model[0].price)
-        </th>
-        <th>
-            <!--小計-->
-            @Html.DisplayNameFor(model => model[0].小計)
-        </th>
-        <th>
-            <!--修改數量&刪除-->
-        </th>
-        <th>
+                <th>
+                    <!--數量-->
+                    @Html.DisplayNameFor(model => model[0].count)
+                </th>
+                <th>
+                    <!--單價-->
+                    @Html.DisplayNameFor(model => model[0].price)
+                </th>
+                <th>
+                    <!--小計-->
+                    @Html.DisplayNameFor(model => model[0].小計)
+                </th>
+                <th>
+                    <!--修改數量&刪除-->
+                </th>
+                <th>
 
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-        @{
-            int count = 0;
-            decimal pay = 0;
-            decimal shipping = 100;
-            decimal sum = 0;
-            decimal dcprice = 0;
-            foreach (var item in Model)
-            {           
-                count++;
-                item.小計 = item.price * item.count;
-                pay += item.小計;
-                sum = pay;
-                                    <tr>
-                                                                                        <td>
-                                                                                            <!--序號-->
-                                                                                            @count
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <!--盲盒內容圖片欄-->
-                                                                                            <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
-                                                                                            <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <!--偏好兼修改-->
-                                                                                            @Html.DisplayFor(modelItem => item.productType)
-                                                                                            <br />
-                                                                                            @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <!--數量與修改-->
-                                                                                            <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
-                                                                                            <span id="ProductAmount" name="ProductAmount">@Html.DisplayFor(modelItem => item.count)</span>
-                                                                                            <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <!--單價-->
-                                                                                            @Html.DisplayFor(modelItem => item.price)
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <!--小計-->
-                                                                                            <span class="singileitemsum" id="singileitemsum" name="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>
-                                                                                            
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <!--刪除-->
-                                                                                            <a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>
-                                                                                            <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
-                                                                                            <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <span id="BoxId" name="BoxId">@Html.DisplayFor(modelItem => item.product.BoxId)</span>
-                                                                                        </td>
-                                    </tr>
-        }
-        
-
-       
-        
-    }
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                decimal pay = 0;
+                decimal shipping = 100;
+                decimal sum = 0;
+                decimal dcprice = 0;
+                foreach (var item in Model)
+                {           
+                    count++;
+                    item.小計 = item.price * item.count;
+                    pay += item.小計;
+                    sum = pay;
+                        <tr>
+                            <td>
+                                <!--序號-->
+                                @count
+                            </td>
+                            <td>
+                                <!--盲盒內容圖片欄-->
+                                <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
+                                <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
+                            </td>
+                            <td>
+                                <!--偏好兼修改-->
+                                @Html.DisplayFor(modelItem => item.productType)
+                                <br />
+                                @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
+                            </td>
+                            <td>
+                                <!--數量與修改-->
+                                <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
+                                                                                                <span id="ProductAmount" name="ProductAmount">@Html.DisplayFor(modelItem => item.count)</span>
+                                                                                                <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
+                            </td>
+                            <td>
+                                                                                                <!--單價-->
+                                                                                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                                                                                <!--小計-->
+                                                                                                <span class="singileitemsum" id="singileitemsum" name="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>
+                                                                                                
+                            </td>
+                            <td>
+                                                                                                <!--刪除-->
+                                                                                                <a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>
+                                                                                                <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
+                                                                                                <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                            </td>
+                            <td>
+                                <span id="BoxId" name="BoxId" style="display: none;">@Html.DisplayFor(modelItem => item.product.BoxId)</span>
+                            </td>
+                        </tr>
+                }
+            }
     </tbody>
-</table>
+    </table>
+</div>
 <div id="cart-titile">
     <button class="btn btn-info b-part" onclick="location.href='@Url.Action("Createbox", new {  })'">新增盲盒</button>
 </div>
@@ -534,6 +535,9 @@
                     const selectedway = $('#deliveryWay').val();
                     console.log("這是目前選擇的配送方式", selectedway)
                     if (selectedway === "宅配") {
+                        $('input[value="信用卡"]').prop('disabled', false);
+                        $('input[value="ATM轉帳"]').prop('disabled', false);
+                        $('input[value="LINE PAY"]').prop('disabled', false);
                         $('input[value="7-11取貨付款"]').prop('disabled', true);
                     } else if (selectedway === "7-11取貨付款") {
                         $('input[value="信用卡"]').prop('disabled', true);
@@ -545,7 +549,13 @@
                         $('input[value="ATM轉帳"]').prop('disabled', false);
                         $('input[value="LINE PAY"]').prop('disabled', false);
                         $('input[value="7-11取貨付款"]').prop('disabled', true);
-                    } else {
+                    } else if (selectedway === "7-11純取貨") {
+                        $('input[value="信用卡"]').prop('disabled', false);
+                        $('input[value="ATM轉帳"]').prop('disabled', false);
+                        $('input[value="LINE PAY"]').prop('disabled', false);
+                        $('input[value="7-11取貨付款"]').prop('disabled', true);
+                    }
+                    else {
                         $('input[value="信用卡"]').prop('disabled', false);
                         $('input[value="ATM轉帳"]').prop('disabled', false);
                         $('input[value="LINE PAY"]').prop('disabled', false);

@@ -32,6 +32,40 @@
             color: dimgray;
             font-weight: bolder;
         }
+
+        #item-section {
+            margin-right: 50px;
+            margin-left: 50px;
+        }
+
+        .table {
+            color: dimgray;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 15px;
+        }
+
+            .table th {
+                letter-spacing: 0.5em;
+            }
+
+            .table td {
+                vertical-align: middle;
+                letter-spacing: 3.5px;
+            }
+
+            a:link {
+                color: lightgray;
+            }
+
+            #CartDetails {
+                width: 1000px;
+                margin: 3px auto;
+                padding: 3px;
+                line-height: 25px;
+                text-align: right;
+                vertical-align: middle;
+            }
     </style>
 }
 <br />
@@ -47,7 +81,7 @@
 </div>
 <br />
 <br />
-<hr />
+<div id="item-section">
 <table class="table">
     <thead>
         <tr>
@@ -117,6 +151,17 @@
         }
     </tbody>
 </table>
+</div>
+<div id="cart-titile">
+    <div><label class="text-avg">總金額：</label><a>@pay.ToString("###,###,##0.00")</a></div>
+    <div><label class="text-avg">運費：</label><a>@Html.DisplayFor(model => model.ShippingFeed)</a></div>
+    <div><label class="text-avg">運費折抵：</label><a>-@Html.DisplayFor(model => model.ShippingFeed)</a></div>
+    <div><label class="text-avg">折扣碼折抵：</label><a>@Html.DisplayFor(model => model.DiscountPrice)</a></div>
+
+    <div class="b-tight">――――――――――――――</div>
+    <div><label class="text-avg">結帳金額：</label><a>@Html.DisplayFor(model => model.OrderTotal)</a></div>
+    <div class="red">會員紅利: 000 點</div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Checkout">
