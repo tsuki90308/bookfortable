@@ -1,26 +1,122 @@
 ﻿@model bookfortable.Models.OrderList
-
+@{
+    // 从ViewBag中获取List
+    List<Bookfortable.Models.CShoppingCartItem> cart = ViewBag.CartItem;
+    var detail = ViewBag.OrderDetail as bookfortable.Models.OrderDetail;
+    
+}
 @{
     ViewData["Title"] = "Checkout";
     Layout = "_FrontLayout";
 }
+@section Styles {
+    <style>
+        #cart-titile {
+            text-align: center;
+        }
 
-<h1>Checkout</h1>
+            #cart-titile p {
+                color: lightgray;
+                font-size: 17px;
+            }
 
-<h4>OrderList</h4>
-<hr />
+        .b-part {
+            letter-spacing: 7px;
+        }
+
+        .b-tight {
+            letter-spacing: -1px;
+        }
+
+        #cart-titile .URhere {
+            color: dimgray;
+            font-weight: bolder;
+        }
+    </style>
+}
+<br />
+<br />
 <div id="cart-titile">
     <p>
-        <a class="b-part URhere">&emsp;購物清單&emsp;</a>
+        <a class="b-part">&emsp;購物車&emsp;</a>
         <a class="b-tight">―――――――――――――――――</a>
-        <a class="b-part">&emsp;填寫資料&emsp;</a>
+        <a class="b-part URhere">&emsp;訂單資料&emsp;</a>
         <a class="b-tight">―――――――――――――――――</a>
         <a class="b-part">&emsp;訂單完成&emsp;</a>
     </p>
 </div>
 <br />
 <br />
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <!--序號-->
+            </th>
 
+            <th colspan="2">
+                盲盒內容
+            </th>
+
+            <th>
+                <!--數量-->
+                數量
+            </th>
+            <th>
+                <!--單價-->
+                單價
+            </th>
+            <th>
+                <!--小計-->
+                小計
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            decimal pay = 0;
+            decimal shipping = 100;
+            decimal sum = 0;
+            decimal dcprice = 0;
+            foreach (var item in cart)
+            {
+                count++;
+                item.小計 = item.price * item.count;
+                pay += item.小計;
+                sum = pay;
+                <tr>
+                    <td>
+                        <!--序號-->
+                        @count
+                    </td>
+                    <td>
+                        <!--盲盒內容圖片欄-->
+                        <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
+                        
+                    </td>
+                    <td>
+                        <!--偏好兼修改-->
+                        @Html.DisplayFor(modelItem => item.productType)
+                    </td>
+                    <td>
+                        <!--數量-->
+                        @Html.DisplayFor(modelItem => item.count)
+                    </td>
+                    <td>
+                        <!--單價-->
+                        @Html.DisplayFor(modelItem => item.price)
+                    </td>
+                    <td>
+                        <!--小計-->
+                        @Html.DisplayFor(modelItem => item.小計)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Checkout">
@@ -195,6 +291,67 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+
+    </div>
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        活動名稱
+                    </th>
+                    <th>
+                        活動日期
+                    </th>
+                    <th>
+                        活動地址
+                    </th>
+                    <th>
+                        活動圖示
+                    </th>
+                    <th>
+                        活動類型
+                    </th>
+                    <th>
+                        活動主辦人
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in cart)
+                {
+                    <tr>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.product)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.productType)
+                        </td>
+                        <td>
+                            @*                  <img src="~/images/@item.FIamgePath" width="200" height="250" />
+                        *@
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 

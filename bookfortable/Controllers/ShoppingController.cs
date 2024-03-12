@@ -60,19 +60,25 @@ namespace Bookfortable.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCount(int newCount, decimal newSubtotal)
+        public IActionResult UpdateCartItem(int boxid, int newCount, decimal newSubtotal)
         {
-            CShoppingCartItem item = new CShoppingCartItem
-            {
-                count = newCount,
-                小計 = newSubtotal
-            };
+            FinalContext db = new FinalContext();
 
-            // 在这里更新服务器上的数据，例如：item.count = newCount;
+            var findItem = db.TempBoxes.Where(i => i.BoxId == boxid).Select(i => i).FirstOrDefault();
+            if (findItem != null)
+            {
+                CShoppingCartItem item = new CShoppingCartItem();
+                item.count = newCount;
+                item.小計 = newSubtotal;
+                db.SaveChanges();
+            }
+
+
 
             // 可选：返回任何适当的响应
             return Json(new { success = true, message = "Count updated successfully" });
         }
+
 
         public IActionResult Createbox()
         {
@@ -118,6 +124,8 @@ namespace Bookfortable.Controllers
 
             return Content(discountPrice.ToString());
         }
+
+
 
         //購物車頁首
         public IActionResult CartView()

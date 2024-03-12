@@ -19,7 +19,9 @@ namespace bookfortable.Controllers
         }
 
         //客戶端的放這裡
-        public async Task<IActionResult> Checkout(string deliveryWay, string howtopay, decimal dcprice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail)
+        public async Task<IActionResult> Checkout(
+            string deliveryWay, string howtopay, decimal resultPrice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail,
+            int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum)
         {
             FinalContext db = new FinalContext();
             if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
@@ -31,19 +33,29 @@ namespace bookfortable.Controllers
             orderList.OrderDate = DateTime.Now;
             orderList.ShippingMethod = deliveryWay;
             orderList.PayMethod = howtopay;
-            orderList.DiscountPrice = dcprice;
+            orderList.DiscountPrice = resultPrice;
             orderList.OrderTotal = sum;
             orderList.DiscountCode = txtDiscountCode;
             orderList.ShippingFeed = shipping;
             orderList.CustomerName = CustomerName;
             orderList.CustomerPhone = CustomerPhone;
             orderList.CustomerEmail = CustomerEmail;
-            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             orderList.DiscountCode = txtDiscountCode;
             db.OrderLists.Add(orderList);
 
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             ViewBag.CartItem = cart;
+
+            OrderDetail detail = new OrderDetail();
+            detail.TempBoxId = TempBoxId;
+            detail.BookTag2string = BookTag2string;
+            detail.ProductAmount = ProductAmount;
+            detail.BookTag2string = BookTag2string;
+            detail.ProductAmount = ProductAmount;
+            detail.Price = singileitemsum;
+            db.OrderDetails.Add(detail);
+            ViewBag.OrderDetail = detail;
 
             return View(orderList);
 

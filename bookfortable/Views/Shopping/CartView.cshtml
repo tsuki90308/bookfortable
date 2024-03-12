@@ -153,19 +153,20 @@
         }
     </style>
 }
-<h2>購物車車</h2>
-
+<br />
+<br />
 <div id="cart-titile">
     <p>
-        <a class="b-part URhere">&emsp;購物清單&emsp;</a>
+        <a class="b-part URhere">&emsp;購物車&emsp;</a>
         <a class="b-tight">―――――――――――――――――</a>
-        <a class="b-part">&emsp;填寫資料&emsp;</a>
+        <a class="b-part">&emsp;訂單資料&emsp;</a>
         <a class="b-tight">―――――――――――――――――</a>
         <a class="b-part">&emsp;訂單完成&emsp;</a>
     </p>
 </div>
 <br />
 <br />
+
 <table class="table">
     <thead>
     <tr>
@@ -192,6 +193,9 @@
         <th>
             <!--修改數量&刪除-->
         </th>
+        <th>
+
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -207,43 +211,47 @@
                 item.小計 = item.price * item.count;
                 pay += item.小計;
                 sum = pay;
-                    <tr>
-                                                                        <td>
-                                                                            <!--序號-->
-                                                                            @count
-                                                                        </td>
-                                                                        <td>
-                                                                            <!--盲盒內容圖片欄-->
-                                                                            <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
-                                                                            <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
-                                                                        </td>
-                                                                        <td>
-                                                                            <!--偏好兼修改-->
-                                                                            @Html.DisplayFor(modelItem => item.productType)
-                                                                            <br />
-                                                                            @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
-                                                                        </td>
-                                                                        <td>
-                                                                            <!--數量與修改-->
-                                                                            <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
-                                                                            <span id="@Html.Raw("countDisplay" + count)">@Html.DisplayFor(modelItem => item.count)</span>
-                                                                            <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
-                                                                        </td>
-                                                                        <td>
-                                                                            <!--單價-->
-                                                                            @Html.DisplayFor(modelItem => item.price)
-                                                                        </td>
-                                                                        <td>
-                                                                            <!--小計-->
-                                                                            <span class="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <!--刪除-->
-                                                                            <a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>
-                                                                            <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
-                                                                            <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
-                                                                        </td>
-                    </tr>
+                                    <tr>
+                                                                                        <td>
+                                                                                            <!--序號-->
+                                                                                            @count
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <!--盲盒內容圖片欄-->
+                                                                                            <img src="@Url.Content("~/images/Tempbox_img/TempBox_img.jpg")" width="135" height="135" />
+                                                                                            <!-- @Html.DisplayFor(modelItem => item.product.BoxId) -->
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <!--偏好兼修改-->
+                                                                                            @Html.DisplayFor(modelItem => item.productType)
+                                                                                            <br />
+                                                                                            @Html.ActionLink("[修改偏好]", "Edit", new { /* id=item.PrimaryKey */ })
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <!--數量與修改-->
+                                                                                            <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
+                                                                                            <span id="ProductAmount" name="ProductAmount">@Html.DisplayFor(modelItem => item.count)</span>
+                                                                                            <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <!--單價-->
+                                                                                            @Html.DisplayFor(modelItem => item.price)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <!--小計-->
+                                                                                            <span class="singileitemsum" id="singileitemsum" name="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>
+                                                                                            
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <!--刪除-->
+                                                                                            <a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>
+                                                                                            <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
+                                                                                            <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <span id="BoxId" name="BoxId">@Html.DisplayFor(modelItem => item.product.BoxId)</span>
+                                                                                        </td>
+                                    </tr>
         }
         
 
@@ -307,6 +315,18 @@
             </tr>
             <tr>
                 <td>
+                    <label class="st1" for="deliveryWay">配送方式</label>
+                </td>
+                <td>
+                    <select class="form-select form-select-sm" id="deliveryWay" name="deliveryWay">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>&emsp;&emsp;&emsp;&emsp;</td>
+            </tr>
+            <tr>
+                <td>
                     <label class="st1" for="howtopay">付款方式</label>
                 </td>
                 <td class="left">
@@ -336,22 +356,11 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>&emsp;&emsp;&emsp;&emsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <label class="st1" for="deliveryWay">配送方式</label>
-                </td>
-                <td>
-                    <select class="form-select form-select-sm" id="deliveryWay" name="deliveryWay">
-                    </select>
-                </td>
-            </tr>
+            
         </table>
     </div>   
     <input type="submit" value="確認訂單" class="btn btn-info btn-lg b-part" />
-    <input type="hidden" id="dcprice" name="dcprice" value="@dcprice" />
+    <input type="hidden" id="resultPrice" name="resultPrice" value="@dcprice" />
     <input type="hidden" id="OGprice" name="OGprice" value="@pay" />
     <input type="hidden" id="sum" name="sum" value="@sum" />
     <input type="hidden" id="shipping" name="shipping" value="@shipping" />
@@ -365,14 +374,34 @@
     <script src="https://kit.fontawesome.com/6da9884828.js" crossorigin="anonymous"></script>
         //商品數量的修正
     <script>
+        
+        function updateCartItem(boxid, newCount, newSubtotal) {
+            // 使用 AJAX 发送更新请求到服务器
+            $.ajax({
+                type: "POST",
+                url: "/Shopping/UpdateCartItem",
+                data: { boxid: boxid, newCount: newCount, newSubtotal: newSubtotal },
+                success: function (data) {
+                    // 成功后的处理（可选）
+                    console.log("Item updated successfully");
+                },
+                error: function (error) {
+                    // 处理错误（可选）
+                    console.error("Error updating item");
+                }
+            });
+        }
         //數量的修正
         function increaseCount(event) {
+            
             //根據此筆的數量 * 價格得到小計
             //更新總計
             //更新資料庫的購買數量
             const btn = $(event.target);
             const row = btn.parents('tr');
             const spnQty = row.find('td:nth-child(4)').find('span');
+            console.log("這是BOXID!!!!!!!!!!!!!!!!!", row.find('td:nth-child(8)').text());
+            const currentboxid = row.find('td:nth-child(8)').text();
 
             let qty = spnQty.text();  //數量
             const price = row.find('td:nth-child(5)').text(); //單價
@@ -385,11 +414,14 @@
 
             const SingleItemSum = $('.singileitemsum');
             const SingleItemSumVal = row.find('td:nth-child(6)');//小計
+            console.log(row.find('td:nth-child(6)').text())
             const updateSingleItemSumVal = SingleItemSumVal.html(`<span class="singileitemsum"> ${qty * price} </span>`);
             updateSingleItemSumVal;//更新小計
-
             updateQty=spnQty.text(qty);
             updateQty;//更新數量
+            updatecount = row.find('td:nth-child(6)').text();
+            console.log("我需要這個更新的數量!!!!!!!!", qty);
+            console.log("我需要這個更新的小計!!!!!!!!", updatecount);
 
             var total = 0;
             
@@ -399,15 +431,18 @@
             Pay.text(total);
             $('OGprice').attr('value', total);
             const sum = $('#checkoutAmount')
-            const discountprice = $('dcprice');
+            const discountprice = $('#dcprice');
             const discountpriceVal = discountprice.text().replace('-', '');
             
             sum.text(total - discountpriceVal);
+            
             $('#sum').attr('value', total - discountpriceVal);
-            $('dcprice').attr('value', discountprice);
+            $('#resultPrice').attr('value', discountpriceVal);
             console.log("這邊還是在算總計", sum)
             total = 0;
-            
+
+            var boxid = currentboxid;
+            updateCartItem(boxid, qty, updatecount);
                 
         }
 
@@ -445,13 +480,15 @@
                 })
                 Pay.text(total);
                 const sum = $('#checkoutAmount')
-                const discountprice = $('dcprice');
+                const discountprice = $('#dcprice');
                 const discountpriceVal = discountprice.text().replace('-', '');
                 sum.text(Number(total - discountpriceVal));
                 $('#sum').attr('value', total - discountpriceVal);
-
-                // console.log("這邊還是在算總計", @sum);
+                $('#resultPrice').attr('value', discountpriceVal);
                 total = 0;
+
+                var boxid = currentboxid;
+                updateCartItem();
             }
 
             
@@ -478,10 +515,9 @@
                 console.log("Selected Area:", selectedArea);
                 const way = deliveies[$(event.target).val()];
                 console.log("Selected way:", way);
-                dvway.empty(); 
-                const paymentOption = document.querySelector('input[name="howtopay"]:checked');
-                console.log(paymentOption.value)
-                
+                dvway.empty();
+                dvway.append(`<option selected>請選擇配送方式</option>`)
+
                 way.forEach((item) => {
                     dvway.append(`<option value="${item}">${item}</option>`)
                     if (selectedArea === "臺灣離島") {
@@ -492,7 +528,30 @@
                     // console.log(item)
                 })
                 dvway.niceSelect('update')
+                $('#deliveryWay').on('change', (even) => {
+                    const selectedway = $('#deliveryWay').val();
+                    console.log("這是目前選擇的配送方式", selectedway)
+                    if (selectedway === "宅配") {
+                        $('input[value="7-11取貨付款"]').prop('disabled', true);
+                    } else if (selectedway === "7-11取貨付款") {
+                        $('input[value="信用卡"]').prop('disabled', true);
+                        $('input[value="ATM轉帳"]').prop('disabled', true);
+                        $('input[value="LINE PAY"]').prop('disabled', true);
+                        $('input[value="7-11取貨付款"]').prop('disabled', false);
+                    } else if (selectedway === "郵局i郵箱") {
+                        $('input[value="信用卡"]').prop('disabled', false);
+                        $('input[value="ATM轉帳"]').prop('disabled', false);
+                        $('input[value="LINE PAY"]').prop('disabled', false);
+                        $('input[value="7-11取貨付款"]').prop('disabled', true);
+                    } else {
+                        $('input[value="信用卡"]').prop('disabled', false);
+                        $('input[value="ATM轉帳"]').prop('disabled', false);
+                        $('input[value="LINE PAY"]').prop('disabled', false);
+                        $('input[value="7-11取貨付款"]').prop('disabled', false);
+                    }
+                })
             })
+            
         });
     </script>
 
@@ -514,6 +573,7 @@
                     success: function (result) {
                         if (result !== "0") {
                             const resultPrice = parseFloat(result).toFixed(0);
+                            $('#resultPrice').attr('value', resultPrice);
                             spapdc.innerHTML = `有效折扣碼，折扣金額為 ${resultPrice}`//套用折扣碼下方的文字
                             $('#dcprice').text(`-${resultPrice}`);//計算金額方塊中的折扣碼
                             //計算前先把總金額歸零
@@ -522,6 +582,7 @@
                             console.log(Number(OGpriceVal - resultPrice));
                             const total = $('#checkoutAmount').text(Number(OGpriceVal - resultPrice)).toLocaleString;
                             $('#sum').attr('value', OGpriceVal - resultPrice);
+                            
                             
 
 
