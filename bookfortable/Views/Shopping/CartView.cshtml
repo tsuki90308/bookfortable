@@ -455,6 +455,7 @@
                 const btn = $(event.target);
                 const row = btn.parents('tr');
                 const spnQty = row.find('td:nth-child(4)').find('span');
+                const currentboxid = row.find('td:nth-child(8)').text(); //取得當前box的id
 
                 let qty = spnQty.text();  //數量
                 const price = row.find('td:nth-child(5)').text(); //單價
@@ -472,6 +473,7 @@
 
                 updateQty = spnQty.text(qty);
                 updateQty;//更新數量
+                updatecount = row.find('td:nth-child(6)').text(); //取得更新過後數量的值
 
                 var total = 0;
 
@@ -488,7 +490,7 @@
                 total = 0;
 
                 var boxid = currentboxid;
-                updateCartItem();
+                updateCartItem(boxid, qty, updatecount);
             }
 
             

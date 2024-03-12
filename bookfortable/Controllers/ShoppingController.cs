@@ -62,18 +62,16 @@ namespace Bookfortable.Controllers
         [HttpPost]
         public IActionResult UpdateCartItem(int boxid, int newCount, decimal newSubtotal)
         {
-            FinalContext db = new FinalContext();
-
-            var findItem = db.TempBoxes.Where(i => i.BoxId == boxid).Select(i => i).FirstOrDefault();
-            if (findItem != null)
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            var cartitem = cart.Find(i => i.productId == boxid);
+            if (cartitem != null)
             {
-                CShoppingCartItem item = new CShoppingCartItem();
-                item.count = newCount;
-                item.小計 = newSubtotal;
-                db.SaveChanges();
+                cartitem.productId = boxid;
+                cartitem.count = newCount;
+                cartitem.小計 = newSubtotal;
+                HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, JsonSerializer.Serialize(cart));
             }
-
-
 
             // 可选：返回任何适当的响应
             return Json(new { success = true, message = "Count updated successfully" });
@@ -99,14 +97,17 @@ namespace Bookfortable.Controllers
         public IActionResult Deletebox(int? id)
         {
             FinalContext db = new FinalContext();
+
             var TempBox = db.TempBoxes.Where(t => t.BoxId == id).FirstOrDefault();
             if (TempBox != null)
             {
                 db.TempBoxes.Remove(TempBox);
                 db.SaveChanges();
-            }
 
-            return RedirectToAction("CartView");
+            }
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            return View(cart);
         }
 
         [HttpPost]
