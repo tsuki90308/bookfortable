@@ -56,7 +56,7 @@ namespace Bookfortable.Controllers
             db.TempBoxes.Add(tp);
             db.SaveChanges();
 
-            return RedirectToAction("Generate");
+            return RedirectToAction("GenerateBox");
         }
 
         [HttpPost]
