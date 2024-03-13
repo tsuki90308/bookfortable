@@ -132,8 +132,8 @@
 
   //回傳的資料
   const result = reactive({
-    "totalPages": 1,
-    "wishListResult":[]
+    totalPages: 1,
+    wishListResult:[]
   });
   //呼叫API
   const loadWishLists = async () => {
