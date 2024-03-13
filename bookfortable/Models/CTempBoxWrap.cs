@@ -62,6 +62,7 @@ namespace Bookfortable.Models
         //    get { return _tempbox.Member; }
         //    set { _tempbox.Member = value; }
         //}
+        public int txtCount { get; set; }
         public static List<string> chosen { get; set; }
 
         private static List<string> _booktags;
