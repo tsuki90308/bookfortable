@@ -234,23 +234,22 @@
                             <td>
                                 <!--數量與修改-->
                                 <button class="btn btn-info btn-sm" onclick="decreaseCount(event)">-</button>
-                                                                                                <span id="ProductAmount" name="ProductAmount">@Html.DisplayFor(modelItem => item.count)</span>
-                                                                                                <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
+                                <span id="ProductAmount" name="ProductAmount">@Html.DisplayFor(modelItem => item.count)</span>
+                                <button class="btn btn-info btn-sm" onclick="increaseCount(event)">+</button>
                             </td>
                             <td>
-                                                                                                <!--單價-->
-                                                                                                @Html.DisplayFor(modelItem => item.price)
+                                <!--單價-->
+                                @Html.DisplayFor(modelItem => item.price)
                             </td>
                             <td>
-                                                                                                <!--小計-->
-                                                                                                <span class="singileitemsum" id="singileitemsum" name="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>
-                                                                                                
+                                <!--小計-->
+                                <span class="singileitemsum" id="singileitemsum" name="singileitemsum">@Html.DisplayFor(modelItem => item.小計)</span>                                                                
                             </td>
                             <td>
-                                                                                                <!--刪除-->
-                                                                                                <a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>
-                                                                                                <button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new {  })')"><i class="fas fa-trash"></i></button>
-                                                                                                <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-info" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                                <!--刪除-->
+                                <!--<a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>-->
+                                <!--<button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new { })')"><i class="fas fa-trash"></i></button>-->
+                                <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
                             </td>
                             <td>
                                 <span id="BoxId" name="BoxId" style="display: none;">@Html.DisplayFor(modelItem => item.product.BoxId)</span>
@@ -268,8 +267,8 @@
 <form action="@Url.Action("Checkout", "OrderLists")" method="post" id="CartDetails">
     <div><label class="text-avg">總金額：</label><a class="num-right" id="OGprice" name="OGprice">@pay.ToString("###,###,##0")</a></div>
     <div><label class="text-avg">運費：</label><a class="num-right">@shipping.ToString("###,###,##0")</a></div>
-    <div><label class="text-avg">運費折抵：</label><a class="num-right">-@shipping.ToString("###,###,##0")</a></div>
-    <div><label class="text-avg">折扣碼折抵：</label><a class="num-right" id="dcprice" name="dcprice">@dcprice.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">運費折抵：</label><a class="num-right" style="color: lightcoral;">-@shipping.ToString("###,###,##0")</a></div>
+    <div><label class="text-avg">折扣碼折抵：</label><a class="num-right" id="dcprice" name="dcprice" style="color: lightcoral;">@dcprice.ToString("###,###,##0")</a></div>
     
     <div class="b-tight">――――――――――――――</div>
     <div><label class="text-avg">結帳金額：</label><a class="num-right" id="checkoutAmount" name="checkoutAmount">@sum.ToString("###,###,##0")</a></div>
@@ -611,8 +610,5 @@
                 
             }
         }
-    </script>
-    <script>
-        
     </script>
     }

@@ -96,18 +96,24 @@ namespace Bookfortable.Controllers
 
         public IActionResult Deletebox(int? id)
         {
-            FinalContext db = new FinalContext();
 
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            var cartitem = cart.Find(i => i.productId == id);
+            if (cartitem != null)
+            {
+                cart.Remove(cartitem);
+            }
+            HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, JsonSerializer.Serialize(cart));
+
+            FinalContext db = new FinalContext();
             var TempBox = db.TempBoxes.Where(t => t.BoxId == id).FirstOrDefault();
             if (TempBox != null)
             {
                 db.TempBoxes.Remove(TempBox);
                 db.SaveChanges();
-
             }
-            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-            return View(cart);
+            return RedirectToAction("CartView");
         }
 
         [HttpPost]
