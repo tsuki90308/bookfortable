@@ -1,5 +1,6 @@
 ﻿using bookfortable.Models;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bookfortable.Models
 {
@@ -26,6 +27,7 @@ namespace Bookfortable.Models
             get { return _tempbox.BookTag2string; }
             set { _tempbox.BookTag2string = value; }
         }
+        [Required(ErrorMessage = "請選擇價格")]
         [DisplayName("價格範圍")]
         public decimal? PriceRange
         {
@@ -38,13 +40,13 @@ namespace Bookfortable.Models
             get { return _tempbox.MemberId; }
             set { _tempbox.MemberId = value; }
         }
-
+        [DisplayName("手機號碼")]
         public string CustomerPhone
         {
             get { return _tempbox.CustomerPhone; }
             set { _tempbox.CustomerPhone = value; }
         }
-
+        [DisplayName("電子郵件")]
         public string CustomerEmail
         {
             get { return _tempbox.CustomerEmail; }
@@ -62,5 +64,16 @@ namespace Bookfortable.Models
         //    get { return _tempbox.Member; }
         //    set { _tempbox.Member = value; }
         //}
+        [Required(ErrorMessage = "請輸入數量")]
+        public int txtCount { get; set; }
+        [Required(ErrorMessage = "請選擇類別")]
+        public static List<string> chosen { get; set; }
+
+        private static List<string> _booktags;
+        public static List<string> booktags
+        {
+            get { return _booktags ?? (_booktags = new List<string>()); } 
+            set { _booktags = value; }
+        }
     }
 }

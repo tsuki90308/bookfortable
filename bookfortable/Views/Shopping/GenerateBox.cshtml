@@ -1,0 +1,107 @@
+﻿@model Bookfortable.Models.CTempBoxWrap
+
+@{
+    ViewData["Title"] = "GenerateBox";
+    Layout = "_FrontLayout";
+}
+<div class="container w-50 p-5">
+    <div class="p-5 flex-column row justify-content-center align-items-center border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)">
+        <h1>訂製盲盒</h1>
+        <hr />
+        <div class="row">
+            <div class="form-horizontal">
+                <form asp-action="GenerateBox">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        1.<label asp-for="BookTag2string" class="control-label"></label>
+                          <span asp-validation-for="@Bookfortable.Models.CTempBoxWrap.chosen" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group"> @*多選框*@
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                            @* <label class="btn btn-secondary active">
+                                <input type="checkbox" checked> Checked
+                            </label> *@
+                            @{
+                                foreach (string str in Bookfortable.Models.CTempBoxWrap.booktags)
+                                {
+                                     <label class="btn btn-secondary m-1">
+                                     <input type="checkbox" id="@str" name="tags" value="@str" />@str
+                                     </label>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        2.<label asp-for="PriceRange" class="control-label"></label>
+                        @* <input asp-for="PriceRange" class="form-control" /> *@
+                        <span asp-validation-for="PriceRange" class="text-danger"></span><br />
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary m-1">
+                                <input type="radio" asp-for="PriceRange" value="500"> 500
+                            </label>
+                            <label class="btn btn-secondary m-1">
+                                <input type="radio" asp-for="PriceRange" value="1000"> 1000
+                            </label>
+                            <label class="btn btn-secondary m-1">
+                                <input type="radio" asp-for="PriceRange" value="1500"> 1500
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        3.數量：<input type="text" asp-for="txtCount"></input>
+                    </div>
+                    <div class="form-group">
+                        <a asp-action="CartView">查看購物車</a>
+                        <input type="submit" value="加入購物車" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    var list = [];
+
+    $('input[type="checkbox"]').on("click", function () {
+        // 切换 active 类
+        $(this).toggleClass('active');
+
+        // 获取 checkbox 的值
+        var str = $(this).val();
+
+        // 获取 checkbox 是否选中
+        var isChecked = $(this).prop('checked');
+
+        if (isChecked) {
+            list.push(str);
+        }
+        else {
+            list.pop(str);
+        }
+
+        console.log(list);
+        console.log($(this));
+        console.log(str);
+
+        //傳送到後台
+        $.ajax({
+            type: 'POST',
+            url: '/Shopping/TagList',
+            data: { chosenTags:list  },
+            success: function (response) {
+                console.log('Data sent to the server successfully.');
+            },
+            error: function (error) {
+                console.error('Error sending data to the server.');
+            }
+        });
+    });
+</script>
+

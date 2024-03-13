@@ -1,6 +1,7 @@
 ﻿using bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace bookfortable.Controllers
 {
@@ -10,7 +11,12 @@ namespace bookfortable.Controllers
         {
             FinalContext db = new FinalContext();
             var datas = from p in db.Members select p;
-            return View(datas);
+            List<CMemberWrap> list = new List<CMemberWrap>();
+            foreach (var data in datas)
+            {
+                list.Add(new CMemberWrap(data));
+            }
+            return View(list);
         }
 
         public IActionResult Delete(int? id)

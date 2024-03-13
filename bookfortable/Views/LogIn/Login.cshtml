@@ -10,9 +10,9 @@
             <h2>會員登入</h2>
 
             @*哦 可以欸*@
-            @if(string.IsNullOrEmpty(Context.Session.GetString(CLoginDictionary.SK_LOGINGED_USER))){
+            @* @if(string.IsNullOrEmpty(Context.Session.GetString(CLoginDictionary.SK_LOGINGED_USER))){
 
-            }
+            } *@
 
             @using (Html.BeginForm())
             {
@@ -25,24 +25,26 @@
 
                     <div class="form-group">
                         帳號
-                        <div class="col-md-10">
-                            @Html.TextBox("textAccount", "", new { htmlAttributes = new { @class = "form-control" , @placeholder = "輸入帳號或email"} })
+                        <div>
+                            @Html.TextBox("textAccount", "", new { @class = "form-control" , @placeholder = "帳號或電子郵件地址"} )
                         </div>
                     </div>
                     <div class="form-group">
                         密碼
-                        <div class="col-md-10">
-                            @Html.TextBox("textPassword", "", new { htmlAttributes = new { @class = "form-control", type = "password", placeholder = "Enter your password" } })
+                        <div>
+                            @Html.TextBox("textPassword", "", new { @class = "form-control w-100", @type = "password", @placeholder = "密碼" } )
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-0 vol-md-10 row justify-content-center">
-                            <input type="submit" value="登入" class="btn btn-primary mr-3" />
+                            <input type="submit" value="登入" class="btn btn-primary btn-block" />
                             @* @Html.ActionLink("取消", "List", new { @class = "btn btn-danger" }) *@
-                            <a class="btn btn-secondary ml-3" asp-action="Index" asp-controller="Home">取消</a>
+                            <a class="btn btn-secondary mt-3" asp-action="Index" asp-controller="Home">取消</a>
                         </div>
-                        <div class="col-md-offset-0 vol-md-10 row justify-content-center">
-                            <a class="btn btn-danger m-3" asp-action="addMember" asp-controller="LogIn">註冊新會員</a>
+                        <hr />
+                        <div class="col-md-offset-0 vol-md-10 row">
+                            <label>還沒有會員？</label>
+                            <a class="" asp-action="addMember" asp-controller="LogIn">註冊</a>
                         </div>
                     </div>
                 </div>
