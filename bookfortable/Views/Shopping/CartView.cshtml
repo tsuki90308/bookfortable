@@ -31,8 +31,8 @@
         }
 
         #item-section{
-            margin-right:50px;
-            margin-left:50px;
+            margin-right:10%;
+            margin-left: 10%;
         }
 
         .table {
@@ -269,7 +269,6 @@
     <div><label class="text-avg">運費：</label><a class="num-right">@shipping.ToString("###,###,##0")</a></div>
     <div><label class="text-avg">運費折抵：</label><a class="num-right" style="color: lightcoral;">-@shipping.ToString("###,###,##0")</a></div>
     <div><label class="text-avg">折扣碼折抵：</label><a class="num-right" id="dcprice" name="dcprice" style="color: lightcoral;">@dcprice.ToString("###,###,##0")</a></div>
-    
     <div class="b-tight">――――――――――――――</div>
     <div><label class="text-avg">結帳金額：</label><a class="num-right" id="checkoutAmount" name="checkoutAmount">@sum.ToString("###,###,##0")</a></div>
     <div class="red">會員紅利: 000 點</div>
@@ -358,8 +357,9 @@
             </tr>
             
         </table>
-    </div>   
-    <input type="submit" value="確認訂單" class="btn btn-info btn-lg b-part" />
+    </div>
+    <div id="cart-titile"> <input type="submit" value="確認訂單" class="btn btn-info btn-lg b-part" /></div>
+   
     <input type="hidden" id="resultPrice" name="resultPrice" value="@dcprice" />
     <input type="hidden" id="OGprice" name="OGprice" value="@pay" />
     <input type="hidden" id="sum" name="sum" value="@sum" />
