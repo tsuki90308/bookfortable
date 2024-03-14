@@ -2,12 +2,32 @@
     Layout = "_FrontLayout";
 }
 
+<style>
+    .rounded-button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        text-align: center;
+        color: #ffffff;
+        background-color: midnightblue;
+        border-radius: 25px; /* 圆角半径 */
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .rounded-button:hover {
+            background-color: darkblue; /* 悬停时的背景颜色 */
+        }
+</style>
+
 <!-- 輪播-->
 <div class="row no-gutters mx-0 px-0"
-     style="border: 0px solid black; margin: 10% 0%">
+     style="border: 0px solid black; margin-top: 0% ">
     <div class="col-md-4 mx-0 px-0">
-        <div style="height: 30%; border: 0px solid black; padding: 10%">
-            <h3>市面唯一書籍推薦服務</h3>
+        <div style="height: 30%; border: 0px solid black;padding: 25% 10% 0% 10%;">
+            <h3>市面唯一書籍精選盲盒</h3>
         </div>
 
         <div style="
@@ -16,9 +36,11 @@
               padding: 10%;
               text-align: left;
               display: flex;
+              padding: 10% 10% 0% 10%;
+
             ">
-            <h6>
-                我們提供一站式的書籍選購服務！不必再煩惱翻遍書籍堆，只需告訴我們您的偏好和需求，我們將為您挑選最適合的書籍，並直接寄送到您的手中。讓閱讀成為一種輕鬆享受，盡情沉浸在知識的海洋中吧！
+            <h6 style="line-height: 1.5">
+                總是想不到要買什麼書？<br />只要告訴我們您的偏好，不必再煩惱翻遍書籍堆，我們將為您挑選最適合的書籍，並直接寄送到您的手中。<br />享受並期待收到盲盒的那一刻吧。
             </h6>
         </div>
 
@@ -26,17 +48,18 @@
               height: 25%;
               border: 0px solid black;
               margin: none;
-              padding: none;
+padding: 0%
             ">
-            <button class="button1"
-                    style="
+            <button class="button1" style="
                 width: 100%;
                 height: 100%;
                 border: none;
                 background-color: #a5a58d;
                 color: white;
+                font-size: 20px;
+                text-align: center;
               ">
-                查看更多
+                了解購物流程 <i class="fas fa-arrow-right"></i>
             </button>
         </div>
     </div>
@@ -80,7 +103,7 @@
 </div>
 
 <!-- 書單列表 -->
-<div style="border: 0px solid black" class="container mx-auto">
+<div style="border: 0px solid black; margin-top: 50px ; margin-bottom: 10%" class="container mx-auto">
     <header class="" style="text-align: center">
         <h3 style="margin-bottom: 50px">推薦書單</h3>
     </header>
@@ -122,29 +145,37 @@
             </div>
         </div>
     </div>
+    <div style="text-align: center; padding: 30px">
+        <a asp-controller="Quiz" asp-action="index" class="rounded-button">更多盲盒作品</a>
+    </div>
 </div>
+
+
 
 <!-- 會員訂閱-->
 <div style="border: 0px solid black; margin: 10% 10%">
     <div style="border: 0px solid black"></div>
-    <img src="images/桌布/心理測驗.png" alt="" style="width: 100%" />
+    <img src="images/桌布/心理測驗.png" alt="" style="width: 70%" />
     <div style="display: flex; justify-content: space-between; height: 70px">
         <div style="border: 1px solid black; flex: 1">
-            <button class="button1"
-                    style="
+            <a asp-controller="Quiz" asp-action="index">
+                <button class="button1"
+                        style="
                 width: 100%;
                 height: 100%;
                 border: none;
                 color: #6b705c;
                 background-color: #ffe8d6;
                 font-size: 20px;
-              ">
-                選購盲盒
-            </button>
+              ">選購盲盒
+                </button>
+            </a>
+
         </div>
         <div style="border: 1px solid black; flex: 1">
-            <button class="button1"
-                    style="
+            <a asp-controller="Quiz" asp-action="index">
+                <button class="button1"
+                        style="
                 width: 100%;
                 height: 100%;
                 border: none;
@@ -152,14 +183,16 @@
                 background-color: #a5a58d;
                 font-size: 40px;
               ">
-                心理測驗GO!
-            </button>
+                    心理測驗GO!
+                </button>
+            </a>
+
         </div>
     </div>
 </div>
 
 <!-- 某個清單-->
-<section class="py-5" id="features">
+@* <section class="py-5" id="features">
     <header class="" style="text-align: center">
         <h3 style="margin-bottom: 50px">實體活動</h3>
     </header>
@@ -214,7 +247,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> *@
 
 <!-- 實體活動-->
 <section class="py-1" style="background-color: #b7b7a4">
@@ -222,10 +255,7 @@
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-8 col-xl-6">
                 <div class="text-center" style="color: white">
-                    <h2 class="fw-bolder">實體活動</h2>
-                    <p style="color: white">
-                        這裡是活動的介紹為什麼要辦活動我們的活動是什麼
-                    </p>
+                    <h2 class="fw-bolder" style="margin-bottom: 20px">實體活動</h2>
                 </div>
             </div>
         </div>
@@ -237,7 +267,7 @@
                          src="/images/桌布/chihiro034.jpg"
                          alt="..." />
                     <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2" style="color: white">
                             實體活動
                         </div>
                         <a class="text-decoration-none link-dark stretched-link"
@@ -262,8 +292,7 @@
                     </div>
                     </div> *@
                 </div>
-            </div>
-
+            </div>         
             <div class="col-lg-4 mb-5">
                 <div class="card h-100 shadow border-0"
                      style="background-color: #eeece5">
@@ -271,7 +300,7 @@
                          src="/images/桌布/howl026.jpg"
                          alt="..." />
                     <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2" style="color: white">
                             二手書
                         </div>
                         <a class="text-decoration-none link-dark stretched-link"
@@ -282,21 +311,6 @@
                             title and make up the bulk of the card's content.
                         </p>
                     </div>
-                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                        <div class="d-flex align-items-end justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3"
-                                     src="https://dummyimage.com/40x40/ced4da/6c757d"
-                                     alt="..." />
-                                <div class="small">
-                                    <div class="fw-bold">Josiah Barclay</div>
-                                    <div class="text-muted">
-                                        March 23, 2023 &middot; 4 min read
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-lg-4 mb-5">
@@ -306,7 +320,7 @@
                          src="/images/桌布/porco028.jpg"
                          alt="..." />
                     <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2" style="color: white">
                             二手書
                         </div>
                         <a class="text-decoration-none link-dark stretched-link"
@@ -321,55 +335,11 @@
                             make up the bulk of the card's content.
                         </p>
                     </div>
-                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                        <div class="d-flex align-items-end justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3"
-                                     src="https://dummyimage.com/40x40/ced4da/6c757d"
-                                     alt="..." />
-                                <div class="small">
-                                    <div class="fw-bold">Evelyn Martinez</div>
-                                    <div class="text-muted">
-                                        April 2, 2023 &middot; 10 min read
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
-
-
-        <!-- 訂閱-->
-        <aside class="bg-primary bg-white rounded-3 p-4 p-sm-5 mt-5">
-            <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                <div class="mb-4 mb-xl-0">
-                    <div class="fs-3 fw-bold text-black">
-                        想收藏更多我們的選書書單？
-                    </div>
-                    <div class="text-black-50">
-                        歡迎訂閱電子報，我們將定期推送最新的書單給您！
-                    </div>
-                </div>
-                <div class="ms-xl-4">
-                    <div class="input-group mb-2">
-                        <input class="form-control"
-                               type="text"
-                               placeholder="Email address..."
-                               aria-label="Email address..."
-                               aria-describedby="button-newsletter" />
-                        <button class="btn btn-outline-light"
-                                id="button-newsletter"
-                                type="button">
-                            訂閱
-                        </button>
-                    </div>
-                    <div class="small text-black-50">
-                        本公司承諾不會將您的電子郵件地址用於其他用途。
-                    </div>
-                </div>
-            </div>
-        </aside>
-    </div>
+        <div style="text-align: center; padding: 20px">
+            <a href="" class="rounded-button">更多線下活動</a>
+        </div>
 </section>
