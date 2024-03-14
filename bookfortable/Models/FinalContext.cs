@@ -49,11 +49,7 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<Question> Questions { get; set; }
 
-    public virtual DbSet<QuestionRecord> QuestionRecords { get; set; }
-
     public virtual DbSet<Relation> Relations { get; set; }
-
-    public virtual DbSet<Result> Results { get; set; }
 
     public virtual DbSet<SingUp> SingUps { get; set; }
 
@@ -63,11 +59,9 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<WishList> WishLists { get; set; }
 
-    
-
-    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    //        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False");
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False");
 
     //        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Final;Integrated Security=True;Encrypt=False");
 
@@ -385,22 +379,6 @@ public partial class FinalContext : DbContext
             entity.Property(e => e.QuestionOptions).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<QuestionRecord>(entity =>
-        {
-            entity.ToTable("QuestionRecord");
-
-            entity.Property(e => e.MemberId).HasColumnName("MemberID");
-            entity.Property(e => e.ResultId).HasColumnName("ResultID");
-
-            entity.HasOne(d => d.Member).WithMany(p => p.QuestionRecords)
-                .HasForeignKey(d => d.MemberId)
-                .HasConstraintName("FK_QuestionRecord_Members");
-
-            entity.HasOne(d => d.Result).WithMany(p => p.QuestionRecords)
-                .HasForeignKey(d => d.ResultId)
-                .HasConstraintName("FK_QuestionRecord_Result");
-        });
-
         modelBuilder.Entity<Relation>(entity =>
         {
             entity.HasKey(e => e.SortId);
@@ -418,17 +396,6 @@ public partial class FinalContext : DbContext
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Relation_Product");
-        });
-
-        modelBuilder.Entity<Result>(entity =>
-        {
-            entity.ToTable("Result");
-
-            entity.Property(e => e.ResultId).HasColumnName("ResultID");
-            entity.Property(e => e.ResultImg).HasMaxLength(50);
-            entity.Property(e => e.ResultMsg).HasMaxLength(500);
-            entity.Property(e => e.ResultName).HasMaxLength(50);
-            entity.Property(e => e.ResultTag).HasMaxLength(50);
         });
 
         modelBuilder.Entity<SingUp>(entity =>
