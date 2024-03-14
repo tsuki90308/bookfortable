@@ -1,11 +1,18 @@
 ﻿using bookfortable.Models;
 using bookfortable.ViewModels;
+using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookfortable.Controllers
 {
+
     public class ResultController : Controller
     {
+        private IWebHostEnvironment _enviro = null;
+        public ResultController(IWebHostEnvironment p)
+        {
+            _enviro = p;
+        }
         public IActionResult List(BKeywordViewModel vm)
         {
             FinalContext db = new FinalContext();
