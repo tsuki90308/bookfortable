@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 namespace bookfortable.Models;
 
-
 public partial class Member
 {
     public int MemberId { get; set; }
@@ -33,6 +32,8 @@ public partial class Member
     public virtual ICollection<MyCoupon> MyCoupons { get; set; } = new List<MyCoupon>();
 
     public virtual ICollection<OrderList> OrderLists { get; set; } = new List<OrderList>();
+
+    public virtual ICollection<QuestionRecord> QuestionRecords { get; set; } = new List<QuestionRecord>();
 
     public virtual ICollection<SingUp> SingUps { get; set; } = new List<SingUp>();
 

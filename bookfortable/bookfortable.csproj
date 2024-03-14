@@ -8,18 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Result\**" />
-    <Content Remove="Views\Result\**" />
-    <EmbeddedResource Remove="Views\Result\**" />
-    <None Remove="Views\Result\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\ResultController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Quiz\Result.cshtml" />
+    <None Include="Views\Result\Create.cshtml" />
+    <None Include="Views\Result\Edit.cshtml" />
+    <None Include="Views\Result\List.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
