@@ -68,15 +68,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[QuestionRecord]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Relation]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Result]",
          "ObjectType": 0
       },
       {
