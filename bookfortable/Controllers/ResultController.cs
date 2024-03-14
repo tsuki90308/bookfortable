@@ -1,6 +1,5 @@
 ﻿using bookfortable.Models;
 using bookfortable.ViewModels;
-using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookfortable.Controllers
