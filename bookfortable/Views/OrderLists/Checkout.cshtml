@@ -2,7 +2,6 @@
 @{
     // 从ViewBag中获取List
     List<Bookfortable.Models.CShoppingCartItem> cart = ViewBag.CartItem;
-    var detail = ViewBag.OrderDetail as bookfortable.Models.OrderDetail;
     
 }
 @{
@@ -176,7 +175,7 @@
                                                                     <button class="btn btn-outline-secondary">@Html.DisplayFor(modelItem => item.count)</button>
                                                                 </td>
                                                                 <td style="text-align: left;">
-                                                                    <!--偏好兼修改-->
+                                                                    <!--偏好-->
                                                                     <p style="font-weight: bolder; margin-bottom: 0.5px;">@Html.DisplayFor(modelItem => item.productType)</p>
                                                                     <p style="color:lightgray; margin-bottom: 0.5px;">單價:@Html.DisplayFor(modelItem => item.price)</p>
                                                                 </td>
@@ -204,7 +203,7 @@
     <div><label class="text-avg">結帳金額：</label><a style="font-weight: bolder;">@Html.DisplayFor(model => model.OrderTotal)</a></div>
     <div class="red">會員紅利: 000 點</div>
 </div>
-<form action="@Url.Action("","OrderLists")" method="post">
+<form action="@Url.Action("CreateOrder")" method="post">
     <div class="not2width">
         <div class="vstack gap-3">
             <div class="b-part URhere">
@@ -237,7 +236,7 @@
                     <tr>
                         <td>地址</td>
                         <td>
-                            <select class="form-select form-select-sm" size="15" id="CustomerAdd1" name="CustomerAdd1">
+                            <select class="form-select" size="10" size="15" id="CustomerAdd1" name="CustomerAdd1">
                                 <option selected>請選擇縣市</option>
                                 <option value="台北市">台北市</option>
                                 <option value="台北縣">台北縣</option>
@@ -268,14 +267,9 @@
                                 <option value="澎湖縣">澎湖縣</option>
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>
-                            <select class="form-select form-select-sm" size="5" id="CustomerAdd2" name="CustomerAdd2">
-                                
+                            <select class="form-select" size="10" id="CustomerAdd2" name="CustomerAdd2">
                             </select>
-                            
                         </td>
                     </tr>
                     <tr>
@@ -310,7 +304,7 @@
                     <tr>
                         <td>地址</td>
                         <td>
-                            <select class="form-select form-select-sm" size="2" multiple id="ShippingAdd1" name="ShippingAdd1">
+                            <select class="form-select" size="10" id="ShippingAdd1" name="ShippingAdd1">
                                 <option selected>請選擇縣市</option>
                                 <option value="台北市">台北市</option>
                                 <option value="台北縣">台北縣</option>
@@ -341,15 +335,10 @@
                                 <option value="澎湖縣">澎湖縣</option>
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>
-                            <select class="form-select form-select-sm" size="5" multiple id="ShippingAdd2" name="ShippingAdd2">
+                            <select class="form-select" size="10" multiple id="ShippingAdd2" name="ShippingAdd2">
                             </select>
-
                         </td>
-                    </tr>
                     <tr>
                         <td></td>
                         <td>
@@ -357,23 +346,25 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>7-11取貨門市</td>
-                        <td></td>
-                        <td></td>
+                        <td>手機載具</td>
+                        <td><input asp-for="Phinvoice" class="form-control" /></td>
                     </tr>
                 </table>
             </div>
             <div class="p-2">
-                
+                <div class="form-group">
+                    <input type="submit" value="確認訂單" class="btn btn-primary" />
+                </div>
             </div>
         </div>
     </div>
+    
 </form>
 
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Checkout">
+        
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Oid" />
             <div class="form-group">
@@ -544,7 +535,7 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
+        
 
     </div>
     <div class="col">
@@ -641,18 +632,19 @@
         $(document).ready(function () {
             $("#ShippingAdd1").on('change', (event) => {
                 const selectedCity2 = $(event.target).val();
-                console.log("selected City:", selectedCity2);
+                console.log("selected 收件人city:", selectedCity2);
                 const selectedCityArry2 = cityarry2[$(event.target).val()];
-                console.log("selected CityArry:", selectedCityArry2);
-                area.empty();
-                area.append(`<option selected>請選擇區域</option>`)
+                console.log("selected 收件人CityArry:", selectedCityArry2);
+                area2.empty();
+                area2.append(`<option selected>請選擇區域</option>`)
 
                 selectedCityArry2.forEach((item) => {
-                    area.append(`<option value="${item}">${item}</option>`)
+                    area2.append(`<option value="${item}">${item}</option>`)
                 })
                 area2.niceSelect('update')
             })
         })
+
     </script>
 }
 

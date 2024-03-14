@@ -1,0 +1,35 @@
+﻿@model bookfortable.Models.OrderList
+@{
+    var detail = ViewBag.OrderDetail as bookfortable.Models.OrderDetail;
+    var orderitem = ViewBag.orderItems;
+}
+@{
+    ViewData["Title"] = "ReviewOrder";
+    Layout = "_FrontLayout";
+}
+
+@section Styles{
+
+}
+<br />
+<br />
+<div id="cart-titile">
+    <p>
+        <a class="b-part">&emsp;購物車&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part URhere">&emsp;訂單資料&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part">&emsp;訂單完成&emsp;</a>
+    </p>
+</div>
+<br />
+@{
+    <div>測試!!!</div>
+    <label asp-for="Oidramd">訂單隨機碼</label>
+    <input asp-for="Oidramd" class="form-control" />
+    <div>@Html.DisplayFor(model => model.Oidramd)</div>
+
+}
+<div>
+
+</div>

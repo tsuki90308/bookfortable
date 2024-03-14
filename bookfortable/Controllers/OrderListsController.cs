@@ -30,7 +30,6 @@ namespace bookfortable.Controllers
             string guid = Guid.NewGuid().ToString();
             OrderList orderList = new OrderList();
             orderList.Oidramd = guid;
-            orderList.OrderDate = DateTime.Now;
             orderList.ShippingMethod = deliveryWay;
             orderList.PayMethod = howtopay;
             orderList.DiscountPrice = resultPrice;
@@ -41,38 +40,83 @@ namespace bookfortable.Controllers
             orderList.CustomerPhone = CustomerPhone;
             orderList.CustomerEmail = CustomerEmail;
             orderList.DiscountCode = txtDiscountCode;
-            db.OrderLists.Add(orderList);
 
             string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-            ViewBag.CartItem = cart;
 
-            OrderDetail detail = new OrderDetail();
-            detail.TempBoxId = TempBoxId;
-            detail.BookTag2string = BookTag2string;
-            detail.ProductAmount = ProductAmount;
-            detail.BookTag2string = BookTag2string;
-            detail.ProductAmount = ProductAmount;
-            detail.Price = singileitemsum;
-            db.OrderDetails.Add(detail);
-            ViewBag.OrderDetail = detail;
+            db.OrderLists.Add(orderList);
+            ViewBag.CartItem = cart;
 
             return View(orderList);
 
         }
 
 
-
-        public async Task<IActionResult> CreateOrder()
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder(OrderList odList, OrderDetail odDetail)
         {
+            if (ModelState.IsValid)
+            {
+                FinalContext db = new FinalContext();
+                string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+                List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
 
-            return View();
+                odList.OrderDate = DateTime.Now;
+                odList.IsPayed = false;
+                //odList.CShoppingCartItems = cart;
+                db.OrderLists.Add(odList);
+                db.SaveChanges();
+
+                OrderDetail detail = new OrderDetail();
+                foreach (var item in cart)
+                {
+                    detail.OrderDetailId = odList.Oidramd;
+                    detail.TempBoxId = item.productId;
+                    detail.BookTag2string = item.productType;
+                    detail.ProductAmount = item.count;
+                    detail.Price = item.price;
+                }
+                ViewBag.CartItem = cart;
+                db.OrderDetails.Add(detail);
+                ViewBag.OrderDetail = detail;
+
+
+
+
+
+                cart.Clear();
+                return RedirectToAction("ReviewOrder");
+            }
+            return View("Checkout");
+
         }
 
-        public async Task<IActionResult> ReviewOrder()
+        public async Task<IActionResult> ReviewOrder(string? IDramd)
         {
+            FinalContext db = new FinalContext();
+            //if (IDramd == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View();
+            var orderlist = db.OrderLists.FirstOrDefault(o => o.Oidramd == IDramd);
+            var odDetail = db.OrderDetails.Where(d => d.OrderDetailId == IDramd);
+            ViewBag.orderItems = GetOrderItems(orderlist.Oidramd);
+            return View(orderlist);
+        }
+
+        private List<CShoppingCartItem> GetOrderItems(string odIDramd)
+        {
+            FinalContext db = new FinalContext();
+            var OrderItems = db.OrderDetails.Where(p => p.OrderDetailId == odIDramd).ToList();
+            List<CShoppingCartItem> orderitems = new List<CShoppingCartItem>();
+            foreach (var orderitem in OrderItems)
+            {
+                CShoppingCartItem item = new CShoppingCartItem();
+                item.product = db.TempBoxes.Single(x => x.BoxId == orderitem.TempBoxId);
+                orderitems.Add(item);
+            }
+            return orderitems;
         }
 
 
