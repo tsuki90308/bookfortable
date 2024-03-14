@@ -27,7 +27,7 @@
             <SearchTextBox @searchInput="keywordHandler"></SearchTextBox>
         </div>
 
-        <div class="col-6">
+        <div class="col-6 mb-3">
   <div class="input-group">
     <input type="number" class="form-control" placeholder="最低價格" min="0" v-model="priceRange.min">
     <input type="number" class="form-control" placeholder="最高價格" min="0" v-model="priceRange.max">
@@ -51,10 +51,10 @@
       <div class="col" v-for="(item, index) in result.wishListResult" :key="index">
 <div class="card h-100">
   <div class="d-flex justify-content-center align-items-center" style="height: 350px;">
-    <img :src="'/bookfortable/bookfortable/wwwroot/images/' + item.productImage" class="card-img-top" :alt="item.productName" style="width: 200px; height: 300px;">
+    <img :src="'/src/img/' + item.productImage" class="card-img-top" :alt="item.productName" style="width: 200px; height: 300px;">
   </div>
   <div class="card-body">
-    <h5 class="card-title">{{ item.productName }}</h5>
+    <h5 class="card-title">{{item.productName}}</h5>
 
         <p class="card-text">{{item.productDescribe}}</p>
       </div>
@@ -62,7 +62,7 @@
         <small class="text-body-secondary">{{item.creationDate}} {{item.address}}</small>
         <div>
     <span class="text-danger price">NT${{item.wishPrice}}</span>
-    <button class="btn btn-sm btn-danger ml-2" @click="confirmDelete(item.wishListId)">刪除</button>
+    <button class="btn btn-sm button-70 ml-2" @click="confirmDelete(item.wishListId)">刪除</button>
   </div>
 </div>
       </div>
@@ -116,6 +116,8 @@
 <script setup>
   import { onMounted , reactive} from 'vue';
   import SearchTextBox from "@/components/SearchTextBox.vue";
+
+
 
 
   //搜尋.分頁.排序的條件
@@ -255,7 +257,7 @@ if (priceRange.min !== null && priceRange.max !== null && !isNaN(priceRange.min)
     margin: 0 auto;
     max-width: 600px;
     padding: 20px;
-    font-size: 60px;
+    font-size: 40px;
   }
   /* 當前頁碼的背景色 */
   .pagination .page-item.active .page-link {
@@ -283,5 +285,57 @@ if (priceRange.min !== null && priceRange.max !== null && !isNaN(priceRange.min)
     justify-content: center;
     margin-top: 20px; /* 距離上方內容的距離 */
   }
+
+  .card {
+border: 1px solid rgba(0, 0, 0, 0.125); /* Add a subtle border */
+border-radius: 10px; /* Rounded corners */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
+transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+
+/* Adjust padding and margin for better spacing */
+padding: 5px;
+margin-bottom: 20px;
+}
+
+.card:hover {
+box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+.card-title {
+font-size: 1.2rem; /* Increase title font size */
+margin-bottom: 10px; /* Add space below title */
+}
+
+.card-text {
+margin-bottom: 15px; /* Add space below text */
+}
+
+.card-footer {
+border-top: 1px solid rgba(0, 0, 0, 0.125); /* Add border at the top of footer */
+padding-top: 10px; /* Add padding to top of footer */
+}
+
+.price {
+font-size: 1.1rem; /* Increase price font size */
+font-weight: bold; /* Make price bold */
+}
+
+.button-70 {
+background-image: linear-gradient(#ad0505, #f30c0c);
+border: 0;
+border-radius: 4px;
+box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+font-family: Montserrat,sans-serif;
+font-size: .9em;
+margin: 5px;
+padding: 5px;
+text-align: center;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+}    
 
 </style>
