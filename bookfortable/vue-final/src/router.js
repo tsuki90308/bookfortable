@@ -3,6 +3,7 @@ import Home from './components/Home.vue';
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';
 import WishList from './components/WishList.vue';
+import Create from './components/Create.vue'
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path:"/wishlist",
     component : WishList,
+  },
+  {
+    path:"/create",
+    component : Create,
   }
 ];
 

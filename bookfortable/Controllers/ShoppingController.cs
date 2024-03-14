@@ -38,42 +38,71 @@ namespace Bookfortable.Controllers
         [HttpPost]
         public IActionResult GenerateBox(CTempBoxWrap t)
         {
-            if (ModelState.IsValid)
+            List<string> list = CTempBoxWrap.chosen;
+            string str = string.Empty;//tag2string
+            foreach (string s in list)
             {
-                List<string> list = CTempBoxWrap.chosen;
-                string str = string.Empty;//tag2string
-                foreach(string s in list)
-                {
-                    int now = list.IndexOf(s);
-                    int last = list.Count - 1;
+                int now = list.IndexOf(s);
+                int last = list.Count - 1;
 
-                    str += s;
-                    if (now != last)
-                        str += ",";
-                }
-                t.BookTag2string = str;
-
-                string json = "";
-                List<CShoppingCartItem> cart = new List<CShoppingCartItem>();
-                if (HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
-                {
-                    json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-                    cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-                }
-                CShoppingCartItem item = new CShoppingCartItem();
-                item.price = (decimal)t.PriceRange;
-                item.productType = t.BookTag2string;
-                item.count = t.txtCount;
-                cart.Add(item);
-                json = JsonSerializer.Serialize(cart);
-                HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, json);
-
-                return RedirectToAction("GenerateBox");
+                str += s;
+                if (now != last)
+                    str += ",";
             }
-            else
+            t.BookTag2string = str;
+
+            string json = "";
+            List<CShoppingCartItem> cart = new List<CShoppingCartItem>();
+            if (HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
             {
-                return View(t);
+                json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+                cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             }
+            CShoppingCartItem item = new CShoppingCartItem();
+            item.price = (decimal)t.PriceRange;
+            item.productType = t.BookTag2string;
+            item.count = t.txtCount;
+            cart.Add(item);
+            json = JsonSerializer.Serialize(cart);
+            HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, json);
+
+            return RedirectToAction("GenerateBox");
+            //if (ModelState.IsValid)
+            //{
+            //    List<string> list = CTempBoxWrap.chosen;
+            //    string str = string.Empty;//tag2string
+            //    foreach(string s in list)
+            //    {
+            //        int now = list.IndexOf(s);
+            //        int last = list.Count - 1;
+
+            //        str += s;
+            //        if (now != last)
+            //            str += ",";
+            //    }
+            //    t.BookTag2string = str;
+
+            //    string json = "";
+            //    List<CShoppingCartItem> cart = new List<CShoppingCartItem>();
+            //    if (HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
+            //    {
+            //        json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            //        cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            //    }
+            //    CShoppingCartItem item = new CShoppingCartItem();
+            //    item.price = (decimal)t.PriceRange;
+            //    item.productType = t.BookTag2string;
+            //    item.count = t.txtCount;
+            //    cart.Add(item);
+            //    json = JsonSerializer.Serialize(cart);
+            //    HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, json);
+
+            //    return RedirectToAction("GenerateBox");
+            //}
+            //else
+            //{
+            //    return View(t);
+            //}
         }
         //已選擇的tag的list
         [HttpPost]

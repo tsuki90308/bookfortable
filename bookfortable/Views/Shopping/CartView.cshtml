@@ -247,9 +247,9 @@
                             </td>
                             <td>
                                 <!--刪除-->
-                                <!--<a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>-->
+                                @*<!--<a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>-->
                                 <!--<button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new { })')"><i class="fas fa-trash"></i></button>-->
-                                <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                                *@<a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
                             </td>
                             <td>
                                 <span id="BoxId" name="BoxId" style="display: none;">@Html.DisplayFor(modelItem => item.product.BoxId)</span>
