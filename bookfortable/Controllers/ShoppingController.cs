@@ -23,6 +23,66 @@ namespace Bookfortable.Controllers
             }
             return View(list);
         }
+        public IActionResult GenerateBox()
+        {
+            FinalContext db = new FinalContext();
+            var datas = from b in db.BookTags select b;
+            CTempBoxWrap.booktags = new List<string>();
+            foreach (var t in datas)
+            {
+                CTempBoxWrap.booktags.Add(t.BtagName.ToString());
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult GenerateBox(CTempBoxWrap t)
+        {
+            if (ModelState.IsValid)
+            {
+                List<string> list = CTempBoxWrap.chosen;
+                string str = string.Empty;//tag2string
+                foreach(string s in list)
+                {
+                    int now = list.IndexOf(s);
+                    int last = list.Count - 1;
+
+                    str += s;
+                    if (now != last)
+                        str += ",";
+                }
+                t.BookTag2string = str;
+
+                string json = "";
+                List<CShoppingCartItem> cart = new List<CShoppingCartItem>();
+                if (HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
+                {
+                    json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+                    cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+                }
+                CShoppingCartItem item = new CShoppingCartItem();
+                item.price = (decimal)t.PriceRange;
+                item.productType = t.BookTag2string;
+                item.count = t.txtCount;
+                cart.Add(item);
+                json = JsonSerializer.Serialize(cart);
+                HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, json);
+
+                return RedirectToAction("GenerateBox");
+            }
+            else
+            {
+                return View(t);
+            }
+        }
+        //已選擇的tag的list
+        [HttpPost]
+        public IActionResult TagList(List<string> chosenTags)
+        {
+            CTempBoxWrap.chosen = chosenTags;
+            return Json(new { success = true });
+        }
+
         public IActionResult AddToCart(int? id)
         {
             if (id == null)
@@ -60,19 +120,23 @@ namespace Bookfortable.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCount(int newCount, decimal newSubtotal)
+        public IActionResult UpdateCartItem(int boxid, int newCount, decimal newSubtotal)
         {
-            CShoppingCartItem item = new CShoppingCartItem
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            var cartitem = cart.Find(i => i.productId == boxid);
+            if (cartitem != null)
             {
-                count = newCount,
-                小計 = newSubtotal
-            };
-
-            // 在这里更新服务器上的数据，例如：item.count = newCount;
+                cartitem.productId = boxid;
+                cartitem.count = newCount;
+                cartitem.小計 = newSubtotal;
+                HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, JsonSerializer.Serialize(cart));
+            }
 
             // 可选：返回任何适当的响应
             return Json(new { success = true, message = "Count updated successfully" });
         }
+
 
         public IActionResult Createbox()
         {
@@ -92,17 +156,23 @@ namespace Bookfortable.Controllers
 
         public IActionResult Deletebox(int? id)
         {
-            if (id != null)
-            {
-                FinalContext db = new FinalContext();
-                TempBox tb = db.TempBoxes.FirstOrDefault(p => p.BoxId == id);
-                if (tb != null)
-                {
-                    db.TempBoxes.Remove(tb);
-                    db.SaveChanges();
-                }
-            }
 
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            var cartitem = cart.Find(i => i.productId == id);
+            if (cartitem != null)
+            {
+                cart.Remove(cartitem);
+            }
+            HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, JsonSerializer.Serialize(cart));
+
+            FinalContext db = new FinalContext();
+            var TempBox = db.TempBoxes.Where(t => t.BoxId == id).FirstOrDefault();
+            if (TempBox != null)
+            {
+                db.TempBoxes.Remove(TempBox);
+                db.SaveChanges();
+            }
             return RedirectToAction("CartView");
         }
 
@@ -113,29 +183,16 @@ namespace Bookfortable.Controllers
             decimal? discountPrice = 0;
             DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(d => d.DiscountCode.Equals(vm.txtDiscountCode) && d.IsActivate == true);
 
-            //DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(
-            //    d => d.DiscountCode.Equals(vm.txtDiscountCode) &&
-            //    //d.IsMemberDiscount.Equals(vm.boolIsMemberDiscount) &&
-            //    d.IsActivate.Equals(1)); //&&
-            //d.DiscountPrice.Equals(vm.DiscountPrice));
-
             if (discountcode != null && discountcode.DiscountCode.Equals(vm.txtDiscountCode) && discountcode.IsActivate == true)
             {
                 isValidDiscount = true;
                 discountPrice = discountcode.DiscountPrice;
-
             }
 
             return Content(discountPrice.ToString());
-            //  return Json({ });
-
-            //ViewBag.IsValidDiscount = isValidDiscount;
-            //string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-            //List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-            //if (cart == null)
-            //    return RedirectToAction("List");
-            //return View("CartView", cart);
         }
+
+
 
         //購物車頁首
         public IActionResult CartView()
@@ -143,24 +200,13 @@ namespace Bookfortable.Controllers
             if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
                 return RedirectToAction("List");
 
-
             string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             if (cart == null)
                 return RedirectToAction("List");
             return View(cart);
-
         }
 
-        //未成為訂單明細的資料
-        public IActionResult checkout()
-        {
-            FinalContext db = new FinalContext();
 
-            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-
-            return View("CheckOut");
-        }
     }
 }

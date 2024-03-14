@@ -1,8 +1,11 @@
 ﻿using bookfortable.Models;
 using bookfortable.ViewModels;
+using Bookfortable.Models;
 using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace bookfortable.Controllers
 {
@@ -14,6 +17,67 @@ namespace bookfortable.Controllers
         {
             _context = context;
         }
+
+        //客戶端的放這裡
+        public async Task<IActionResult> Checkout(
+            string deliveryWay, string howtopay, decimal resultPrice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail,
+            int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum)
+        {
+            FinalContext db = new FinalContext();
+            if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
+                return RedirectToAction("Shopping", "List");
+
+            string guid = Guid.NewGuid().ToString();
+            OrderList orderList = new OrderList();
+            orderList.Oidramd = guid;
+            orderList.OrderDate = DateTime.Now;
+            orderList.ShippingMethod = deliveryWay;
+            orderList.PayMethod = howtopay;
+            orderList.DiscountPrice = resultPrice;
+            orderList.OrderTotal = sum;
+            orderList.DiscountCode = txtDiscountCode;
+            orderList.ShippingFeed = shipping;
+            orderList.CustomerName = CustomerName;
+            orderList.CustomerPhone = CustomerPhone;
+            orderList.CustomerEmail = CustomerEmail;
+            orderList.DiscountCode = txtDiscountCode;
+            db.OrderLists.Add(orderList);
+
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            ViewBag.CartItem = cart;
+
+            OrderDetail detail = new OrderDetail();
+            detail.TempBoxId = TempBoxId;
+            detail.BookTag2string = BookTag2string;
+            detail.ProductAmount = ProductAmount;
+            detail.BookTag2string = BookTag2string;
+            detail.ProductAmount = ProductAmount;
+            detail.Price = singileitemsum;
+            db.OrderDetails.Add(detail);
+            ViewBag.OrderDetail = detail;
+
+            return View(orderList);
+
+        }
+
+
+
+        public async Task<IActionResult> CreateOrder()
+        {
+
+            return View();
+        }
+
+        public async Task<IActionResult> ReviewOrder()
+        {
+
+            return View();
+        }
+
+
+
+
 
         // GET: OrderLists
         public async Task<IActionResult> Index()
