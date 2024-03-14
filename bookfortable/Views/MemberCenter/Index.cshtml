@@ -16,7 +16,7 @@
             <nav class="navbar navbar-dark bg-dark vh-100 d-flex flex-column justify-content-start align-content-start">
                 <ul class="navbar-nav w-100">
                     <li class="nav-item w-100">
-                        <a asp-action="Index" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">個人資料</a>
+                        <a asp-action="Index" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left active">個人資料</a>
                     </li>
                     <li class="nav-item w-100">
                         <a asp-action="Orders" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">歷史訂單</a>
@@ -33,12 +33,13 @@
         <div class="col-md-10">
             <div class="bg-primary vh-100">
                 <div class="container-fluid p-5">
-                    <div class="p-5 flex-column justify-content-center align-items-center border border-10 " style="background-color: rgba(245, 245, 245, 0.7)">
-                        <h2>會員中心</h2>
-                        <div class="container w-100 p-5">
-                            <div class="p-5 flex-column border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)">
-                                <h3>@mbr.MName</h3>
-                            </div>
+                    <h2>會員中心</h2>
+                    <div class="container w-100">
+                        <div class="p-3 flex-column border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)">
+                            <h3>@mbr.MName</h3>
+                            <h3>@mbr.MAccount</h3>
+                            <h3>@mbr.MPassword</h3>
+                            <h3>@mbr.MCarrier</h3>
                         </div>
                     </div>
                 </div>
