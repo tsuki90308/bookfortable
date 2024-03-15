@@ -21,7 +21,7 @@ namespace bookfortable.Controllers
         //客戶端的放這裡
         public async Task<IActionResult> Checkout(
             string deliveryWay, string howtopay, decimal resultPrice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail,
-            int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum)
+            int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum, string Oidramd)
         {
             FinalContext db = new FinalContext();
             if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
@@ -40,11 +40,14 @@ namespace bookfortable.Controllers
             orderList.CustomerPhone = CustomerPhone;
             orderList.CustomerEmail = CustomerEmail;
             orderList.DiscountCode = txtDiscountCode;
+            //db.Add(orderList);
+            db.OrderLists.Add(orderList);
+            db.SaveChanges();
 
             string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
 
-            db.OrderLists.Add(orderList);
+
             ViewBag.CartItem = cart;
 
             return View(orderList);
@@ -53,56 +56,59 @@ namespace bookfortable.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(OrderList odList, OrderDetail odDetail)
+        public async Task<IActionResult> CreateOrder(OrderList odList)
         {
-            if (ModelState.IsValid)
+
+            FinalContext db = new FinalContext();
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+
+            var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
+            x.OrderDate = DateTime.Now;
+            x.IsPayed = false;
+            x.CustomerName = odList.CustomerName;
+            x.CustomerPhone = odList.CustomerPhone;
+            x.CustomerEmail = odList.CustomerEmail;
+            x.CustomerAdd1 = odList.CustomerAdd1;
+            x.CustomerAdd2 = odList.CustomerAdd2;
+            x.CustomerAdd3 = odList.CustomerAdd3;
+            x.ShippingName = odList.ShippingName;
+            x.ShippingPhone = odList.ShippingPhone;
+            x.ShippingAdd1 = odList.ShippingAdd1;
+            x.ShippingAdd2 = odList.ShippingAdd2;
+            x.ShippingAdd3 = odList.ShippingAdd3;
+            x.Phinvoice = odList.Phinvoice;
+            //odList.CShoppingCartItems = cart;
+            db.SaveChanges();
+
+            OrderDetail detail = new OrderDetail();
+            foreach (var item in cart)
             {
-                FinalContext db = new FinalContext();
-                string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-                List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-
-                odList.OrderDate = DateTime.Now;
-                odList.IsPayed = false;
-                //odList.CShoppingCartItems = cart;
-                db.OrderLists.Add(odList);
-                db.SaveChanges();
-
-                OrderDetail detail = new OrderDetail();
-                foreach (var item in cart)
-                {
-                    detail.OrderDetailId = odList.Oidramd;
-                    detail.TempBoxId = item.productId;
-                    detail.BookTag2string = item.productType;
-                    detail.ProductAmount = item.count;
-                    detail.Price = item.price;
-                }
-                ViewBag.CartItem = cart;
-                db.OrderDetails.Add(detail);
-                ViewBag.OrderDetail = detail;
-
-
-
-
-
-                cart.Clear();
-                return RedirectToAction("ReviewOrder");
+                detail.OrderDetailId = odList.Oidramd;
+                detail.TempBoxId = item.productId;
+                detail.BookTag2string = item.productType;
+                detail.ProductAmount = item.count;
+                detail.Price = item.price;
             }
-            return View("Checkout");
+            ViewBag.CartItem = cart;
+            db.OrderDetails.Add(detail);
+            db.SaveChanges();
+            ViewBag.OrderDetail = detail;
+
+            cart.Clear();
+            return RedirectToAction("ReviewOrder");
 
         }
 
-        public async Task<IActionResult> ReviewOrder(string? IDramd)
+        public async Task<IActionResult> ReviewOrder(OrderList odList, OrderDetail odDetail)
         {
             FinalContext db = new FinalContext();
-            //if (IDramd == null)
-            //{
-            //    return NotFound();
-            //}
+            var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
+            var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
 
-            var orderlist = db.OrderLists.FirstOrDefault(o => o.Oidramd == IDramd);
-            var odDetail = db.OrderDetails.Where(d => d.OrderDetailId == IDramd);
-            ViewBag.orderItems = GetOrderItems(orderlist.Oidramd);
-            return View(orderlist);
+
+
+            return View(odList);
         }
 
         private List<CShoppingCartItem> GetOrderItems(string odIDramd)
