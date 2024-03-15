@@ -4,7 +4,7 @@ namespace bookfortable.Models
 {
     public partial class FinalContext : DbContext
     {
-        public object Results { get; internal set; }
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

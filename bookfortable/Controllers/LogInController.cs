@@ -78,9 +78,10 @@ namespace Bookfortable.Controllers
         }
 
             [HttpPost]
-        public IActionResult addMember(Member p) { 
+        public IActionResult addMember(CMemberWrap p) {
+            Member mp = p.member;
             FinalContext db = new FinalContext();
-            db.Members.Add(p);
+            db.Members.Add(mp);
             db.SaveChanges();
 
             return RedirectToAction("Login");

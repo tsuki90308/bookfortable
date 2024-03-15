@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<bookfortable.Models.Result>
 
+
 @{
     ViewData["Title"] = "List";
 }
@@ -28,9 +29,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*  <th>
                 @Html.DisplayNameFor(model => model.ResultId)
-            </th>
+            </th> *@ 
             <th>
                 @Html.DisplayNameFor(model => model.ResultMsg)
             </th>
@@ -53,9 +54,7 @@
             {
                 count++;
                 <tr>
-                    <td>
-                        @count
-                    </td>
+                    
                     <td>
                         @Html.DisplayFor(modelItem => item.ResultMsg)
                     </td>

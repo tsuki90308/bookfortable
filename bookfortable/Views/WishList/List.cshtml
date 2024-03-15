@@ -15,7 +15,7 @@
 </p>
 <style>
     .fixed-width {
-        width: 140px; 
+        width: 140px;
     }
 
 </style>
@@ -32,7 +32,7 @@
                 產品圖片
             </th>
             @* <th>
-                @Html.DisplayNameFor(model => model.ProductId)
+            @Html.DisplayNameFor(model => model.ProductId)
             </th> *@
             <th>
                 產品描述
@@ -44,7 +44,7 @@
                 地址
             </th>
             @* <th>
-                @Html.DisplayNameFor(model => model.MemberId)
+            @Html.DisplayNameFor(model => model.MemberId)
             </th> *@
             <th>
                 建立日期
@@ -57,49 +57,49 @@
     </thead>
     <tbody>
         @{
-            int count = 0 ;
+            int count = 0;
             foreach
-            (var item in Model) 
+            (var item in Model)
             {
                 count++;
-        <tr>
-            <td>
-                @count
-            </td>
+                <tr>
+                    <td>
+                        @count
+                    </td>
                     <td class="fixed-width">
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                <img src="~/images/@item.ProductImage" width="90" height="140" />
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.ProductId)
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        <img src="~/images/@item.ProductImage" width="90" height="140" />
+                    </td>
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.ProductId)
             </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDescribe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WishPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.MemberId)
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductDescribe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WishPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.MemberId)
             </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remark)
-            </td>
-            <td>
-                @Html.ActionLink("修改", "Edit", "WishList", new { id = item.WishListId }, new { @class = "btn btn-outline-success" })
-                @Html.ActionLink("刪除", "Delete", "WishList", new { id = item.WishListId },
-                             new { onclick = "return confirm('確定要刪除嗎?')" , @class = "btn btn-outline-danger" })
-            </td>
-        </tr>
-    }
-}
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Remark)
+                    </td>
+                    <td>
+                        @Html.ActionLink("修改", "Edit", "WishList", new { id = item.WishListId }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("刪除", "Delete", "WishList", new { id = item.WishListId },
+                             new { onclick = "return confirm('確定要刪除嗎?')", @class = "btn btn-outline-danger" })
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
