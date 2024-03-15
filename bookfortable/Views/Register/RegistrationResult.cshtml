@@ -1,40 +1,72 @@
 ﻿@model bookfortable.Models.Event
+@using Bookfortable.Models.CLoginDictionary
 @{
-    ViewData["Title"] = "報名結果";
+    ViewData["Title"] = "確認報名";
     Layout = "_FrontLayout";
 }
 <link rel="stylesheet" href="~/css/Eventindex.css" type="text/css" />
 
-<div class="container eventHeader">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">報名結果</h5>
-                    <p>感謝您的報名！您已成功報名以下活動：</p>
-                    <ul>
-                        <li>活動名稱：@Model.EventName</li>
-                        <li>活動日期：@Model.EventDate?.ToString("g")</li>
-                        <li>活動地點：@Model.EventAddress</li>
-                        <!-- 根據需要顯示更多活動信息 -->
-                    </ul>
-                  
-                    <p>如有疑問，請聯繫我們。</p>
-                   
-                    <div class="d-flex justify-content-between align-items-center">
-                        <!-- 使用 Flexbox 來對齊元素 -->
-                        <a href="@Url.Action("List", "Eventfront")" class="btn btn-primary">返回首頁</a>
-                        <!-- 空白的 div 或 span，用來增加間距 -->
-                        <div></div>
-                        <!-- 取消報名按鈕 -->
-                        <form method="post" action="@Url.Action("CancelRegistration", "Register")">
-                            <input type="hidden" name="eventId" value="@Model.EventId" />
-                            <input type="hidden" name="memberId" value="@ViewBag.MemberId" />
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('確定要取消報名嗎？')">取消報名</button>
-                        </form>
+@{
+    //還原member物件
+    string json = CLoginDictionary.getJson(CLoginDictionary.SK_LOGINGED_USER, Context);
+    Member mbr = CLoginDictionary.mDeseliaze(json);
+}
+
+
+@if (mbr != null)
+{
+    <h2>您好!@mbr.MName 確認要報名以下活動嗎?@* @mbr.MMail *@</h2>
+   
+
+    <div class="container eventHeader">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">活動內容</h5>
+
+                        <div class="event-info">
+                            <ul>
+                                <li>活動名稱：@Model.EventName</li>
+                                <li>活動日期：@Model.EventDate?.ToString("g")</li>
+                                <li>活動地點：@Model.EventAddress</li>
+                                <!-- 根據需要顯示更多活動信息 -->
+                            </ul>
+                        </div>
+
+                        <div class="contact-info">
+                            <p>如有疑問，請聯繫我們。</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- 使用 Flexbox 來對齊元素 -->
+                            <a href="@Url.Action("List", "Eventfront")" class="btn btn-primary">返回首頁</a>
+                            <div></div>
+                            <form method="post" action="@Url.Action("RegistrationResult", "Register")">
+                                <input type="hidden" name="eventId" value="@Model.EventId" />
+                                <input type="hidden" name="memberId" value="@ViewBag.MemberId" />
+                                <button type="submit" class="btn btn-purple" onclick="return confirm('感謝您的報名！您已成功報名以下活動')">確認報名</button>
+                            </form>
+
+                            <!-- 空白的 div 或 span，用來增加間距 -->
+                            <div></div>
+                            <!-- 取消報名按鈕 -->
+                            <form method="post" action="@Url.Action("CancelRegistration", "Register")">
+                                <input type="hidden" name="eventId" value="@Model.EventId" />
+                                <input type="hidden" name="memberId" value="@ViewBag.MemberId" />
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('確定要取消報名嗎？')">取消報名</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+   
+}
+else
+{
+   @*  <a asp-action="Login" asp-controller="LogIn" class="btn btn-primary">登入</a> *@
+}
+
+
