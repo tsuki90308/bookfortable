@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using bookfortable.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Bookfortable.Controllers
 {
@@ -11,16 +12,22 @@ namespace Bookfortable.Controllers
 
         public IActionResult Events()
         {
-            return View();
+            FinalContext db = new FinalContext();
+            var datas = from p in db.SingUps select p;
+            return View(datas);
         }
 
         public IActionResult WishList()
         {
-            return View();
+            FinalContext db = new FinalContext();
+            var datas = from p in db.WishLists select p;
+            return View(datas);
         }
         public IActionResult Orders()
         {
-            return View();
+            FinalContext db = new FinalContext();
+            var datas = from p in db.OrderLists select p;
+            return View(datas);
         }
     }
 }
