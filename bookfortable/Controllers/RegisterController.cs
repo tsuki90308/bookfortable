@@ -7,6 +7,9 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Bookfortable.Models.CLoginDictionary;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Http;
 
 namespace Bookfortable.Controllers
 {
@@ -35,12 +38,26 @@ namespace Bookfortable.Controllers
             // 假設其他報名邏輯...
             //報名之前先登入.....,如果沒先註冊會跳轉到註冊頁面
 
+
+            
+
+
             // 如果所有邏輯成功完成，重定向到報名結果頁面
             return RedirectToAction("RegistrationResult", new { eventId = eventId });
         }
 
+    
+
         public IActionResult RegistrationResult(int eventId)
         {
+
+        
+            if (!CLoginDictionary.isLogin(HttpContext))
+            {
+                return RedirectToAction("Login", "LogIn");
+            }
+        
+            
             // 根據 eventId 從數據庫中獲取相應的活動信息
             var @event = _context.Events.FirstOrDefault(e => e.EventId == eventId);
 
@@ -76,7 +93,7 @@ namespace Bookfortable.Controllers
             return View(@event);
         }
 
-     
+        
 
         private void SendMail(Event _event, Member? member)
         {
