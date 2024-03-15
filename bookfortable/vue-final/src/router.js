@@ -3,7 +3,9 @@ import Home from './components/Home.vue';
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';
 import WishList from './components/WishList.vue';
-import Create from './components/Create.vue'
+import Create from './components/Create.vue';
+import AllWishList from './components/AllWishList.vue';
+import WishList2 from './components/WishList2.vue';
 
 const routes = [
   {
@@ -25,6 +27,14 @@ const routes = [
   {
     path:"/create",
     component : Create,
+  },
+  {
+    path:"/allwishlist",
+    component : AllWishList,
+  },
+  {
+    path:"/wishlist2",
+    component : WishList2,
   }
 ];
 
