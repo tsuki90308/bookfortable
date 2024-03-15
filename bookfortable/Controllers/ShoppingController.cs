@@ -227,12 +227,12 @@ namespace Bookfortable.Controllers
         public IActionResult CartView()
         {
             if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
-                return RedirectToAction("List");
+                return RedirectToAction("GenerateBox");
 
             string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             if (cart == null)
-                return RedirectToAction("List");
+                return RedirectToAction("GenerateBox");
             return View(cart);
         }
 
