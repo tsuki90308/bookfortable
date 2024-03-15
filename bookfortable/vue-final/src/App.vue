@@ -128,7 +128,7 @@ const currentYear = new Date().getFullYear();
                   <a href="https://localhost:7174/Eventfront/List">活動</a>
                 </li>
                 <li><a href="/wishlist">願望清單</a></li>
-                <li><a href="/wishlist">聊天室</a></li>
+                <li><a href="/allwishlist">會員列</a></li>
                 <li>
                   <a
                     href="https://localhost:7174/Shopping/List"
