@@ -2,13 +2,14 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace bookfortable.Models;
 
 public partial class Question
 {
     public int QuestionId { get; set; }
-
+    [DisplayName("問題")]
     public string QuestionName { get; set; }
 
     public string QuestionOptions { get; set; }
