@@ -53,7 +53,7 @@ public partial class FinalContext : DbContext
 
     public virtual DbSet<Relation> Relations { get; set; }
 
-    //public virtual DbSet<Result> Results { get; set; }
+    public virtual DbSet<Result> Results { get; set; }
 
     public virtual DbSet<SingUp> SingUps { get; set; }
 
