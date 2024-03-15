@@ -96,19 +96,28 @@ namespace bookfortable.Controllers
             ViewBag.OrderDetail = detail;
 
             cart.Clear();
-            return RedirectToAction("ReviewOrder");
+            return RedirectToAction("ReviewOrder1");
 
         }
 
-        public async Task<IActionResult> ReviewOrder(OrderList odList, OrderDetail odDetail)
+        public async Task<IActionResult> ReviewOrder(OrderList odList, string Oidramd)
         {
             FinalContext db = new FinalContext();
             var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
-            var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
+            var orderDtails = db.OrderDetails.Where(m => m.OrderDetailId == Oidramd).ToList();
+            //var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
 
+            return View(orderDtails);
+        }
 
+        public async Task<IActionResult> ReviewOrder1(OrderList odList, string Oidramd)
+        {
+            FinalContext db = new FinalContext();
+            var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
+            var orderDtails = db.OrderDetails.Where(m => m.OrderDetailId == Oidramd).ToList();
+            //var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
 
-            return View(odList);
+            return View(orderDtails);
         }
 
         private List<CShoppingCartItem> GetOrderItems(string odIDramd)
