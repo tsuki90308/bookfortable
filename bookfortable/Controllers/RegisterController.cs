@@ -1,7 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using bookfortable.Models;
+using Bookfortable.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Bookfortable.Models.CLoginDictionary;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Http;
 
 namespace Bookfortable.Controllers
 {
@@ -28,13 +36,28 @@ namespace Bookfortable.Controllers
             }
 
             // 假設其他報名邏輯...
+            //報名之前先登入.....,如果沒先註冊會跳轉到註冊頁面
+
+
+            
+
 
             // 如果所有邏輯成功完成，重定向到報名結果頁面
             return RedirectToAction("RegistrationResult", new { eventId = eventId });
         }
 
+    
+
         public IActionResult RegistrationResult(int eventId)
         {
+
+        
+            if (!CLoginDictionary.isLogin(HttpContext))
+            {
+                return RedirectToAction("Login", "LogIn");
+            }
+        
+            
             // 根據 eventId 從數據庫中獲取相應的活動信息
             var @event = _context.Events.FirstOrDefault(e => e.EventId == eventId);
 
@@ -45,7 +68,7 @@ namespace Bookfortable.Controllers
             }
             SingUp singUp = new SingUp()//寫入到SQL
             {
-                MemberId = 2,
+                MemberId = 6,
                 EventId = @event.EventId,
                 EventName = @event.EventName,
                 EventDate = @event.EventDate,
@@ -56,14 +79,57 @@ namespace Bookfortable.Controllers
             _context.SingUps.Add(singUp);
             _context.SaveChanges();
 
-            ViewBag.MemberId = 2; //這裡應該要取得登入的會員編號
+            ViewBag.MemberId = 6; //這裡應該要取得登入的會員編號
 
+            //根據會員編號讀取會員資料
+            Member? member = _context.Members.Find(6);
+
+            //報名成功Email通知
+            SendMail(@event, member);
 
             // 假設其他報名結果邏輯...
 
             // 將活動信息傳遞給視圖
             return View(@event);
         }
+
+        
+
+        private void SendMail(Event _event, Member? member)
+        {
+            using (MimeMessage message = new MimeMessage())
+            {
+
+                //從哪裡寄的
+                message.From.Add(new MailboxAddress("書服", "bookfortable@gmail.com"));
+
+                message.To.Add(new MailboxAddress($"{member?.MName}", $"{member?.MMail}"));//抓取Member中的會員資料
+
+                string subject = _event.EventName + " 報名成功";
+
+                message.Subject = subject;
+                //準備內容
+                BodyBuilder builder = new BodyBuilder();
+                builder.HtmlBody = $"<ul><li>活動名稱: {_event.EventName}</li><li>活動時間：{_event.EventDate}</li><li>活動地點:{_event.EventAddress}</li></ul>";
+
+                //內容(Text、Html)
+                message.Body = builder.ToMessageBody();
+
+
+                //mail寄送
+                using (SmtpClient smtp = new SmtpClient())
+                {
+                    smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);//465
+                    smtp.Authenticate("bookfortable@gmail.com", "djjy iyzj fqsb inrn"); //bookfortable6@
+                    smtp.Send(message);
+                    smtp.Disconnect(true);
+                }
+            }
+            
+        }
+
+
+
         //取消報名
         [HttpPost]
         public IActionResult CancelRegistration(int eventId, int memberId)
@@ -117,3 +183,4 @@ namespace Bookfortable.Controllers
 
     }
 }
+

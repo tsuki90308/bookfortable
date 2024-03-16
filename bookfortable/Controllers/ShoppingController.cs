@@ -149,19 +149,23 @@ namespace Bookfortable.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCount(int newCount, decimal newSubtotal)
+        public IActionResult UpdateCartItem(int boxid, int newCount, decimal newSubtotal)
         {
-            CShoppingCartItem item = new CShoppingCartItem
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            var cartitem = cart.Find(i => i.productId == boxid);
+            if (cartitem != null)
             {
-                count = newCount,
-                小計 = newSubtotal
-            };
-
-            // 在这里更新服务器上的数据，例如：item.count = newCount;
+                cartitem.productId = boxid;
+                cartitem.count = newCount;
+                cartitem.小計 = newSubtotal;
+                HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, JsonSerializer.Serialize(cart));
+            }
 
             // 可选：返回任何适当的响应
             return Json(new { success = true, message = "Count updated successfully" });
         }
+
 
         public IActionResult Createbox()
         {
@@ -181,17 +185,23 @@ namespace Bookfortable.Controllers
 
         public IActionResult Deletebox(int? id)
         {
-            if (id != null)
-            {
-                FinalContext db = new FinalContext();
-                TempBox tb = db.TempBoxes.FirstOrDefault(p => p.BoxId == id);
-                if (tb != null)
-                {
-                    db.TempBoxes.Remove(tb);
-                    db.SaveChanges();
-                }
-            }
 
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+            var cartitem = cart.Find(i => i.productId == id);
+            if (cartitem != null)
+            {
+                cart.Remove(cartitem);
+            }
+            HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, JsonSerializer.Serialize(cart));
+
+            FinalContext db = new FinalContext();
+            var TempBox = db.TempBoxes.Where(t => t.BoxId == id).FirstOrDefault();
+            if (TempBox != null)
+            {
+                db.TempBoxes.Remove(TempBox);
+                db.SaveChanges();
+            }
             return RedirectToAction("CartView");
         }
 
@@ -202,29 +212,16 @@ namespace Bookfortable.Controllers
             decimal? discountPrice = 0;
             DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(d => d.DiscountCode.Equals(vm.txtDiscountCode) && d.IsActivate == true);
 
-            //DiscountCodeCart discountcode = (new FinalContext()).DiscountCodeCarts.FirstOrDefault(
-            //    d => d.DiscountCode.Equals(vm.txtDiscountCode) &&
-            //    //d.IsMemberDiscount.Equals(vm.boolIsMemberDiscount) &&
-            //    d.IsActivate.Equals(1)); //&&
-            //d.DiscountPrice.Equals(vm.DiscountPrice));
-
             if (discountcode != null && discountcode.DiscountCode.Equals(vm.txtDiscountCode) && discountcode.IsActivate == true)
             {
                 isValidDiscount = true;
                 discountPrice = discountcode.DiscountPrice;
-
             }
 
             return Content(discountPrice.ToString());
-            //  return Json({ });
-
-            //ViewBag.IsValidDiscount = isValidDiscount;
-            //string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-            //List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-            //if (cart == null)
-            //    return RedirectToAction("List");
-            //return View("CartView", cart);
         }
+
+
 
         //購物車頁首
         public IActionResult CartView()
@@ -232,24 +229,13 @@ namespace Bookfortable.Controllers
             if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
                 return RedirectToAction("GenerateBox");
 
-
             string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             if (cart == null)
                 return RedirectToAction("GenerateBox");
             return View(cart);
-
         }
 
-        //未成為訂單明細的資料
-        public IActionResult checkout()
-        {
-            FinalContext db = new FinalContext();
 
-            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
-            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
-
-            return View("CheckOut");
-        }
     }
 }

@@ -27,7 +27,6 @@ public partial class Event
 
     public string EventImage { get; set; }
 
-
     public virtual EvenType EventTypeNavigation { get; set; }
 
     public virtual Employee EventhostNavigation { get; set; }

@@ -1,8 +1,11 @@
 ﻿using bookfortable.Models;
 using bookfortable.ViewModels;
+using Bookfortable.Models;
 using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace bookfortable.Controllers
 {
@@ -14,6 +17,117 @@ namespace bookfortable.Controllers
         {
             _context = context;
         }
+
+        //客戶端的放這裡
+        public async Task<IActionResult> Checkout(
+            string deliveryWay, string howtopay, decimal resultPrice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail,
+            int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum, string Oidramd)
+        {
+            FinalContext db = new FinalContext();
+            if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
+                return RedirectToAction("Shopping", "List");
+
+            string guid = Guid.NewGuid().ToString();
+            OrderList orderList = new OrderList();
+            orderList.Oidramd = guid;
+            orderList.ShippingMethod = deliveryWay;
+            orderList.PayMethod = howtopay;
+            orderList.DiscountPrice = resultPrice;
+            orderList.OrderTotal = sum;
+            orderList.DiscountCode = txtDiscountCode;
+            orderList.ShippingFeed = shipping;
+            orderList.CustomerName = CustomerName;
+            orderList.CustomerPhone = CustomerPhone;
+            orderList.CustomerEmail = CustomerEmail;
+            orderList.DiscountCode = txtDiscountCode;
+            //db.Add(orderList);
+            db.OrderLists.Add(orderList);
+            db.SaveChanges();
+
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+
+
+            ViewBag.CartItem = cart;
+
+            return View(orderList);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder(OrderList odList)
+        {
+
+            FinalContext db = new FinalContext();
+            string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
+            List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
+
+            var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
+            x.OrderDate = DateTime.Now;
+            x.IsPayed = false;
+            x.CustomerName = odList.CustomerName;
+            x.CustomerPhone = odList.CustomerPhone;
+            x.CustomerEmail = odList.CustomerEmail;
+            x.CustomerAdd1 = odList.CustomerAdd1;
+            x.CustomerAdd2 = odList.CustomerAdd2;
+            x.CustomerAdd3 = odList.CustomerAdd3;
+            x.ShippingName = odList.ShippingName;
+            x.ShippingPhone = odList.ShippingPhone;
+            x.ShippingAdd1 = odList.ShippingAdd1;
+            x.ShippingAdd2 = odList.ShippingAdd2;
+            x.ShippingAdd3 = odList.ShippingAdd3;
+            x.Phinvoice = odList.Phinvoice;
+            //odList.CShoppingCartItems = cart;
+            db.SaveChanges();
+
+            OrderDetail detail = new OrderDetail();
+            foreach (var item in cart)
+            {
+                detail.OrderDetailId = odList.Oidramd;
+                detail.TempBoxId = item.productId;
+                detail.BookTag2string = item.productType;
+                detail.ProductAmount = item.count;
+                detail.Price = item.price;
+            }
+            ViewBag.CartItem = cart;
+            db.OrderDetails.Add(detail);
+            db.SaveChanges();
+            ViewBag.OrderDetail = detail;
+
+            cart.Clear();
+            return RedirectToAction("ReviewOrder");
+
+        }
+
+        public async Task<IActionResult> ReviewOrder(OrderList odList, OrderDetail odDetail)
+        {
+            FinalContext db = new FinalContext();
+            var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
+            var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
+
+
+
+            return View(odList);
+        }
+
+        private List<CShoppingCartItem> GetOrderItems(string odIDramd)
+        {
+            FinalContext db = new FinalContext();
+            var OrderItems = db.OrderDetails.Where(p => p.OrderDetailId == odIDramd).ToList();
+            List<CShoppingCartItem> orderitems = new List<CShoppingCartItem>();
+            foreach (var orderitem in OrderItems)
+            {
+                CShoppingCartItem item = new CShoppingCartItem();
+                item.product = db.TempBoxes.Single(x => x.BoxId == orderitem.TempBoxId);
+                orderitems.Add(item);
+            }
+            return orderitems;
+        }
+
+
+
+
 
         // GET: OrderLists
         public async Task<IActionResult> Index()

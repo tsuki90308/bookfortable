@@ -4,6 +4,8 @@ namespace bookfortable.Models
 {
     public partial class FinalContext : DbContext
     {
+       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -2,19 +2,20 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace bookfortable.Models;
 
 public partial class Result
 {
     public int ResultId { get; set; }
-
+    [DisplayName("描述")]
     public string ResultMsg { get; set; }
-
+    [DisplayName("圖片")]
     public string ResultImg { get; set; }
-
+    [DisplayName("名稱")]
     public string ResultName { get; set; }
-
+    [DisplayName("類別")]
     public string ResultTag { get; set; }
 
     public virtual ICollection<QuestionRecord> QuestionRecords { get; set; } = new List<QuestionRecord>();
