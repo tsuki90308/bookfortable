@@ -1,10 +1,10 @@
-﻿using bookfortable.Models;
-using bookfortable.ViewModels;
+﻿using Bookfortable.Models;
+using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class RelationController : Controller
     {

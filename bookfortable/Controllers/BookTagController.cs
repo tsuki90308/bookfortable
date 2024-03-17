@@ -1,8 +1,8 @@
-﻿using bookfortable.Models;
-using bookfortable.ViewModels;
+﻿using Bookfortable.Models;
+using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class BookTagController : Controller
     {

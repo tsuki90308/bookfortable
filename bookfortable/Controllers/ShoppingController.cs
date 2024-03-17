@@ -1,5 +1,5 @@
 ﻿using Bookfortable.Models;
-using bookfortable.Models;
+using Bookfortable.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;

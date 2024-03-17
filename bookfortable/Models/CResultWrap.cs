@@ -1,4 +1,4 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Bookfortable.Models

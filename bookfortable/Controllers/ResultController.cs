@@ -1,5 +1,5 @@
-﻿using bookfortable.Models;
-using bookfortable.ViewModels;
+﻿using Bookfortable.Models;
+using Bookfortable.ViewModels;
 using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 

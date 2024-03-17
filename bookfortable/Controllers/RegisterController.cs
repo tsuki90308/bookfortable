@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using bookfortable.Models;
+using Bookfortable.Models;
 using Bookfortable.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -101,7 +101,7 @@ namespace Bookfortable.Controllers
             {
 
                 //從哪裡寄的
-                message.From.Add(new MailboxAddress("書服", "bookfortable@gmail.com"));
+                message.From.Add(new MailboxAddress("書服", "Bookfortable@gmail.com"));
 
                 message.To.Add(new MailboxAddress($"{member?.MName}", $"{member?.MMail}"));//抓取Member中的會員資料
 
@@ -120,7 +120,7 @@ namespace Bookfortable.Controllers
                 using (SmtpClient smtp = new SmtpClient())
                 {
                     smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);//465
-                    smtp.Authenticate("bookfortable@gmail.com", "djjy iyzj fqsb inrn"); //bookfortable6@
+                    smtp.Authenticate("Bookfortable@gmail.com", "djjy iyzj fqsb inrn"); //Bookfortable6@
                     smtp.Send(message);
                     smtp.Disconnect(true);
                 }

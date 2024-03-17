@@ -1,4 +1,4 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
@@ -7,7 +7,7 @@ using MailKit.Security;
 
 //using System.Net.Mail;
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class EventfrontController : Controller
     {
@@ -84,7 +84,7 @@ namespace bookfortable.Controllers
         //    using (MimeMessage message = new MimeMessage())
         //    {
         //        //從哪裡寄的
-        //        message.From.Add(new MailboxAddress("書服", "bookfortable@gmail.com")); ////改
+        //        message.From.Add(new MailboxAddress("書服", "Bookfortable@gmail.com")); ////改
         //        //寄給誰
         //        message.To.Add(new MailboxAddress("游雅怡", "tayloryo26@gmail.com")); ////改
         //        //主旨
@@ -103,7 +103,7 @@ namespace bookfortable.Controllers
         //        using (SmtpClient smtp = new SmtpClient())
         //        {
         //            smtp.Connect("smtp.gmail.com", 587,SecureSocketOptions.StartTls);//465
-        //             smtp.Authenticate("bookfortable@gmail.com", "djjy iyzj fqsb inrn"); //bookfortable6@
+        //             smtp.Authenticate("Bookfortable@gmail.com", "djjy iyzj fqsb inrn"); //Bookfortable6@
         //            smtp.Send(message);
         //            smtp.Disconnect(true);
         //        }

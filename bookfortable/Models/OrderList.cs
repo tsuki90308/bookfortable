@@ -4,7 +4,7 @@ using Bookfortable.Models;
 using System;
 using System.Collections.Generic;
 
-namespace bookfortable.Models;
+namespace Bookfortable.Models;
 
 public partial class OrderList
 {

@@ -1,5 +1,5 @@
-using bookfortable.Data;
-using bookfortable.Models;
+using Bookfortable.Data;
+using Bookfortable.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-bookfortable-cdd52866-ff91-4350-8df1-f7e5fd80e9a0</UserSecretsId>
+    <UserSecretsId>aspnet-Bookfortable-cdd52866-ff91-4350-8df1-f7e5fd80e9a0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

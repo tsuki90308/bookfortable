@@ -1,9 +1,9 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class MemberController : Controller
     {

@@ -1,12 +1,12 @@
-﻿using bookfortable.Models;
-using bookfortable.ViewModels;
+﻿using Bookfortable.Models;
+using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 using X.PagedList;
 
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class ProductController : Controller
     {
