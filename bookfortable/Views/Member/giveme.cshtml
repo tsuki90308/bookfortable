@@ -1,18 +1,22 @@
-﻿@model Bookfortable.Models.CMemberWrap
+﻿@model Bookfortable.Models.Member
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "giveme";
 }
 
-<h1>會員資料修改</h1>
+<h1>giveme</h1>
 
-<h4>請輸入會員資料</h4>
+<h4>Member</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
+        <form asp-action="giveme">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden"  name="MemberId" value="@Model.MemberId"/>
+            <div class="form-group">
+                <label asp-for="MemberId" class="control-label"></label>
+                <input asp-for="MemberId" class="form-control" />
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="MAccount" class="control-label"></label>
                 <input asp-for="MAccount" class="form-control" />
@@ -34,9 +38,9 @@
                 <span asp-validation-for="MMail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="File" class="control-label">Choose File</label>
-                <input asp-for="File" type="file" class="form-control" />
-                <span asp-validation-for="File" class="text-danger"></span>
+                <label asp-for="MFilepic" class="control-label"></label>
+                <input asp-for="MFilepic" class="form-control" />
+                <span asp-validation-for="MFilepic" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MCarrier" class="control-label"></label>
@@ -49,16 +53,18 @@
                 <span asp-validation-for="MPoints" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <a asp-action="List" class="btn btn-danger me-3">取消並返回一覽</a><input type="submit" value="送出並儲存" class="btn btn-success" />
+                <label asp-for="MSubscription" class="control-label"></label>
+                <input asp-for="MSubscription" class="form-control" />
+                <span asp-validation-for="MSubscription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-@* <div>
-    <a asp-action="List">取消</a>
-</div> *@
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

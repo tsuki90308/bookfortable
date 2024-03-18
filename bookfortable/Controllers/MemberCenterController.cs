@@ -27,5 +27,6 @@ namespace Bookfortable.Controllers
             var datas = from p in db.SingUps where p.MemberId == id select p;
             return View(datas);
         }
+
     }
 }

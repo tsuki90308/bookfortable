@@ -17,7 +17,7 @@ public partial class Member
 
     public string MMail { get; set; }
 
-    public string MFilepic { get; set; }
+    public byte[] MFilepic { get; set; }
 
     public string MCarrier { get; set; }
 

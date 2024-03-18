@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Web;
 
 namespace Bookfortable.Controllers
 {
@@ -60,11 +61,13 @@ namespace Bookfortable.Controllers
                     return RedirectToAction("List");
                 }
             }
-            return View(mbr);
+            CMemberWrap wrap = new CMemberWrap();
+            wrap.member = mbr;
+            return View(wrap);
         }
 
         [HttpPost]
-        public IActionResult Edit(Member mIn)
+        public IActionResult Edit(CMemberWrap mIn, IFormFile File)
         {
             FinalContext db = new FinalContext();
             Member mEdit = db.Members.FirstOrDefault(p => p.MemberId == mIn.MemberId);
@@ -74,15 +77,46 @@ namespace Bookfortable.Controllers
                 mEdit.MPassword = mIn.MPassword;
                 mEdit.MName = mIn.MName;
                 mEdit.MMail = mIn.MMail;
-                if(mIn.MFilepic != null)
-                    mEdit.MFilepic = mIn.MFilepic;
-                if(mIn.MCarrier != null)
+
+                if (File != null)
+                {
+                    // Convert the uploaded file to a byte array
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        File.CopyTo(ms);
+                        mEdit.MFilepic = ms.ToArray();
+                    }
+                }
+
+                if (mIn.MCarrier != null)
                     mEdit.MCarrier = mIn.MCarrier;
                 mEdit.MPoints = mIn.MPoints;
 
                 db.SaveChanges();
             }
             return RedirectToAction("List");
+        }
+
+        //*** 把資料表裡面的「二進位」內容，還原成圖片檔 ****************************
+        public FileContentResult GetImage(int? id)
+        {
+            FinalContext db = new FinalContext();
+            Member requestedPfp = db.Members.FirstOrDefault(p => p.MemberId == id);
+
+
+            if (requestedPfp != null)
+            {
+                return File(requestedPfp.MFilepic, "image/jpeg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IActionResult giveme()
+        {
+            return View();
         }
     }
 }
