@@ -1,5 +1,5 @@
-﻿using bookfortable.Models;
-using bookfortable.ViewModels;
+﻿using Bookfortable.Models;
+using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Net.NetworkInformation;
 using System.Web;
 
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class EventController : Controller
     {

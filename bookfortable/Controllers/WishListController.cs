@@ -1,10 +1,10 @@
-﻿using bookfortable.Models;
-using bookfortable.ViewModels;
+﻿using Bookfortable.Models;
+using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {   
     public class WishListController : Controller
     {

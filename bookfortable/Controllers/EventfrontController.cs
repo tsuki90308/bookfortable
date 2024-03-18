@@ -1,4 +1,4 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
@@ -7,7 +7,7 @@ using MailKit.Security;
 
 //using System.Net.Mail;
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class EventfrontController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace bookfortable.Models
+namespace Bookfortable.Models
 {
     public class CProductWrap
     {

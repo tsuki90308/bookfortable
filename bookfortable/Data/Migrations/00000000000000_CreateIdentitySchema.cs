@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace bookfortable.Data.Migrations
+namespace Bookfortable.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

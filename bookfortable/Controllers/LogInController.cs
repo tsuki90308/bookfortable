@@ -1,5 +1,4 @@
-﻿using bookfortable.Models;
-using Bookfortable.Models;
+﻿using Bookfortable.Models;
 using Bookfortable.Models.CLoginDictionary;
 using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Mvc;

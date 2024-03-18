@@ -1,11 +1,12 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace bookfortable.Models
+namespace Bookfortable.Models
 {
     public class CMemberWrap
     {
+        public string txtComfirmps {  get; set; }
         #region
         //[Display(Name ="會員流水號")]
         //public object MemberId;

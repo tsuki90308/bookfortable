@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace bookfortable.Models
+namespace Bookfortable.Models
 {
     public class OrderListWrap
     {

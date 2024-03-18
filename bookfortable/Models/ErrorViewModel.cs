@@ -1,4 +1,4 @@
-namespace bookfortable.Models
+namespace Bookfortable.Models
 {
     public class ErrorViewModel
     {
