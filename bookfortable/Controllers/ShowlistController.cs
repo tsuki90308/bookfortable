@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using bookfortable.Models;
 using bookfortable.ViewModels;
 
 namespace Bookfortable.Controllers
 {
-    public class BlogsController : Controller
+    public class ShowlistController : Controller
     {
         private readonly FinalContext _context;
 
-        public BlogsController(FinalContext context)
+        public ShowlistController(FinalContext context)
         {
             _context = context;
         }
 
-        // GET: Blogs
+        // GET: Showlist
         public async Task<IActionResult> Index()
         {
             var blogViewModels = await _context.Blogs
@@ -33,8 +30,7 @@ namespace Bookfortable.Controllers
             return View(blogViewModels);
         }
 
-
-        // GET: Blogs/Details/5
+        // GET: Showlist/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,25 +38,30 @@ namespace Bookfortable.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs
-                .FirstOrDefaultAsync(m => m.BlogId == id);
-            if (blog == null)
+            var blogViewModel = await _context.Blogs
+                .Where(blog => blog.BlogId == id)
+                .Select(blog => new BlogViewModel
+                {
+                    Blog = blog,
+                    BlogImage = _context.BlogImages.FirstOrDefault(bi => bi.BlogId == blog.BlogId)
+                })
+                .ToListAsync();
+
+            if (blogViewModel == null || !blogViewModel.Any())
             {
                 return NotFound();
             }
 
-            return View(blog);
+            return View(blogViewModel);
         }
 
-        // GET: Blogs/Create
+        // GET: Showlist/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Blogs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Showlist/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BlogId,BtagId,BlogTitle,BlogDescription,Hashtag,DateCreated")] Blog blog)
@@ -74,7 +75,7 @@ namespace Bookfortable.Controllers
             return View(blog);
         }
 
-        // GET: Blogs/Edit/5
+        // GET: Showlist/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,9 +91,7 @@ namespace Bookfortable.Controllers
             return View(blog);
         }
 
-        // POST: Blogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Showlist/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BlogId,BtagId,BlogTitle,BlogDescription,Hashtag,DateCreated")] Blog blog)
@@ -107,7 +106,7 @@ namespace Bookfortable.Controllers
                 try
                 {
                     _context.Update(blog);
-                    await _context.SaveChangesAsync(); // 保存更改到数据库
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,7 +124,7 @@ namespace Bookfortable.Controllers
             return View(blog);
         }
 
-        // GET: Blogs/Delete/5
+        // GET: Showlist/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,7 +142,7 @@ namespace Bookfortable.Controllers
             return View(blog);
         }
 
-        // POST: Blogs/Delete/5
+        // POST: Showlist/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -152,9 +151,8 @@ namespace Bookfortable.Controllers
             if (blog != null)
             {
                 _context.Blogs.Remove(blog);
-                await _context.SaveChangesAsync(); // 保存更改到数据库
+                await _context.SaveChangesAsync();
             }
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -162,7 +160,5 @@ namespace Bookfortable.Controllers
         {
             return _context.Blogs.Any(e => e.BlogId == id);
         }
-
-
     }
 }
