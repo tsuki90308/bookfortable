@@ -18,4 +18,6 @@ public partial class Blog
     public string Hashtag { get; set; }
 
     public DateOnly? DateCreated { get; set; }
+
+
 }

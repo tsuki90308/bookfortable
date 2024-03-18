@@ -143,7 +143,7 @@ padding: 0%
                 <img src="/images/0001.png" class="card-img-top" alt="..." style="object-fit: cover; width: 100%; height: 200px;">
                 <div class="card-body">
                     <h5 class="card-title">擊退空虛寂寞凍！無秩序編輯室孤獨也平安書單</h5>
-                    <p class="card-text">聖誕佳節，望見街裡愛人一對對，又係考驗單身狗意志力的時候，不過一眾「毒L們」今年有福了，為此誠意向各位推薦以下「讀L」書單......</p>
+                    <p class="card-text">聖誕佳節，望見街裡愛人一對對，為此誠意向各位推薦以下書單，以書相伴，一個人過聖誕都不怕空虛寂寞凍，反正每個人到最後都會孤獨，倒不如趁聖誕連假多讀點書......</p>
                 </div>
                 <div class="card-footer">
                     <small class="text-body-secondary">更新日期：2024.01.28</small>
@@ -152,51 +152,38 @@ padding: 0%
         </div>
     </div>
     <div style="text-align: center; padding: 30px">
-        <a href="https://p-articles.com/search/%E6%9B%B8%E5%96%AE" class="rounded-button">更多盲盒作品</a>
+        <a asp-controller="Showlist" asp-action="Index" class="rounded-button">更多盲盒作品</a>
     </div>
 </div>
 
 
 
 <!-- 會員訂閱-->
-<div style="border: 0px solid black; margin: 10% 10%">
-    <div style="border: 0px solid black"></div>
-    <img src="images/桌布/心理測驗.png" alt="" style="width: 70%" />
-    <div style="display: flex; justify-content: space-between; height: 70px">
-        <div style="border: 1px solid black; flex: 1">
-            <a asp-controller="Shopping" asp-action="GenerateBox">
-                <button class="button1"
-                        style="
-                width: 100%;
-                height: 100%;
-                border: none;
-                color: #6b705c;
-                background-color: #ffe8d6;
-                font-size: 20px;
-              ">
-                    選購盲盒
-                </button>
-            </a>
+<div style="border: 0px solid black; margin: 0% 10%; position: relative;">
+    <img src="images/桌布/心理測驗.png" alt="" style="width: 70%;" />
 
-        </div>
-        <div style="border: 1px solid black; flex: 1">
-            <a asp-controller="Quiz" asp-action="index">
-                <button class="button1"
-                        style="
-                width: 100%;
-                height: 100%;
-                border: none;
-                color: white;
-                background-color: #a5a58d;
-                font-size: 40px;
-              ">
-                    心理測驗GO!
-                </button>
-            </a>
-
-        </div>
+    <!-- 蓝色圆形按钮 -->
+    <div style="position: absolute; top: 35%; right: 8%; transform: translateY(-30%); text-align: center;">
+        <a asp-controller="Quiz" asp-action="index">
+            <button class="button1" style="
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            background-color: midnightblue;
+            font-size: 60px;
+            padding: 10px; /* 增加内部填充 */
+        ">
+                GO
+            </button>
+        </a>
     </div>
+
+
+    <div style="display: flex; justify-content: space-between; height: 70px;"></div>
 </div>
+
 
 <!-- 某個清單-->
 @* <section class="py-5" id="features">
