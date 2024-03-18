@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace bookfortable.Models;
+namespace Bookfortable.Models;
 
 public partial class Result
 {

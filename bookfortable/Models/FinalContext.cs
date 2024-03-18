@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace bookfortable.Models;
+namespace Bookfortable.Models;
 
 public partial class FinalContext : DbContext
 {

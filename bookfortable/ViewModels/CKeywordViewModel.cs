@@ -1,4 +1,4 @@
-﻿namespace bookfortable.ViewModels
+﻿namespace Bookfortable.ViewModels
 {
     public class CKeywordViewModel
     {

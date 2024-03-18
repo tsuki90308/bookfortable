@@ -1,4 +1,4 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookfortable.Controllers
@@ -9,24 +9,22 @@ namespace Bookfortable.Controllers
         {
             return View();
         }
-
-        public IActionResult Events()
+        public IActionResult Orders()
         {
             FinalContext db = new FinalContext();
-            var datas = from p in db.SingUps select p;
+            var datas = from p in db.OrderLists select p;
             return View(datas);
         }
-
         public IActionResult WishList()
         {
             FinalContext db = new FinalContext();
             var datas = from p in db.WishLists select p;
             return View(datas);
         }
-        public IActionResult Orders()
+        public IActionResult Events()
         {
             FinalContext db = new FinalContext();
-            var datas = from p in db.OrderLists select p;
+            var datas = from p in db.SingUps select p;
             return View(datas);
         }
     }

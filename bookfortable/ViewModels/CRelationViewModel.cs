@@ -1,7 +1,7 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using System.ComponentModel;
 
-namespace bookfortable.ViewModels
+namespace Bookfortable.ViewModels
 {
     public class CRelationViewModel
     {

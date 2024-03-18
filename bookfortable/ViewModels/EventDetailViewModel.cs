@@ -1,6 +1,6 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 
-namespace bookfortable.ViewModels
+namespace Bookfortable.ViewModels
 {
     public class EventDetailViewModel
     {

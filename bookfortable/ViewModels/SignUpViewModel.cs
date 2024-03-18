@@ -1,9 +1,9 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace bookfortable.ViewModels
+namespace Bookfortable.ViewModels
 {
     public class SignUpViewModel
     {

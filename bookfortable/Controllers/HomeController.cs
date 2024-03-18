@@ -1,4 +1,4 @@
-using bookfortable.Models;
+using Bookfortable.Models;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
-namespace bookfortable.Controllers
+namespace Bookfortable.Controllers
 {
     public class HomeController : Controller
     {

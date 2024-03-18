@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using bookfortable.Models;
-using bookfortable.ViewModels;
+using Bookfortable.Models;
+using Bookfortable.ViewModels;
 
 namespace Bookfortable.Controllers
 {
