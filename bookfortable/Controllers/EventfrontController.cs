@@ -1,6 +1,11 @@
 ﻿using bookfortable.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+
+//using System.Net.Mail;
 
 namespace bookfortable.Controllers
 {
@@ -70,6 +75,11 @@ namespace bookfortable.Controllers
             return View();
         }
         public IActionResult Donate()
+        {
+            return View();
+        }
+
+       public IActionResult ContactUs()
         {
             return View();
         }

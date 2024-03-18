@@ -64,9 +64,8 @@ namespace Bookfortable.Models
         //    get { return _tempbox.Member; }
         //    set { _tempbox.Member = value; }
         //}
-        [Required(ErrorMessage = "請輸入數量")]
+        //[Required(ErrorMessage = "請輸入數量")]
         public int txtCount { get; set; }
-        [Required(ErrorMessage = "請選擇類別")]
         public static List<string> chosen { get; set; }
 
         private static List<string> _booktags;

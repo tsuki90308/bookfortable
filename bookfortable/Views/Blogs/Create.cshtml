@@ -1,0 +1,101 @@
+﻿@model bookfortable.Models.Blog
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    h1 {
+        margin-top: 40px; /* 上邊距 */
+        margin-bottom: 20px; /* 下邊距 */
+        margin-left: 10px; /* 左邊距 */
+        margin-right: 40px; /* 右邊距 */
+    }
+</style>
+
+
+<h1>新增文章</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">總覽</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Blogs")">文章列表</a></li>
+        <li class="breadcrumb-item active" aria-current="page">新增文章</li>
+    </ol>
+</nav>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- 使用 col-md-12 將整個表單設置為全寬 -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 使用 col-md-12 將整個表單設置為全寬 -->
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="BlogTitle" class="control-label">文章標題</label>
+                        <input asp-for="BlogTitle" class="form-control" />
+                        <span asp-validation-for="BlogTitle" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="BtagId" class="control-label">分類標籤</label>
+                                <input asp-for="BtagId" class="form-control" />
+                                <span asp-validation-for="BtagId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Hashtag" class="control-label">Hashtag</label>
+                                <input asp-for="Hashtag" class="form-control" />
+                                <span asp-validation-for="Hashtag" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="DateCreated" class="control-label">發布日期</label>
+                                <input asp-for="DateCreated" class="form-control" />
+                                <span asp-validation-for="DateCreated" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="BlogDescription" class="control-label">文章內容</label>
+                        <textarea asp-for="BlogDescription" class="form-control" id="blogDescription"></textarea> <!-- 使用唯一 ID -->
+                        <span asp-validation-for="BlogDescription" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group" style="text-align: right">
+                        <input type="submit" value="儲存新增" class="btn btn-primary" onclick="confirmCreate()" />
+                        <a href="@Url.Action("Index")" class="btn btn-link">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- 正確引用 CKEditor 的腳本 -->
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#blogDescription')) // 使用唯一 ID 初始化編輯器
+        .catch(error => {
+            console.error(error);
+        });
+
+    function confirmCreate() {
+        // 在这里添加新版本的确认逻辑
+        // 确认创建新版本后执行的操作
+    }
+</script>
+

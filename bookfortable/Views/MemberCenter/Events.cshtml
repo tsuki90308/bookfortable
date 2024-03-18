@@ -1,0 +1,111 @@
+﻿@model IEnumerable<bookfortable.Models.SingUp>
+
+@{
+    ViewData["Title"] = "Events";
+    Layout = "_FrontLayout";
+}
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-md-2 h-100">
+            <nav class="navbar navbar-dark bg-dark vh-100 d-flex flex-column justify-content-start align-content-start">
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item w-100">
+                        <a asp-action="Index" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">個人資料</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a asp-action="Orders" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">歷史訂單</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a asp-action="WishList" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">願望清單</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a asp-action="Events" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left active">已報名活動</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-10">
+            <div class="bg-secondary vh-100">
+                <div class="container-fluid p-5">
+                    <h2>已報名活動</h2>
+                    <div class="container w-100">
+                        <div class="mt-2 p-3 flex-column border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)">
+                            <p>
+                                <a asp-action="Create">Create New</a>
+                            </p>
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.SignUpId)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.MemberId)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EventId)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EventName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EventDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EventAddress)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Eventhost)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EventType)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SignUpId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MemberId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventAddress)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Eventhost)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventType)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

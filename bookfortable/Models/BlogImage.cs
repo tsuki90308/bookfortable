@@ -9,7 +9,7 @@ public partial class BlogImage
 {
     public int ImageId { get; set; }
 
-    public int? BlogId { get; set; }
+    public int BlogId { get; set; }
 
     public string ImageTitle { get; set; }
 
