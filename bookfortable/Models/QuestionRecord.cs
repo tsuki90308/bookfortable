@@ -11,8 +11,7 @@ public partial class QuestionRecord
 
     public int? MemberId { get; set; }
 
-    public int? 
-        ResultId { get; set; }
+    public int? ResultId { get; set; }
 
     public DateOnly? Date { get; set; }
 
