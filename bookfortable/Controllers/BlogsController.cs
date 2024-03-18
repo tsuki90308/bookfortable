@@ -49,7 +49,13 @@ namespace Bookfortable.Controllers
                 return NotFound();
             }
 
-            return View(blog);
+            var blogViewModel = new BlogViewModel
+            {
+                Blog = blog,
+                BlogImage = await _context.BlogImages.FirstOrDefaultAsync(bi => bi.BlogId == blog.BlogId)
+            };
+
+            return View(blogViewModel);
         }
 
         // GET: Blogs/Create
@@ -63,7 +69,7 @@ namespace Bookfortable.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BlogId,BtagId,BlogTitle,BlogDescription,Hashtag,DateCreated")] Blog blog)
+        public async Task<IActionResult> Create([Bind("BtagId,BlogTitle,BlogDescription,Hashtag,DateCreated")] Blog blog)
         {
             if (ModelState.IsValid)
             {
@@ -87,17 +93,24 @@ namespace Bookfortable.Controllers
             {
                 return NotFound();
             }
-            return View(blog);
+
+            var blogImage = await _context.BlogImages.FirstOrDefaultAsync(bi => bi.BlogId == blog.BlogId);
+
+            var blogEditViewModel = new BlogEditViewModel
+            {
+                Blog = blog,
+                BlogImage = blogImage
+            };
+
+            return View(blogEditViewModel);
         }
 
         // POST: Blogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BlogId,BtagId,BlogTitle,BlogDescription,Hashtag,DateCreated")] Blog blog)
+        public async Task<IActionResult> Edit(int id, BlogEditViewModel blogEditViewModel)
         {
-            if (id != blog.BlogId)
+            if (id != blogEditViewModel.Blog.BlogId)
             {
                 return NotFound();
             }
@@ -106,12 +119,12 @@ namespace Bookfortable.Controllers
             {
                 try
                 {
-                    _context.Update(blog);
-                    await _context.SaveChangesAsync(); // 保存更改到数据库
+                    _context.Update(blogEditViewModel.Blog);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BlogExists(blog.BlogId))
+                    if (!BlogExists(blogEditViewModel.Blog.BlogId))
                     {
                         return NotFound();
                     }
@@ -122,8 +135,10 @@ namespace Bookfortable.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(blog);
+            return View(blogEditViewModel);
         }
+
+
 
         // GET: Blogs/Delete/5
         public async Task<IActionResult> Delete(int? id)

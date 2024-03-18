@@ -1,62 +1,80 @@
-﻿@model Bookfortable.Models.Blog
+﻿@model bookfortable.ViewModels.BlogEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>修改文章內容</h1>
+<style>
+    h1 {
+        margin-top: 40px; /* 上邊距 */
+        margin-bottom: 20px; /* 下邊距 */
+        margin-left: 10px; /* 左邊距 */
+        margin-right: 40px; /* 右邊距 */
+    }
+</style>
 
-<h4>請輸入修改資訊</h4>
+
+<h1>編輯文章</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">總覽</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Blogs")">文章列表</a></li>
+        <li class="breadcrumb-item active" aria-current="page">編輯文章</li>
+    </ol>
+</nav>
 <hr />
 
 
 <div class="row">
     <div class="col-md-12">
-        <!-- 使用 col-md-12 将整个表单设置为全宽 --><div class="row">
+        <!-- 使用 col-md-12 將整個表單設置為全寬 -->
+        <div class="row">
             <div class="col-md-12">
-                <!-- 使用 col-md-12 将整个表单设置为全宽 -->
+                <!-- 使用 col-md-12 將整個表單設置為全寬 -->
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="BlogId" />
+
+                    <input type="hidden" asp-for="Blog.BlogId" />
 
                     <div class="form-group">
-                        <label asp-for="BlogTitle" class="control-label">文章標題</label>
-                        <input asp-for="BlogTitle" class="form-control" />
-                        <span asp-validation-for="BlogTitle" class="text-danger"></span>
+                        <label asp-for="Blog.BlogTitle" class="control-label">文章標題</label>
+                        <input asp-for="Blog.BlogTitle" class="form-control" />
+                        <span asp-validation-for="Blog.BlogTitle" class="text-danger"></span>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label asp-for="BtagId" class="control-label">分類標籤</label>
-                                <input asp-for="BtagId" class="form-control" />
-                                <span asp-validation-for="BtagId" class="text-danger"></span>
+                                <label asp-for="Blog.BtagId" class="control-label">分類標籤</label>
+                                <input asp-for="Blog.BtagId" class="form-control" />
+                                <span asp-validation-for="Blog.BtagId" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label asp-for="Hashtag" class="control-label">Hashtag</label>
-                                <input asp-for="Hashtag" class="form-control" />
-                                <span asp-validation-for="Hashtag" class="text-danger"></span>
+                                <label asp-for="Blog.Hashtag" class="control-label">Hashtag</label>
+                                <input asp-for="Blog.Hashtag" class="form-control" />
+                                <span asp-validation-for="Blog.Hashtag" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label asp-for="DateCreated" class="control-label">發布日期</label>
-                                <input asp-for="DateCreated" class="form-control" />
-                                <span asp-validation-for="DateCreated" class="text-danger"></span>
+                                <label asp-for="Blog.DateCreated" class="control-label">發布日期</label>
+                                <input asp-for="Blog.DateCreated" class="form-control" />
+                                <span asp-validation-for="Blog.DateCreated" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="BlogDescription" class="control-label">文章內容</label>
-                        <textarea asp-for="BlogDescription" class="form-control" id="blogDescription"></textarea> <!-- 使用唯一 ID -->
-                        <span asp-validation-for="BlogDescription" class="text-danger"></span>
+                        <label asp-for="Blog.BlogDescription" class="control-label">文章內容</label>
+                        <textarea asp-for="Blog.BlogDescription" class="form-control" id="blogDescription"></textarea> <!-- 使用唯一 ID -->
+                        <span asp-validation-for="Blog.BlogDescription" class="text-danger"></span>
                     </div>
 
                     <div class="form-group" style="text-align: right">
-                        <input type="submit" value="儲存更新" class="btn btn-primary" onclick="confirmRenew(@Model.BlogId)" />
+                        <input type="submit" value="儲存編輯" class="btn btn-primary" onclick="confirmEdit()" />
                         <a href="@Url.Action("Index")" class="btn btn-link">取消</a>
                     </div>
                 </form>
@@ -65,7 +83,6 @@
 
     </div>
 </div>
-
 
 <!-- 正確引用 CKEditor 的腳本 -->
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
@@ -76,5 +93,16 @@
         .catch(error => {
             console.error(error);
         });
-</script>
 
+    function confirmEdit() {
+        // 在这里添加确认逻辑
+        if (confirm("確定要儲存編輯嗎？")) {
+            // 如果确认，可以继续提交表单
+            return true;
+        } else {
+            // 如果取消，阻止表单提交
+            return false;
+        }
+    }
+
+</script>
