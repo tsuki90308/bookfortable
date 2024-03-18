@@ -131,18 +131,14 @@
         let price = $('#formControlRange').val();
         let isList = true, isAmount = true, isPrice = true;
         if (list.length <= 0) {
-            // 如果列表為空，阻止表單提交
-            event.preventDefault();
             isList = false;
             $('#tagsAlert').html("*請選擇1~3個。");
         } 
         if (amount <= 0) {
-            event.preventDefault();
             isAmount = false;
             $('#txtCountAlert').html("*請選擇數量");
         }
         if (price <= 0) {
-            event.preventDefault();
             isPrice = false;
             $('#priceRangeAlert').html("*請選擇價格");
         }

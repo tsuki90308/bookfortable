@@ -1,8 +1,11 @@
-﻿@model IEnumerable<Bookfortable.Models.WishList>
+﻿@using Bookfortable.Models.CLoginDictionary
+@model IEnumerable<Bookfortable.Models.WishList>
 
 @{
     ViewData["Title"] = "WishList";
     Layout = "_FrontLayout";
+    string json = CLoginDictionary.getJson(CLoginDictionary.SK_LOGINGED_USER, Context);
+    Member mbr = CLoginDictionary.mDeseliaze(json);
 }
 
 <h1>WishList</h1>
@@ -15,13 +18,13 @@
                         <a asp-action="Index" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">個人資料</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a asp-action="Orders" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">歷史訂單</a>
+                        <a asp-action="Orders" asp-controller="MemberCenter" asp-route-id="@mbr.MemberId" class="btn btn-outline-light btn-block text-left">歷史訂單</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a asp-action="WishList" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left active">願望清單</a>
+                        <a asp-action="WishList" asp-controller="MemberCenter" asp-route-id="@mbr.MemberId" class="btn btn-outline-light btn-block text-left active">願望清單</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a asp-action="Events" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">已報名活動</a>
+                        <a asp-action="Events" asp-controller="MemberCenter" asp-route-id="@mbr.MemberId" class="btn btn-outline-light btn-block text-left">已報名活動</a>
                     </li>
                 </ul>
             </nav>
