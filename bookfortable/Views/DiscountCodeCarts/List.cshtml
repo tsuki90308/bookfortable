@@ -3,12 +3,17 @@
 @{
     ViewData["Title"] = "折扣碼";
 }
-<style>
-    .str1{
-        margin-left:30px;
-        margin-top:10px;
-    }
-</style>
+@section Styles{
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        .str1 {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+    </style>
+}
+
 <div class="str1">
     <h1>折扣碼一覽表</h1>
 </div>
@@ -17,6 +22,7 @@
 <div class="str1">
     <a asp-action="Create">新增折扣碼</a>
 </div>
+
 <div class="str1">
 @using (Html.BeginForm())
 {
@@ -26,8 +32,8 @@
 </div>
 <br />
 <div class="str1">
-<table @* class="table" *@>
-    <thead>
+    <table class="display animated--fade-in" id="Listajax">
+        <thead thead class="badge-brown-3">
         <tr>
             <th>
                 序號
@@ -93,57 +99,101 @@
             foreach (var item in Model)
             {
                 count++;
-                <tr>
-                    <td>
-                        @count
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DiscountCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DiscountType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DiscountStart)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DiscountEnd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsMemberDiscount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsPartnerDiscount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PartnerName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PartnerManager)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PartnerManagerEmail)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PartnerManagerPhone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsActivate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DiscountPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DiscountNote)
-                    </td>
-                    <td>
-                        @Html.ActionLink("修改", "Edit", "DiscountCodeCarts", new { id = item.DiscountId }, null)
-                        @Html.ActionLink("刪除", "Delete", "DiscountCodeCarts", new { id = item.DiscountId }, new { onclick = "return confirm('確定要刪除嗎?')" })
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @count
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiscountCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiscountType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiscountStart)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiscountEnd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsMemberDiscount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsPartnerDiscount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PartnerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PartnerManager)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PartnerManagerEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PartnerManagerPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActivate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiscountPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiscountNote)
+                        </td>
+                        <td>
+                            @Html.ActionLink("修改", "Edit", "DiscountCodeCarts", new { id = item.DiscountId }, null)
+                            @Html.ActionLink("刪除", "Delete", "DiscountCodeCarts", new { id = item.DiscountId }, new { onclick = "return confirm('確定要刪除嗎?')" })
+                        </td>
+                    </tr>
             }
 
 }
     </tbody>
 </table>
 </div>
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script>
+        $(function () {
+            $('.accordion-header').on('click', function () {
+                //重設所有header跟content的狀態
+                //判斷當點擊的header沒有active的樣式時才執行
+                if (!$(this).hasClass("active")) {
+                    $('.accordion-content').slideUp();
+                }
+
+                $('.accordion-header').removeClass("active")
+                $(this).toggleClass("active");
+                $(this).siblings().slideToggle();
+            })
+            $('.accordion-header').first().click();
+        })
+
+
+    </script>
+    <script>
+        new DataTable('#Listajax', {
+            dom: 'Bfrtip',
+            scrollX: true,
+
+            buttons: [
+                {
+                    extend: 'colvis',
+                    collectionLayout: 'fixed columns',
+                    collectionTitle: '欄位顯示設定',
+                    columnText: function (dt, idx, title) {
+                        return (idx + 1) + ': ' + title;
+                    },
+                    postfixButtons: ['colvisRestore']
+                }
+            ]
+        }
+    </script>
+}
