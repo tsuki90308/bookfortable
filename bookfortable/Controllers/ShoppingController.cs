@@ -38,11 +38,12 @@ namespace Bookfortable.Controllers
         [HttpPost]
         public IActionResult GenerateBox(CTempBoxWrap t)
         {
+            FinalContext db = new FinalContext();
             if (ModelState.IsValid)
             {
                 List<string> list = CTempBoxWrap.chosen;
                 string str = string.Empty;//tag2string
-                foreach(string s in list)
+                foreach (string s in list)
                 {
                     int now = list.IndexOf(s);
                     int last = list.Count - 1;
@@ -67,6 +68,15 @@ namespace Bookfortable.Controllers
                 cart.Add(item);
                 json = JsonSerializer.Serialize(cart);
                 HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, json);
+
+                TempBox tb = new TempBox();
+                tb.BookTag2string = t.BookTag2string;
+                tb.PriceRange = t.PriceRange;
+                tb.BuildDate = DateTime.Now;
+                db.Add(tb);
+                db.SaveChanges();
+
+
 
                 return RedirectToAction("GenerateBox");
             }

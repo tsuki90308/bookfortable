@@ -90,6 +90,7 @@ namespace bookfortable.Controllers
                 detail.BookTag2string = item.productType;
                 detail.ProductAmount = item.count;
                 detail.Price = item.price;
+
                 db.OrderDetails.Add(detail);
                 db.SaveChanges();
 
@@ -115,24 +116,6 @@ namespace bookfortable.Controllers
 
             return View(orderDtails);
         }
-
-        private List<CShoppingCartItem> GetOrderItems(string odIDramd)
-        {
-            FinalContext db = new FinalContext();
-            var OrderItems = db.OrderDetails.Where(p => p.OrderDetailId == odIDramd).ToList();
-            List<CShoppingCartItem> orderitems = new List<CShoppingCartItem>();
-            foreach (var orderitem in OrderItems)
-            {
-                CShoppingCartItem item = new CShoppingCartItem();
-                item.product = db.TempBoxes.Single(x => x.BoxId == orderitem.TempBoxId);
-                orderitems.Add(item);
-            }
-            return orderitems;
-        }
-
-
-
-
 
         // GET: OrderLists
         public async Task<IActionResult> Index()

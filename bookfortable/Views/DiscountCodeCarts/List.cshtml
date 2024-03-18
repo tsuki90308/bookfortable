@@ -23,20 +23,13 @@
     <a asp-action="Create">新增折扣碼</a>
 </div>
 
-<div class="str1">
-@using (Html.BeginForm())
-{
-    @:關鍵字 @Html.TextBox("txtKeyword")
-    <input type="submit" value="查詢" />
-}
-</div>
 <br />
 <div class="str1">
     <table class="display animated--fade-in" id="Listajax">
-        <thead thead class="badge-brown-3">
+        <thead class="badge-green-2">
         <tr>
             <th>
-                序號
+                序
             </th>
             <th>
                 折扣代碼
@@ -161,39 +154,21 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
     <script>
-        $(function () {
-            $('.accordion-header').on('click', function () {
-                //重設所有header跟content的狀態
-                //判斷當點擊的header沒有active的樣式時才執行
-                if (!$(this).hasClass("active")) {
-                    $('.accordion-content').slideUp();
-                }
-
-                $('.accordion-header').removeClass("active")
-                $(this).toggleClass("active");
-                $(this).siblings().slideToggle();
-            })
-            $('.accordion-header').first().click();
-        })
-
-
-    </script>
-    <script>
         new DataTable('#Listajax', {
             dom: 'Bfrtip',
-            scrollX: true,
+            "searching": true,
 
             buttons: [
                 {
                     extend: 'colvis',
                     collectionLayout: 'fixed columns',
-                    collectionTitle: '欄位顯示設定',
+                    collectionTitle: '類型搜尋',
                     columnText: function (dt, idx, title) {
                         return (idx + 1) + ': ' + title;
                     },
                     postfixButtons: ['colvisRestore']
                 }
             ]
-        }
+        });
     </script>
 }
