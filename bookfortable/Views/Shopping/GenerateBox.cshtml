@@ -14,7 +14,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         1.<label asp-for="BookTag2string" class="control-label"></label>
-                          <span asp-validation-for="@Bookfortable.Models.CTempBoxWrap.chosen" class="text-danger"></span>
+                          <span asp-validation-for="@Bookfortable.Models.CTempBoxWrap.chosen" class="text-danger" id="tagsAlert"></span>
 
                     </div>
                     <div class="form-group"> @*多選框*@
@@ -25,35 +25,60 @@
                             @{
                                 foreach (string str in Bookfortable.Models.CTempBoxWrap.booktags)
                                 {
-                                     <label class="btn btn-secondary m-1">
-                                     <input type="checkbox" id="@str" name="tags" value="@str" />@str
-                                     </label>
+                                                            <label class="btn btn-secondary m-1">
+                                                                <input type="checkbox" id="@str" name="tags" value="@str" />@str
+                                                            </label>
                                 }
                             }
                         </div>
                     </div>
                     <div class="form-group">
                         2.<label asp-for="PriceRange" class="control-label"></label>
-                        @* <input asp-for="PriceRange" class="form-control" /> *@
-                        <span asp-validation-for="PriceRange" class="text-danger"></span><br />
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary m-1">
-                                <input type="radio" asp-for="PriceRange" value="500"> 500
-                            </label>
-                            <label class="btn btn-secondary m-1">
-                                <input type="radio" asp-for="PriceRange" value="1000"> 1000
-                            </label>
-                            <label class="btn btn-secondary m-1">
-                                <input type="radio" asp-for="PriceRange" value="1500"> 1500
-                            </label>
+                        <span asp-validation-for="PriceRange" id="priceRangeAlert" class="text-danger"></span>
+                        <div class="form-group">
+                            <label for="formControlRange">請選擇價格：</label>
+                            <label class="md-1" id="txtprice"></label>
+                            <input type="range" class="form-control-range" id="formControlRange" value="0" min="0" max="3000" step="100" asp-for="PriceRange" name="priceRange">
                         </div>
+                        @* <div>
+                            <label for="priceRange" class="control-label">請選擇價格：</label>
+                            <select name="priceSelect" title="select">
+                                <option value="0">請選擇價格</option>
+                                @{
+                                    for(var i = 100; i <= 3000; i += 100)
+                                    {
+                                        <option value="@i">@i.ToString()</option>
+                                    }
+                                }
+                            </select>
+                        </div> *@
+                        
+                        @* <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary m-1">
+                                <input type="radio" asp-for="PriceRange" name="priceRange" value="500"> 500
+                            </label>
+                            <label class="btn btn-secondary m-1">
+                                <input type="radio" asp-for="PriceRange" name="priceRange" value="1000"> 1000
+                            </label>
+                            <label class="btn btn-secondary m-1">
+                                <input type="radio" asp-for="PriceRange" name="priceRange" value="1500"> 1500
+                            </label>
+                        </div>  *@
                     </div>
                     <div class="form-group">
-                        3.數量：<input type="text" asp-for="txtCount"></input>
+                        3.數量<span asp-validation-for="txtCount" class="text-danger" id="txtCountAlert"></span>
+                        <br /><input type="button" class="btn btn-secondary" id="btnMinus" value="-"><input type="text" asp-for="txtCount" id="amount" value="0" class="m-1" style="width:20px;text-align:center;"><input type="button" class="btn btn-secondary" id="btnAdd" value="+">
+                        @* <input type="text" asp-for="txtCount" id="amount" value="0" disabled></input> *@
                     </div>
                     <div class="form-group">
                         <a asp-action="CartView">查看購物車</a>
                         <input type="submit" value="加入購物車" class="btn btn-primary" />
+                        <div class="alert alert-success hide" role="alert" style="display:none">
+                            成功加入購物車！
+                        </div>
+                        <div class="alert alert-danger hide" role="alert" style="display:none">
+                            加入購物車失敗
+                        </div>
                     </div>
                 </form>
             </div>
@@ -61,14 +86,10 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     var list = [];
-
+    //已選擇的tag
     $('input[type="checkbox"]').on("click", function () {
         // 切换 active 类
         $(this).toggleClass('active');
@@ -103,5 +124,63 @@
             }
         });
     });
+
+    // 表單提交事件
+    $('form').submit(function (event) {
+        let amount = $('#amount').val();
+        let price = $('#formControlRange').val();
+        let isList = true, isAmount = true, isPrice = true;
+        if (list.length <= 0) {
+            // 如果列表為空，阻止表單提交
+            event.preventDefault();
+            isList = false;
+            $('#tagsAlert').html("*請選擇1~3個。");
+        } 
+        if (amount <= 0) {
+            event.preventDefault();
+            isAmount = false;
+            $('#txtCountAlert').html("*請選擇數量");
+        }
+        if (price <= 0) {
+            event.preventDefault();
+            isPrice = false;
+            $('#priceRangeAlert').html("*請選擇價格");
+        }
+        if (isList && isAmount && isPrice) {
+            $('.alert-danger').hide();
+            alert("成功加入購物車！");
+            // 如果列表不為空，允許表單繼續提交
+            return true;
+        }
+        $('.alert-danger').show();
+        // var alertBox = $('.alert-danger');
+
+        // // 定义定时器，5 秒后执行关闭提示框的操作
+        // var timer = setTimeout(function () {
+        //     // 关闭提示框
+        //     alertBox.close(); // 或者 alertBox.parentNode.removeChild(alertBox);
+        // }, 5000); // 5000 毫秒，即 5 秒
+        return false;
+    });
+
+    //顯示滑桿價格
+    $('#txtprice').html($('#formControlRange').val());
+    $('#formControlRange').on("input", function () {
+        $('#txtprice').html($(this).val());
+    });
+
+    //數量減
+    $('#btnMinus').on('click', function () {
+        var x = parseInt($('#amount').val());
+        if (x > 0) {
+            $('#amount').val(x -= 1);
+        }
+    });
+    //數量加
+    $('#btnAdd').on('click', function () {
+        var x = parseInt($('#amount').val());
+        $('#amount').val(x += 1);
+    });
+
 </script>
 
