@@ -1,4 +1,4 @@
-﻿using bookfortable.Models;
+﻿using Bookfortable.Models;
 using Bookfortable.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
