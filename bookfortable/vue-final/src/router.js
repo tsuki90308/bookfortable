@@ -7,6 +7,7 @@ import Create from './components/Create.vue'
 import AllWishList from './components/AllWishList.vue';
 import WishList2 from './components/WishList2.vue';
 
+
 const routes = [
   {
     path:"/",
