@@ -81,34 +81,39 @@ namespace bookfortable.Controllers
             //odList.CShoppingCartItems = cart;
             db.SaveChanges();
 
-            OrderDetail detail = new OrderDetail();
+
             foreach (var item in cart)
             {
+                OrderDetail detail = new OrderDetail();
                 detail.OrderDetailId = odList.Oidramd;
                 detail.TempBoxId = item.productId;
                 detail.BookTag2string = item.productType;
                 detail.ProductAmount = item.count;
                 detail.Price = item.price;
+                db.OrderDetails.Add(detail);
+                db.SaveChanges();
+
             }
             ViewBag.CartItem = cart;
-            db.OrderDetails.Add(detail);
-            db.SaveChanges();
-            ViewBag.OrderDetail = detail;
+
+
 
             cart.Clear();
-            return RedirectToAction("ReviewOrder");
+            return RedirectToAction("ReviewOrder1", new { odList.Oidramd });
 
         }
 
-        public async Task<IActionResult> ReviewOrder(OrderList odList, OrderDetail odDetail)
+
+
+        //  public async Task<IActionResult> ReviewOrder1(OrderList odList, string Oidramd)
+        public async Task<IActionResult> ReviewOrder1(string Oidramd)
         {
             FinalContext db = new FinalContext();
-            var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
-            var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
+            // var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
+            var orderDtails = db.OrderDetails.Where(m => m.OrderDetailId == Oidramd).ToList();
+            //var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
 
-
-
-            return View(odList);
+            return View(orderDtails);
         }
 
         private List<CShoppingCartItem> GetOrderItems(string odIDramd)
