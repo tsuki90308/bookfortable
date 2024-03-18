@@ -39,16 +39,17 @@
                         <div class="mt-2 p-3 flex-column border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)">
                             <div class="d-flex align-items-center">
                                 <div style="width:100px; height:100px">
-                                    <img src="/img/profile/boy_08.png" class="img-fluid rounded-circle img-thumbnail" />
+                                    <img id="profileImage" src="@(mbr.MFilepic != null ? $"data:image;base64,{Convert.ToBase64String(mbr.MFilepic)}" : "#")" class="img-fluid rounded-circle img-thumbnail" alt="大頭貼" />
                                 </div>
                                 <label for="fileInput" class="btn btn-sm btn-primary ml-3">選擇大頭貼</label>
-                                <input type="file" id="fileInput" class=" btn ml-3" accept="image/png image/jpg" style="display: none;" />
+                                <input asp-for="File" type="file" id="fileInput" class=" btn ml-3" accept="image/png image/jpg" style="display: none;" />
                             </div>
                             
                             <label class="lead">@mbr.MName</label><br />
                             <label class="">帳號：@mbr.MAccount</label><br />
                             <label>密碼：@mbr.MPassword</label><br />
                             <label>信箱：@mbr.MMail</label>
+                            <a asp-action="Edit" asp-route-id="@mbr.MemberId" class="text-dark btn btn-outline-success"></a>
                         </div>
                     </div>
                 </div>
@@ -59,10 +60,17 @@
 <script>
     $(document).ready(function () {
         $('#fileInput').change(function () {
-            var newPic = this.files[0];
-            if (newPic) {
-                var reader = new FileReader();
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var imgElement = document.getElementById('profileImage');
+                imgElement.src = e.target.result;
+            };
+
+            if (selectedFile) {
+                reader.readAsDataURL(selectedFile);
             }
-        })
+        });
     });
 </script>
