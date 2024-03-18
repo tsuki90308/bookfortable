@@ -36,11 +36,18 @@ namespace Bookfortable.Controllers
                 string json = JsonSerializer.Serialize(mbr);
                 HttpContext.Session.SetString(CLoginDictionary.SK_LOGINGED_USER, json);
 
-                // 获取前一页面的 URL
-                string refererUrl = TempData["Referer"].ToString();
-                // 在这里可以根据具体情况进行重定向
-                return Redirect(refererUrl);
-                //return RedirectToAction("Index");
+                if (TempData["Referer"].ToString().Contains("addMember"))//從註冊畫面到登入的話
+                {
+                    return RedirectToAction("Test", "Home");//登入完回首頁
+                }
+                else
+                {
+                    // 获取前一页面的 URL
+                    string refererUrl = TempData["Referer"].ToString();
+                    // 在这里可以根据具体情况进行重定向
+                    return Redirect(refererUrl);
+                    //return RedirectToAction("Index");
+                }
             }
             return View();
         }
