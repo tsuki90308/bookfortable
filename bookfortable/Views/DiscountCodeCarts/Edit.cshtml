@@ -4,13 +4,12 @@
     ViewData["Title"] = "修改折扣碼";
 }
 
-<h1>折扣碼修改畫面</h1>
-
-<h4>修改作業</h4>
+<h1>折扣碼修改</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DiscountId" />
             <div class="form-group">
@@ -20,7 +19,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="DiscountType" class="control-label"></label>
-                <input asp-for="DiscountType" class="form-control" />
+                <select asp-for="DiscountType" class="form-control">
+                    <option value="投廣">投廣</option>
+                    <option value="異業合作">異業合作</option>
+                    <option value="站內廣告">站內廣告</option>
+                    <option value="生日">生日</option>
+                    <option value="會員獎勵">會員獎勵</option>
+                </select>
                 <span asp-validation-for="DiscountType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,13 +40,51 @@
             </div>
             <div class="form-group">
                 <label asp-for="IsMemberDiscount" class="control-label"></label>
-                <input asp-for="IsMemberDiscount" class="form-control" />
-                <span asp-validation-for="IsMemberDiscount" class="text-danger"></span>
+                <br />
+                <span class="form-check">
+                    <input asp-for="IsMemberDiscount" class="form-check-input" type="radio" name="IsMemberDiscount" id="IsMemberDiscount" value="True">
+                    <label class="form-check-label" for="IsMemberDiscount">是</label>
+                </span>
+                <span class="form-check">
+                    <input asp-for="IsMemberDiscount" class="form-check-input" type="radio" name="IsMemberDiscount" id="IsMemberDiscount" value="Fault">
+                    <label class="form-check-label" for="IsMemberDiscount">否</label>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsActivate" class="control-label"></label>
+                <select asp-for="IsActivate" class="form-control">
+                    <option value="True">啟用中</option>
+                    <option value="Fault">終止</option>
+                </select>
             </div>
             <div class="form-group">
+                <label asp-for="DiscountPrice" class="control-label"></label>
+                <input asp-for="DiscountPrice" class="form-control" />
+                <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountNote" class="control-label"></label>
+                <input asp-for="DiscountNote" class="form-control" />
+                <span asp-validation-for="DiscountNote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="儲存修改" class="btn btn-primary" />
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-group">
                 <label asp-for="IsPartnerDiscount" class="control-label"></label>
-                <input asp-for="IsPartnerDiscount" class="form-control" />
-                <span asp-validation-for="IsPartnerDiscount" class="text-danger"></span>
+                <br />
+                <span class="form-check">
+                    <input asp-for="IsPartnerDiscount" class="form-check-input" type="radio" name="IsPartnerDiscount" id="IsPartnerDiscount" value="True">
+                    <label class="form-check-label" for="IsPartnerDiscount">是</label>
+                </span>
+                <span class="form-check">
+                    <input asp-for="IsPartnerDiscount" class="form-check-input" type="radio" name="IsPartnerDiscount" id="IsPartnerDiscount" value="Fault">
+                    <label class="form-check-label" for="IsPartnerDiscount">否</label>
+                </span>
             </div>
             <div class="form-group">
                 <label asp-for="PartnerName" class="control-label"></label>
@@ -63,27 +106,10 @@
                 <input asp-for="PartnerManagerPhone" class="form-control" />
                 <span asp-validation-for="PartnerManagerPhone" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IsActivate" class="control-label"></label>
-                <input asp-for="IsActivate" class="form-control" />
-                <span asp-validation-for="IsActivate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountPrice" class="control-label"></label>
-                <input asp-for="DiscountPrice" class="form-control" />
-                <span asp-validation-for="DiscountPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountNote" class="control-label"></label>
-                <input asp-for="DiscountNote" class="form-control" />
-                <span asp-validation-for="DiscountNote" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="儲存修改" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
+
 
 <div>
     <a asp-action="List">取消</a>

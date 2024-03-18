@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Bookfortable.ViewModels;
+using Bookfortable.Models.CLoginDictionary;
 
 namespace Bookfortable.Controllers
 {
@@ -38,6 +39,7 @@ namespace Bookfortable.Controllers
         [HttpPost]
         public IActionResult GenerateBox(CTempBoxWrap t)
         {
+            FinalContext db = new FinalContext();
             List<string> list = CTempBoxWrap.chosen;
             string str = string.Empty;//tag2string
             foreach (string s in list)
@@ -65,6 +67,14 @@ namespace Bookfortable.Controllers
             cart.Add(item);
             json = JsonSerializer.Serialize(cart);
             HttpContext.Session.SetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST, json);
+
+            TempBox tb = new TempBox();
+            tb.BuildDate = DateTime.Now;
+            tb.PriceRange = t.PriceRange;
+            tb.BookTag2string = str;
+            db.Add(tb);
+            db.SaveChanges();
+
 
             return RedirectToAction("GenerateBox");
             //if (ModelState.IsValid)
@@ -233,6 +243,9 @@ namespace Bookfortable.Controllers
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             if (cart == null)
                 return RedirectToAction("GenerateBox");
+
+
+
             return View(cart);
         }
 

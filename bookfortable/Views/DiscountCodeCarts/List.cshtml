@@ -6,27 +6,23 @@
 @section Styles{
     <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/6da9884828.js" crossorigin="anonymous"></script>
     <style>
         .str1 {
-            margin-left: 30px;
             margin-top: 10px;
+            margin-bottom:10px;
         }
     </style>
 }
 
-<div class="str1">
-    <h1>折扣碼一覽表</h1>
-</div>
+<h1 class="str1" style="color:darkolivegreen; font-weight:bolder; letter-spacing:0.18em;">折扣碼一覽表</h1>
+<a type="button" asp-action="Create" class="btn btn-green-3 str1">新增折扣碼</a>
 
-
-<div class="str1">
-    <a asp-action="Create">新增折扣碼</a>
-</div>
 
 <br />
 <div class="str1">
     <table class="display animated--fade-in" id="Listajax">
-        <thead class="badge-green-2">
+        <thead class="badge-green-3">
         <tr>
             <th>
                 序
@@ -52,8 +48,12 @@
                 @* @Html.DisplayNameFor(model => model.IsMemberDiscount) *@
             </th>
             <th>
-                業配
-                @* @Html.DisplayNameFor(model => model.IsPartnerDiscount) *@
+                狀態
+                @* @Html.DisplayNameFor(model => model.IsActivate) *@
+            </th>
+            <th>
+                折扣價格
+                @* @Html.DisplayNameFor(model => model.DiscountPrice) *@
             </th>
             <th>
                 合作夥伴
@@ -70,14 +70,6 @@
             <th>
                 聯絡人電話
                 @* @Html.DisplayNameFor(model => model.PartnerManagerPhone) *@
-            </th>
-            <th>
-                狀態
-                @* @Html.DisplayNameFor(model => model.IsActivate) *@
-            </th>
-            <th>
-                折扣價格
-                @* @Html.DisplayNameFor(model => model.DiscountPrice) *@
             </th>
             <th>
                 備註
@@ -109,10 +101,31 @@
                             @Html.DisplayFor(modelItem => item.DiscountEnd)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IsMemberDiscount)
+                            @{
+                                if (item.IsMemberDiscount == true)
+                                {
+                                    <text>是</text>
+                                }
+                                else
+                                {
+                                    <text>否</text>
+                                }
+                            }
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IsPartnerDiscount)
+                            @{
+                                if (item.IsActivate == true)
+                                {
+                                    <text>啟用</text>
+                                }
+                                else
+                                {
+                                    <text>終止</text>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiscountPrice)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PartnerName)
@@ -127,17 +140,13 @@
                             @Html.DisplayFor(modelItem => item.PartnerManagerPhone)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IsActivate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DiscountPrice)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.DiscountNote)
                         </td>
                         <td>
-                            @Html.ActionLink("修改", "Edit", "DiscountCodeCarts", new { id = item.DiscountId }, null)
-                            @Html.ActionLink("刪除", "Delete", "DiscountCodeCarts", new { id = item.DiscountId }, new { onclick = "return confirm('確定要刪除嗎?')" })
+                            <a asp-action="Edit" asp-controller="DiscountCodeCarts" asp-route-id="@item.DiscountId" class="btn btn-outline-green-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a asp-action="Delete" asp-controller="DiscountCodeCarts" asp-route-id="@item.DiscountId" class="btn btn-outline-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fa-solid fa-trash-can"></i></a>
+                            @*@Html.ActionLink("修改", "Edit", "DiscountCodeCarts", new { id = item.DiscountId }, null)
+                    @Html.ActionLink("刪除", "Delete", "DiscountCodeCarts", new { id = item.DiscountId }, new { onclick = "return confirm('確定要刪除嗎?')" })*@
                         </td>
                     </tr>
             }

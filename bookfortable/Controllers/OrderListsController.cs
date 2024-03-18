@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Bookfortable.Models.CLoginDictionary;
 
 namespace bookfortable.Controllers
 {
@@ -24,6 +25,10 @@ namespace bookfortable.Controllers
             int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum, string Oidramd)
         {
             FinalContext db = new FinalContext();
+
+            string json1 = CLoginDictionary.getJson(CLoginDictionary.SK_LOGINGED_USER, HttpContext);
+            Member mbr = CLoginDictionary.mDeseliaze(json1);
+
             if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
                 return RedirectToAction("Shopping", "List");
 
@@ -40,7 +45,11 @@ namespace bookfortable.Controllers
             orderList.CustomerPhone = CustomerPhone;
             orderList.CustomerEmail = CustomerEmail;
             orderList.DiscountCode = txtDiscountCode;
-            //db.Add(orderList);
+            if (CLoginDictionary.isLogin(HttpContext))
+            {
+                orderList.MemberId = mbr.MemberId;
+                orderList.IsMember = true;
+            }
             db.OrderLists.Add(orderList);
             db.SaveChanges();
 
@@ -63,6 +72,20 @@ namespace bookfortable.Controllers
             string json = HttpContext.Session.GetString(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST);
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
 
+            foreach (var item in cart)
+            {
+                OrderDetail detail = new OrderDetail();
+                detail.OrderDetailId = odList.Oidramd;
+                //detail.TempBoxId = item.productId;
+                detail.BookTag2string = item.productType;
+                detail.ProductAmount = item.count;
+                detail.Price = item.price;
+                db.OrderDetails.Add(detail);
+                db.SaveChanges();
+
+            }
+            ViewBag.CartItem = cart;
+
             var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
             x.OrderDate = DateTime.Now;
             x.IsPayed = false;
@@ -81,24 +104,6 @@ namespace bookfortable.Controllers
             //odList.CShoppingCartItems = cart;
             db.SaveChanges();
 
-
-            foreach (var item in cart)
-            {
-                OrderDetail detail = new OrderDetail();
-                detail.OrderDetailId = odList.Oidramd;
-                detail.TempBoxId = item.productId;
-                detail.BookTag2string = item.productType;
-                detail.ProductAmount = item.count;
-                detail.Price = item.price;
-
-                db.OrderDetails.Add(detail);
-                db.SaveChanges();
-
-            }
-            ViewBag.CartItem = cart;
-
-
-
             cart.Clear();
             return RedirectToAction("ReviewOrder1", new { odList.Oidramd });
 
@@ -110,8 +115,22 @@ namespace bookfortable.Controllers
         public async Task<IActionResult> ReviewOrder1(string Oidramd)
         {
             FinalContext db = new FinalContext();
-            // var x = db.OrderLists.First(x => x.Oidramd == odList.Oidramd);
+
+            var orderList = db.OrderLists.First(r => r.Oidramd == Oidramd);
+            ViewBag.Oidramd = orderList.Oidramd;
+            ViewBag.OrderDate = orderList.OrderDate;
+            ViewBag.CustomerEmail = orderList.CustomerEmail;
+            ViewBag.DiscountPrice = orderList.DiscountPrice;
+            ViewBag.OrderTotal = orderList.OrderTotal;
+            ViewBag.ShippingFeed = orderList.ShippingFeed;
+            ViewBag.ShippingAdd1 = orderList.ShippingAdd1;
+            ViewBag.ShippingAdd2 = orderList.ShippingAdd2;
+            ViewBag.ShippingAdd3 = orderList.ShippingAdd3;
+            ViewBag.ShippingName = orderList.ShippingName;
+            ViewBag.ShippingPhone = orderList.ShippingPhone;
+
             var orderDtails = db.OrderDetails.Where(m => m.OrderDetailId == Oidramd).ToList();
+
             //var y = db.OrderDetails.First(y => y.OrderDetailId == odDetail.OrderDetailId);
 
             return View(orderDtails);

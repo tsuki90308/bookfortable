@@ -3,62 +3,127 @@
 @{
     ViewData["Title"] = "ReviewOrder1";
     Layout = "_FrontLayout";
+    // 从ViewBag中获取List
+    
+    // var orderList = ViewBag.OrderList as List<bookfortable.Models.OrderList>;
 }
+@section Styles {
+     <style>
+        #cart-titile{
+            text-align:center;
+        }
 
-<h1>ReviewOrder1</h1>
+        #cart-titile p{
+            color: lightgray;
+            font-size:17px;
+        }
+        .b-part{
+            letter-spacing:7px;
+        }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@{
+        .b-tight{
+            letter-spacing: -1px;
+        }
 
+        #cart-titile .URhere {
+            color:dimgray;
+            font-weight:bolder;
+        }
 
+        .confirm-box{
+            
+            display: flex;
+            /* 水平置中 */
+            justify-content: center;
+            /* 垂直置中 */
+            align-content: center;
+            flex-wrap: wrap;
+        }
+
+        .center-parent {
+            border: solid 1px lightgray;
+            border-radius:10px;
+            width: 1200px;
+        }
+
+        .small-g{
+            color: lightgray;
+            font-size: 15px;
+        }
+     </style>
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDetailId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookTag2string)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TempBox)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDetailId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookTag2string)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TempBox.BoxId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Odid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Odid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Odid">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<br />
+<br />
+<div id="cart-titile">
+    <p>
+        <a class="b-part">&emsp;購物車&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part">&emsp;訂單資料&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part URhere">&emsp;訂單完成&emsp;</a>
+    </p>
+</div>
+<br />
+<br />
+
+<div class="confirm-box ">
+    <div class="center-parent">
+        <div style="margin:20px; font-size:medium; letter-spacing:2px;">
+            <strong>訂單編號: @ViewBag.Oidramd</strong>
+            <div class="small-g">
+                <p>@ViewBag.OrderDate</p>
+            </div>
+        </div>
+        <div style="margin:35px;">
+            <table class="table" id="cart-titile">
+                <thead>
+                    <tr>
+                        <th>
+                            盲盒偏好
+                        </th>
+                        <th>
+                            數量
+                        </th>
+                        <th>
+                            單價
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookTag2string)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div style="text-align:right;">
+                <p style="color:salmon;">折扣: -@ViewBag.DiscountPrice</p>
+                <p>總計: @ViewBag.OrderTotal</p>
+            </div>
+            <hr />
+            <br />
+            <div>
+                <p>訂購人E-mail : @ViewBag.CustomerEmail</p>
+                <p>收件人姓名 : @ViewBag.ShippingName</p>
+                <p>收件人電話 : @ViewBag.ShippingPhone</p>
+                <p>收件人地址 : @ViewBag.ShippingAdd1 @ViewBag.ShippingAdd2 @ViewBag.ShippingAdd3</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+
