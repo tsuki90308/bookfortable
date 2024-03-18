@@ -1,0 +1,54 @@
+﻿@model IEnumerable<bookfortable.ViewModels.BlogViewModel>
+
+@{
+    Layout = "_FrontLayout";
+}
+
+<style>
+    /* 自定义样式 */
+    .container {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .truncated-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<h1>Index</h1>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <img src="@item.BlogImage?.ImagePath" alt="@item.Blog.BlogTitle" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Blog.BlogTitle</h5>
+                        <p class="card-text truncated-text">@item.Blog.BlogDescription.Substring(0, Math.Min(100, @item.Blog.BlogDescription.Length))</p>
+                        <p class="card-text">Hashtag: @item.Blog.Hashtag</p>
+                        <a href="@Url.Action("Details", new { id = item.Blog.BlogId })" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    // 确保文本超过50个字符时将其截断并添加省略号
+    document.addEventListener("DOMContentLoaded", function () {
+        var elements = document.querySelectorAll('.truncated-text');
+        elements.forEach(function (element) {
+            if (element.textContent.length >= 100) {
+                element.textContent = element.textContent.substring(0, 100) + '...';
+            }
+        });
+    });
+</script>

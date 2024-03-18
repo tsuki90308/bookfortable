@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 namespace bookfortable.Models;
 
-
 public partial class Member
 {
     public int MemberId { get; set; }

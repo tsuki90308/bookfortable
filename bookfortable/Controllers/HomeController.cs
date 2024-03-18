@@ -30,6 +30,11 @@ namespace bookfortable.Controllers
             return View("Test");
         }
 
+        public IActionResult Intro()
+        {
+
+            return View("Intro");
+        }
 
 
         public IActionResult Privacy()
