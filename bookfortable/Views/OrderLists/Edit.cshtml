@@ -30,12 +30,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="IsMember" class="control-label"></label>
-                <input asp-for="IsMember" class="form-control" />
-                <span asp-validation-for="IsMember" class="text-danger"></span>
+                <br />
+                <span class="form-check">
+                    <input asp-for="IsMember" class="form-check-input" type="radio" name="IsMemberDiscount" id="IsMemberDiscount" value="True">
+                    <label class="form-check-label" for="IsMemberDiscount">是</label>
+                </span>
+                <span class="form-check">
+                    <input asp-for="IsMember" class="form-check-input" type="radio" name="IsMemberDiscount" id="IsMemberDiscount" value="Fault">
+                    <label class="form-check-label" for="IsMemberDiscount">否</label>
+                </span>
             </div>
             <div class="form-group">
                 <label asp-for="MemberId" class="control-label"></label>
-                <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
+                <input asp-for="MemberId" class="form-control" />
                 <span asp-validation-for="MemberId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,8 +52,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="IsPayed" class="control-label"></label>
-                <input asp-for="IsPayed" class="form-control" />
-                <span asp-validation-for="IsPayed" class="text-danger"></span>
+                <select asp-for="IsPayed" class="form-control">
+                    <option value="True">已付款</option>
+                    <option value="Fault">尚未付款</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="OrderTotal" class="control-label"></label>
@@ -60,18 +69,34 @@
             </div>
             <div class="form-group">
                 <label asp-for="OrderState" class="control-label"></label>
-                <input asp-for="OrderState" class="form-control" />
-                <span asp-validation-for="OrderState" class="text-danger"></span>
+                <select asp-for="OrderState" class="form-control">
+                    <option value="訂單成立">訂單成立</option>
+                    <option value="檢貨中">檢貨中</option>
+                    <option value="已出貨">已出貨</option>
+                    <option value="訂單完成">訂單完成</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="ShippingMethod" class="control-label"></label>
-                <input asp-for="ShippingMethod" class="form-control" />
-                <span asp-validation-for="ShippingMethod" class="text-danger"></span>
+                <select asp-for="ShippingMethod" class="form-control">
+                    <option value="宅配">宅配</option>
+                    <option value="7-11純取貨">7-11純取貨</option>
+                    <option value="7-11取貨付款">7-11取貨付款</option>
+                    <option value="郵局i郵箱">郵局i郵箱</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Is711Pay" class="control-label"></label>
-                <input asp-for="Is711Pay" class="form-control" />
-                <span asp-validation-for="Is711Pay" class="text-danger"></span>
+                <br />
+                <span class="form-check">
+                    <input asp-for="Is711Pay" class="form-check-input" type="radio" name="Is711Pay" id="Is711Pay" value="True">
+                    <label class="form-check-label" for="Is711Pay">是</label>
+                </span>
+                <span class="form-check">
+                    <input asp-for="Is711Pay" class="form-check-input" type="radio" name="Is711Pay" id="Is711Pay" value="Fault">
+                    <label class="form-check-label" for="Is711Pay">否</label>
+                </span>
+                
             </div>
             <div class="form-group">
                 <label asp-for="Store711" class="control-label"></label>
@@ -150,8 +175,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="PayMethod" class="control-label"></label>
-                <input asp-for="PayMethod" class="form-control" />
-                <span asp-validation-for="PayMethod" class="text-danger"></span>
+                <br />
+                <span class="form-check">
+                    <input asp-for="PayMethod" class="form-check-input" type="radio" name="PayMethod" id="PayMethod" value="信用卡">
+                    <label class="form-check-label" for="PayMethod">信用卡</label>
+                </span>
+                <span class="form-check">
+                    <input asp-for="PayMethod" class="form-check-input" type="radio" name="PayMethod" id="PayMethod" value="ATM轉帳">
+                    <label class="form-check-label" for="Is711Pay">ATM轉帳</label>
+                </span>
+                <span class="form-check">
+                    <input asp-for="PayMethod" class="form-check-input" type="radio" name="PayMethod" id="PayMethod" value="LINE PAY">
+                    <label class="form-check-label" for="PayMethod">LINE PAY</label>
+                </span>
+                <span class="form-check">
+                    <input asp-for="PayMethod" class="form-check-input" type="radio" name="PayMethod" id="PayMethod" value="7-11取貨付款">
+                    <label class="form-check-label" for="Is711Pay">7-11取貨付款</label>
+                </span>
             </div>
             <div class="form-group">
                 <label asp-for="DiscountCode" class="control-label"></label>

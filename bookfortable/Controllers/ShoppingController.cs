@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Bookfortable.ViewModels;
+using Bookfortable.Models.CLoginDictionary;
 
 namespace Bookfortable.Controllers
 {
@@ -233,6 +234,9 @@ namespace Bookfortable.Controllers
             List<CShoppingCartItem> cart = JsonSerializer.Deserialize<List<CShoppingCartItem>>(json);
             if (cart == null)
                 return RedirectToAction("GenerateBox");
+
+
+
             return View(cart);
         }
 

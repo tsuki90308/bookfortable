@@ -249,7 +249,8 @@
                                 <!--刪除-->
                                 @*<!--<a href="@Url.Action("Deletebox")?id=@item.product.BoxId" class="btn btn-danger" onclick="return confirm('確定刪除?')">刪除</a>-->
                                 <!--<button class="btn btn-info" onclick="confirmDelete('@Url.Action("Deletebox", new { })')"><i class="fas fa-trash"></i></button>-->
-                                *@<a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
+                                *@
+                                <a asp-action="Deletebox" asp-controller="Shopping" asp-route-id="@item.productId" class="link-delete btn btn-danger" onclick="return confirm('確定要刪除嗎?')"><i class="fas fa-trash"></i></a>
                             </td>
                             <td>
                                 <span id="BoxId" name="BoxId" style="display: none;">@Html.DisplayFor(modelItem => item.product.BoxId)</span>
@@ -281,15 +282,15 @@
         <fieldset class="col">
             <legend>購買人基本資料</legend>
             <div class="formst1">
-                <label class="st1" for="CustomerName">姓名</label>
+                <label class="st1" for="CustomerName" id="CustomerName" name="CustomerName">姓名</label>
                 <input class="form-control" type="text" id="CustomerName" name="CustomerName" required />
             </div>
             <div class="formst1">
-                <label class="st1" for="CustomerPhone">電話</label>
+                <label class="st1" for="CustomerPhone" id="CustomerPhone" name="CustomerPhone">電話</label>
                 <input class="form-control" type="text" id="CustomerPhone" name="CustomerPhone" required />
             </div>
             <div class="formst1">
-                <label class="st1" for="CustomerEmail">電郵</label>
+                <label class="st1" for="CustomerEmail" id="CustomerEmail" name="CustomerEmail">電郵</label>
                 <input class="form-control" type="email" id="CustomerEmail" name="CustomerEmail" required />
             </div>
         </fieldset>
@@ -330,26 +331,26 @@
                 </td>
                 <td class="left">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="信用卡">
-                        <label class="form-check-label" for="">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="信用卡" checked>
+                        <label class="form-check-label" for="howtopay">
                             信用卡
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="ATM轉帳" checked>
-                        <label class="form-check-label" for="">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="ATM轉帳">
+                        <label class="form-check-label" for="howtopay">
                             ATM轉帳
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="LINE PAY">
-                        <label class="form-check-label" for="">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="賴配">
+                        <label class="form-check-label" for="howtopay">
                             LINE PAY
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="7-11取貨付款">
-                        <label class="form-check-label" for="">
+                        <input class="form-check-input" type="radio" name="howtopay" id="howtopay" value="取貨付款">
+                        <label class="form-check-label" for="howtopay">
                             7-11取貨付款
                         </label>
                     </div>
