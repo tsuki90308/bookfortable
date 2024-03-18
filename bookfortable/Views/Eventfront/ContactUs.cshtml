@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "聯絡我們";
+    Layout = "_FrontLayout";
+}
+<link rel="stylesheet" href="~/css/Eventindex.css" type="text/css" />
+
+<title>聯絡我們</title>
+<div class="eventHeader">
+    @*  <h1 class="title">書服-活動列表</h1> *@
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Eventfront")">首頁</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("List", "Eventfront")">活動列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("ContactUs", "Eventfront")">聯絡我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("AboutUs", "Eventfront")">關於我們</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Fans", "Eventfront")">月月寵粉</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Donate", "Eventfront")">公益捐書</a>
+        </li>
+    </ul>
+</div>
+
+<style>
+    /* 在這裡添加你的CSS樣式，用來美化聯絡我們畫面 */
+    /* 這裡只是一個簡單的示例 */
+    .contact-form {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+    <div class="contact-form">
+        <h2>聯絡我們</h2>
+        <p>您也可以直接發送電子郵件至 <a href="mailto:Bookfortable@gmail.com">Bookfortable@gmail.com</a>。</p>
+        <form id="contactForm">
+            <input type="text" id="name" name="name" placeholder="您的姓名" required>
+            <input type="text" id="email" name="email" placeholder="您的郵箱" required>
+            <textarea id="message" name="message" placeholder="您的訊息" rows="4" required></textarea>
+            <input type="submit" value="送出">
+        </form>
+    </div>
+
+    <script>
+        // 使用JavaScript來在使用者提交表單時進行處理
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // 防止表單直接提交
+
+            // 在這裡可以寫上JavaScript代碼，處理表單的提交
+
+            // 這裡只是一個簡單的示例，你可以根據需要進行擴展
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var message = document.getElementById("message").value;
+
+            // 在這裡可以將資料送至後端處理，或者做其他的操作
+            // 這裡只是一個簡單的示例，你可以根據需要進行修改
+            console.log("姓名: " + name);
+            console.log("郵箱: " + email);
+            console.log("訊息: " + message);
+
+            // 清空表單
+            document.getElementById("contactForm").reset();
+        });
+    </script>
+

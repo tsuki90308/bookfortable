@@ -1,7 +1,6 @@
-﻿@model Bookfortable.Models.OrderList
+﻿
+@model IEnumerable<Bookfortable.Models.OrderDetail>
 @{
-    var detail = ViewBag.OrderDetail as Bookfortable.Models.OrderDetail;
-    var orderitem = ViewBag.orderItems;
 }
 @{
     ViewData["Title"] = "ReviewOrder";
@@ -25,9 +24,6 @@
 <br />
 @{
     <div>測試!!!</div>
-    <label asp-for="Oidramd">訂單隨機碼</label>
-    <input asp-for="Oidramd" class="form-control" />
-    <div>@Html.DisplayFor(model => model.Oidramd)</div>
 
 }
 <div>

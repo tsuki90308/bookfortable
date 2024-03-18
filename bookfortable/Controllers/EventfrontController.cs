@@ -79,36 +79,9 @@ namespace Bookfortable.Controllers
             return View();
         }
 
-        //public IActionResult EmailTest()
-        //{
-        //    using (MimeMessage message = new MimeMessage())
-        //    {
-        //        //從哪裡寄的
-        //        message.From.Add(new MailboxAddress("書服", "Bookfortable@gmail.com")); ////改
-        //        //寄給誰
-        //        message.To.Add(new MailboxAddress("游雅怡", "tayloryo26@gmail.com")); ////改
-        //        //主旨
-        //        message.Subject = "報名成功通知";
-
-        //        //準備內容
-        //        BodyBuilder builder = new BodyBuilder();
-        //        builder.HtmlBody = "<h2>活動名稱</h2><ul><li>活動日期:2024/3/29</li><li>活動時間：09:00-12:00</li><li>地址:高雄市...</li></ul>";
-
-
-        //        //內容(Text、Html)
-        //        message.Body = builder.ToMessageBody();
-
-
-        //        //mail寄送
-        //        using (SmtpClient smtp = new SmtpClient())
-        //        {
-        //            smtp.Connect("smtp.gmail.com", 587,SecureSocketOptions.StartTls);//465
-        //             smtp.Authenticate("Bookfortable@gmail.com", "djjy iyzj fqsb inrn"); //Bookfortable6@
-        //            smtp.Send(message);
-        //            smtp.Disconnect(true);
-        //        }
-        //    }
-        //    return Ok();
-        //}
+       public IActionResult ContactUs()
+        {
+            return View();
+        }
     }
 }

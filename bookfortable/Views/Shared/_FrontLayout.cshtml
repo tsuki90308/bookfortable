@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="~/css/style.css" type="text/css">
 
     @await RenderSectionAsync("Styles", required: false)
+    
 
 </head>
 
@@ -124,7 +125,7 @@
                                 </ul> *@
                             </li>
                             @*<li><a href="./blog.html">聊天室</a></li>*@
-                            <li><a asp-controller="Shopping" asp-action="List">購物車</a></li>
+                           @*  <li><a asp-controller="Shopping" asp-action="List">購物車</a></li> *@
                         </ul>
                     </nav>
                 </div>
@@ -132,12 +133,15 @@
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
                         <a href="#"><img src="~/img/icon/heart.png" alt=""></a>
-                        
+                        <a href="#"></a>
+                        @* <a href="#"></a> *@
                     </div>
                 </div>
             </div>
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
+
+
     </header>
     <!-- Header Section End -->
     <div>
@@ -175,22 +179,22 @@
                         <div class="footer__logo">
                             <a href="#"><img src="~/img/footer-logo.png" alt=""></a>
                         </div>
-                        <p>The customer is at the heart of our unique business model, which includes design.</p>
+                        <p style ="color: white;">嗨！我是網站盲盒，你的線上探險夥伴，準備帶你探索網路的無限可能性！</p>
                         <a href="#"><img src="~/img/payment.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Shopping</h6>
+                    <div class="footer__widget" >
+                        <h6><a href="#"><span style="color:saddlebrown;">首頁</span></a></h6>
                         <ul>
-                            <li><a href="#">Clothing Store</a></li>
-                            <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li>
+                            <li><a href="#"><span style="color: white;">測驗</span></a></li>
+                            <li><a href="#"><span style="color: white;">活動</span></a></li>
+                            <li><a href="#"><span style="color: white;">願望清單</span></a></li>
+                            @* <li><a href="#"></a></li> *@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
+               @*  <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="footer__widget">
                         <h6>Shopping</h6>
                         <ul>
@@ -200,12 +204,12 @@
                             <li><a href="#">Return & Exchanges</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> *@
                 <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
                     <div class="footer__widget">
-                        <h6>NewLetter</h6>
+                        <h6 style ="color:saddlebrown">最新消息</h6>
                         <div class="footer__newslatter">
-                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                            <p style="color:white">快來參加我們的二手書交換活動！請攜帶您不需要的書籍，與他人分享閱讀樂趣。日期、時間、地點如下。歡迎踴躍參與！</p>
                             <form action="#">
                                 <input type="text" placeholder="Your email">
                                 <button type="submit"><span class="icon_mail_alt"></span></button>

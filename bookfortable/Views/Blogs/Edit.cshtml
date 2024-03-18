@@ -4,48 +4,77 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>修改文章內容</h1>
 
-<h4>Blog</h4>
+<h4>請輸入修改資訊</h4>
 <hr />
+
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BlogId" />
-            <div class="form-group">
-                <label asp-for="BtagId" class="control-label"></label>
-                <input asp-for="BtagId" class="form-control" />
-                <span asp-validation-for="BtagId" class="text-danger"></span>
+    <div class="col-md-12">
+        <!-- 使用 col-md-12 将整个表单设置为全宽 --><div class="row">
+            <div class="col-md-12">
+                <!-- 使用 col-md-12 将整个表单设置为全宽 -->
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="BlogId" />
+
+                    <div class="form-group">
+                        <label asp-for="BlogTitle" class="control-label">文章標題</label>
+                        <input asp-for="BlogTitle" class="form-control" />
+                        <span asp-validation-for="BlogTitle" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="BtagId" class="control-label">分類標籤</label>
+                                <input asp-for="BtagId" class="form-control" />
+                                <span asp-validation-for="BtagId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Hashtag" class="control-label">Hashtag</label>
+                                <input asp-for="Hashtag" class="form-control" />
+                                <span asp-validation-for="Hashtag" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="DateCreated" class="control-label">發布日期</label>
+                                <input asp-for="DateCreated" class="form-control" />
+                                <span asp-validation-for="DateCreated" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="BlogDescription" class="control-label">文章內容</label>
+                        <textarea asp-for="BlogDescription" class="form-control" id="blogDescription"></textarea> <!-- 使用唯一 ID -->
+                        <span asp-validation-for="BlogDescription" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group" style="text-align: right">
+                        <input type="submit" value="儲存更新" class="btn btn-primary" onclick="confirmRenew(@Model.BlogId)" />
+                        <a href="@Url.Action("Index")" class="btn btn-link">取消</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="BlogTitle" class="control-label"></label>
-                <input asp-for="BlogTitle" class="form-control" />
-                <span asp-validation-for="BlogTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BlogDescription" class="control-label"></label>
-                <input asp-for="BlogDescription" class="form-control" />
-                <span asp-validation-for="BlogDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hashtag" class="control-label"></label>
-                <input asp-for="Hashtag" class="form-control" />
-                <span asp-validation-for="Hashtag" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<!-- 正確引用 CKEditor 的腳本 -->
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#blogDescription')) // 使用唯一 ID 初始化編輯器
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 

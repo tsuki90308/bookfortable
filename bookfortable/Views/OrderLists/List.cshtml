@@ -1,12 +1,30 @@
 ﻿@model IEnumerable<Bookfortable.Models.OrderList>
 
 @{
-    ViewData["Title"] = "訂單";
+    ViewData["Title"] = "訂單管理";
 }
 @section Styles {
     <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
     <style>
+        details{
+            width:90%;
+            margin-right: 3%;
+            margin-left: 3%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            height: 80px;
+        }
+        summary{
+            padding:10px;
+            background-color:aliceblue;
+            
+        }
+        .st-stong{
+            font-size:large;
+            font-weight:bolder;
+        }
+
         .accordion {
             max-width: 100%;
             width: 70%;
@@ -82,113 +100,100 @@
     </style>
 }
 
-<h1>訂單一覽表</h1>
+<h4>訂單管理</h4>
 
-<p>
-    <a asp-action="Create">新增訂單</a>
-</p>
-<div class="accordion" style="width:100%">
-    @foreach (var item in Model)
-    {
-        <div class="accordion-item">
-            <p class="accordion-header">
-                @* 單號-成立訂單時間 *@
-                @Html.DisplayFor(modelItem => item.Oidramd) &ensp; ( @Html.DisplayFor(modelItem => item.OrderDate) ) &ensp;&ensp;&ensp;
-                <br />
+@foreach(var i in Model)
+{
+    <details>
+        <summary>
+            &ensp;&ensp;<span class="st-stong">訂單編號: @Html.DisplayFor(modelItem => i.Oidramd)</span> &ensp;
+            (
+            @{
+                if (i.ShippingMethod == "郵局i郵箱" && i.IsPayed == false)
+                {
+                    <text>郵寄 - 待付款</text>
+                }
+                else if (i.ShippingMethod == "郵局i郵箱" && i.IsPayed == true)
+                {
+                    <text>郵寄 - 已付款</text>
+                }
+                else if (i.ShippingMethod == "宅配" && i.IsPayed == false)
+                {
+                    <text>宅配 - 待付款</text>
+                }
+                else if (i.ShippingMethod == "宅配" && i.IsPayed == true)
+                {
+                    <text>宅配 - 已付款</text>
+                }
+                else if (i.ShippingMethod == "7-11純取貨" && i.IsPayed == false)
+                {
+                    <text>7-11純取貨 - 待付款</text>
+                }
+                else if (i.ShippingMethod == "7-11純取貨" && i.IsPayed == true)
+                {
+                    <text>7-11純取貨 - 已付款</text>
+                }
+                else if (i.ShippingMethod == "7-11取貨付款")
+                {
+                    <text>7-11取貨付款</text>
+                }
+            }
+            )&ensp;&ensp;
+
+            @{
+                if (i.PayMethod == "信用卡")
+                {
+                    <button>信用卡</button>
+                }
+                else if (i.PayMethod == "ATM轉帳")
+                {
+                    <button>ATM轉帳</button>
+                }
+                else if (i.PayMethod == "LINE PAY")
+                {
+                    <button>LINE PAY</button>
+                }
+                else if (i.PayMethod == "7-11取貨付款")
+                {
+                    <button>7-11取貨付款</button>
+                }
+            }
+            <span style="float:right;">
                 @{
-                    if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "0")
+                    if (i.PayMethod == "7-11取貨付款")
                     {
-                        <text>郵寄 - 待付款</text>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-info">檢貨</button>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-secondary">修改</button>
+                        <button asp-action="Delete" asp-route-id="@i.Oid" class="btn btn-secondary">刪除</button>
                     }
-                    else if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "1")
+                    if (i.PayMethod == "信用卡")
                     {
-                        <text>郵寄 - 已付款</text>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-info">檢貨</button>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-secondary">修改</button>
+                        <button asp-action="Delete" asp-route-id="@i.Oid" class="btn btn-secondary">刪除</button>
                     }
-                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "0")
+                    if (i.PayMethod == "ATM轉帳")
                     {
-                        <text>7-11純取貨 - 待付款</text>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-info">檢貨</button>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-secondary">修改</button>
+                        <button asp-action="Delete" asp-route-id="@i.Oid" class="btn btn-secondary">刪除</button>
                     }
-                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "1")
+                    if (i.PayMethod == "LINE PAY")
                     {
-                        <text>7-11純取貨 - 已付款</text>
-                    }
-                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "1")
-                    {
-                        <text>7-11取貨付款</text>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-info">檢貨</button>
+                        <button asp-action="Edit" asp-route-id="@i.Oid" class="btn btn-secondary">修改</button>
+                        <button asp-action="Delete" asp-route-id="@i.Oid" class="btn btn-secondary">刪除</button>
                     }
                 }
-                
-                @{
-                    //郵寄-已付款
-                    if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "1")
-                    {
-                        <span style="margin-left:auto;">
-                            <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
-                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
-                        </span>
-                    }
-                    //郵寄-待付款
-                    else if (item.ShippingMethod == "郵寄" && item.IsPayed.ToString() == "0")
-                    {
-                        <span style="margin-left:auto;">
-                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
-                        </span>
-                    }
-                    //7-11純取-待付款
-                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "0")
-                    {
-                        <span style="margin-left:auto;">
-                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
-                        </span>
-                    }
-                    //7-11純取-已付款
-                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "0" && item.IsPayed.ToString() == "1")
-                    {
-                        <span style="margin-left:auto;">
-                            <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
-                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
-                        </span>
-                    }
-                    //7-11取貨付款
-                    else if (item.ShippingMethod == "7-11" && item.Is711Pay.ToString() == "1")
-                    {
-                        <span style="margin-left:auto;">
-                            <a asp-action="Edit" asp-route-id="@item.Oid">檢貨</a>
-                            <a asp-action="Edit" asp-route-id="@item.Oid">修改</a>
-                            <a asp-action="Delete" asp-route-id="@item.Oid">刪除</a>
-                        </span>
-                    }
-                }
+            </span>
+           
+            <br />
+            &ensp;&ensp;&ensp;&ensp;<span>訂單成立時間: @Html.DisplayFor(modelItem => i.OrderDate)</span>
+        </summary>
+        <p>我們的使命是提供高品質的產品和服務，滿足客戶的需求。</p>
+    </details>
+}
 
-            </p>
-
-            <div class="accordion-content">
-                <p>
-                    @{
-                        if (item.IsMember.ToString() == "1")
-                        {
-                            <text>會員ID: </text>
-                        }
-                        else
-                        {
-                            <text>訪客</text>
-                        }
-                    }
-                    &ensp; 訂單詳情: @Html.DisplayFor(modelItem => item.OrderDetailId)
-                    &ensp; 訂單金額: @Html.DisplayFor(modelItem => item.OrderTotal)
-                </p>
-                <p>
-                    駁二藝術特區的前身為高雄港倉庫，建於1973年，過去儲放魚粉與砂糖，隨著產業轉型，一度遭遺忘閒置；直到2000年高雄市政府因尋找國慶煙火施放地點的機緣下，才讓這些舊倉庫起死回生、開創新生命，見證高雄港的繁華、沒落、再起與轉型。
-                </p>
-            </div>
-        </div>
-    }
-
-    </div>
 
 <table class="display animated--fade-in" id="Listajax">
     <thead class="badge-brown-3">
