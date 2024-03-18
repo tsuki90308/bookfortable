@@ -20,8 +20,8 @@ namespace bookfortable.Controllers
 
         //客戶端的放這裡
         public async Task<IActionResult> Checkout(
-            string deliveryWay, string howtopay, decimal resultPrice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail,
-            int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum, string Oidramd)
+    string deliveryWay, string howtopay, decimal resultPrice, decimal sum, string txtDiscountCode, decimal shipping, string CustomerName, string CustomerPhone, string CustomerEmail,
+    int TempBoxId, string BookTag2string, int ProductAmount, decimal singileitemsum, string Oidramd)
         {
             FinalContext db = new FinalContext();
             if (!HttpContext.Session.Keys.Contains(CShoppingDictionary.SK_PURCHASED_PRODUCTS_LIST))
@@ -90,6 +90,7 @@ namespace bookfortable.Controllers
                 detail.BookTag2string = item.productType;
                 detail.ProductAmount = item.count;
                 detail.Price = item.price;
+
                 db.OrderDetails.Add(detail);
                 db.SaveChanges();
 

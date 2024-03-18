@@ -95,10 +95,9 @@ const currentYear = new Date().getFullYear();
             <div class="col-lg-6 col-md-5">
               <div class="header__top__right">
                 <div class="header__top__links">
-                  <a href="#">登入</a>
+                  <a href="#">登出</a>
                   <a href="#">提問</a>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -116,27 +115,16 @@ const currentYear = new Date().getFullYear();
           <div class="col-lg-6 col-md-6">
             <nav class="header__menu mobile-menu">
               <ul>
-                <li class="active">
-                  <a
-                    href="https://localhost:7174/Quiz/index"
-                    asp-controller="Quiz"
-                    asp-action="index"
-                    >測驗</a
-                  >
+                <li>
+                  <a href="https://localhost:7174/Shopping/GenerateBox"
+                    >選購盲盒</a>
                 </li>
+                <li><a href="https://localhost:7174/Quiz/index">測驗</a></li>
                 <li>
                   <a href="https://localhost:7174/Eventfront/List">活動</a>
                 </li>
                 <li><a href="/wishlist">願望清單</a></li>
                 <li><a href="/allwishlist">會員列</a></li>
-                <li>
-                  <a
-                    href="https://localhost:7174/Shopping/List"
-                    src="./img/icon/search.png"
-                    alt=""
-                    >購物車</a
-                  >
-                </li>
               </ul>
             </nav>
           </div>

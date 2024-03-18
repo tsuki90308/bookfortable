@@ -4,7 +4,7 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
+<h1>報名結果清單</h1>
 
 <p>
     <a asp-action="Create"></a>
@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Event)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Member)
+                @Html.DisplayNameFor(model => model.Mname)
             </th> *@
            @*  <th></th> *@
         </tr>
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Event.EventId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Member.MAccount)
+                @Html.DisplayFor(modelItem => item.Member.MName)
             </td>
             <td>
                
