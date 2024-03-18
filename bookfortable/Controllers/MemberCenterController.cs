@@ -9,23 +9,27 @@ namespace Bookfortable.Controllers
         {
             return View();
         }
-        public IActionResult Orders()
+        public IActionResult Orders(int? id)
         {
             FinalContext db = new FinalContext();
-            var datas = from p in db.OrderLists select p;
+            var datas = from p in db.OrderLists where p.MemberId == id select p;
             return View(datas);
         }
-        public IActionResult WishList()
+        public IActionResult WishList(int? id)
         {
             FinalContext db = new FinalContext();
-            var datas = from p in db.WishLists select p;
+            var datas = from p in db.WishLists where p.MemberId == id select p;
             return View(datas);
         }
-        public IActionResult Events()
+        public IActionResult Events(int? id)
         {
             FinalContext db = new FinalContext();
-            var datas = from p in db.SingUps select p;
+            var datas = from p in db.SingUps where p.MemberId == id select p;
             return View(datas);
+        }
+        public IActionResult Eidt(int? id)
+        {
+            return View();
         }
     }
 }

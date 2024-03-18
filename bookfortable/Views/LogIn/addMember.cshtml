@@ -14,32 +14,35 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="MAccount" class="control-label"></label>
-                        <input asp-for="MAccount" class="form-control" />
-                        <span asp-validation-for="MAccount" class="text-danger"></span>
+                        <input asp-for="MAccount" class="form-control" id="MAccount" />
+                        <span asp-validation-for="MAccount" class="text-danger" id="MAccountAlert"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="MPassword" class="control-label"></label>
-                        <input asp-for="MPassword" class="form-control" />
-                        <span asp-validation-for="MPassword" class="text-danger"></span>
+                        <input type="password" asp-for="MPassword" class="form-control" id="MPassword" />
+                        <span asp-validation-for="MPassword" class="text-danger" id="MPasswordAlert"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="txtComfirmps" class="control-label"></label>
-                        <input asp-for="txtComfirmps" class="form-control" />
-                        <span asp-validation-for="txtComfirmps" class="text-danger"></span>
+                        <label class="control-label">確認密碼</label>
+                        <input type="password" asp-for="txtComfirmps" class="form-control" id="txtComfirmps" />
+                        <span asp-validation-for="txtComfirmps" class="text-danger" id="txtComfirmpsAlert"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="MName" class="control-label"></label>
-                        <input asp-for="MName" class="form-control" />
-                        <span asp-validation-for="MName" class="text-danger"></span>
+                        <input asp-for="MName" class="form-control" id="MName" />
+                        <span asp-validation-for="MName" class="text-danger" id="MNameAlert"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="MMail" class="control-label"></label>
-                        <input asp-for="MMail" class="form-control" />
-                        <span asp-validation-for="MMail" class="text-danger"></span>
+                        <input asp-for="MMail" class="form-control" id="MMail" />
+                        <span asp-validation-for="MMail" class="text-danger" id="MMailAlert"></span>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-0 vol-md-10 row justify-content-center">
                             <a asp-action="Login" class="btn btn-danger me-3">返回</a><input type="submit" value="註冊" class="btn btn-success" />
+                        </div>
+                        <div class="alert alert-danger hide" role="alert" style="display:none">
+                            註冊會員失敗
                         </div>
                     </div>
                 </form>
@@ -53,3 +56,49 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
  *@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    // 表單提交事件
+    $('form').submit(function (event) {
+        var txtAccount = $('#MAccount').val();
+        var txtPw = $('#MPassword').val();
+        var txtcfPw = $('#txtComfirmps').val();
+        var txtName = $('#MName').val();
+        var txtMail = $('#MMail').val();
+        let isA = true, isP = true, isC = true, isN = true, isM = true;
+        if (txtAccount.length <= 0 || txtAccount == null) {
+            isA = false;
+            $('#MAccountAlert').html("*請輸入帳號");
+        }
+        if (txtPw.length <= 0 || txtPw == null) {
+            isP = false;
+            $('#MPasswordAlert').html("*請輸入密碼");
+        }
+        if (txtcfPw != txtPw) {
+            isC = false;
+            $('#txtComfirmpsAlert').html("*請確認密碼前後一致");
+        }
+        if (txtName.length <= 0 || txtName == null) {
+            isN = false;
+            $('#MNameAlert').html("*請輸入姓名");
+        }
+        if (txtMail.length <= 0 || txtMail == null) {
+            isM = false;
+            $('#MMailAlert').html("*請輸入密碼");
+        }
+
+        //是否通過驗證
+        if (isA && isP && isC && isN && isM) {
+            $('.alert-danger').hide();
+            alert("成功註冊會員！");
+            // 如果列表不為空，允許表單繼續提交
+            return true;
+        }
+        else {
+            event.preventDefault();
+            $('.alert-danger').show();
+            return false;
+        }
+        
+    });
+</script>

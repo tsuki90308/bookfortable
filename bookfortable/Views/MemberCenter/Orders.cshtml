@@ -1,11 +1,13 @@
-﻿@model IEnumerable<Bookfortable.Models.OrderList>
+﻿@using Bookfortable.Models.CLoginDictionary
+@model IEnumerable<Bookfortable.Models.OrderList>
 
 @{
     ViewData["Title"] = "Orders";
     Layout = "_FrontLayout";
+    string json = CLoginDictionary.getJson(CLoginDictionary.SK_LOGINGED_USER, Context);
+    Member mbr = CLoginDictionary.mDeseliaze(json);
 }
 
-<h1>Orders</h1>
 <div class="container-fluid">
     <div class="row no-gutters">
         <div class="col-md-2 h-100">
@@ -15,13 +17,13 @@
                         <a asp-action="Index" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">個人資料</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a asp-action="Orders" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left active">歷史訂單</a>
+                        <a asp-action="Orders" asp-controller="MemberCenter" asp-route-id="@mbr.MemberId" class="btn btn-outline-light btn-block text-left active">歷史訂單</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a asp-action="WishList" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">願望清單</a>
+                        <a asp-action="WishList" asp-controller="MemberCenter" asp-route-id="@mbr.MemberId" class="btn btn-outline-light btn-block text-left">願望清單</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a asp-action="Events" asp-controller="MemberCenter" class="btn btn-outline-light btn-block text-left">已報名活動</a>
+                        <a asp-action="Events" asp-controller="MemberCenter" asp-route-id="@mbr.MemberId" class="btn btn-outline-light btn-block text-left">已報名活動</a>
                     </li>
                 </ul>
             </nav>
@@ -32,9 +34,6 @@
                     <h2>歷史訂單</h2>
                     <div class="container w-100">
                         <div class="mt-2 p-3 flex-column border border-10 rounded-lg" style="background-color: rgba(245, 245, 245, 0.7)">
-                            <p>
-                                <a asp-action="Create">Create New</a>
-                            </p>
                             <table class="table table-responsive">
                                 <thead>
                                     <tr>

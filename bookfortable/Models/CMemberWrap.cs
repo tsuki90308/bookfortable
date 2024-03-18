@@ -73,7 +73,7 @@ namespace Bookfortable.Models
             set { _member.MMail = value; }
         }
         [DisplayName("大頭貼")]
-        public string MFilepic
+        public byte[] MFilepic
         {
             get { return _member.MFilepic; }
             set { _member.MFilepic = value; }
@@ -91,5 +91,6 @@ namespace Bookfortable.Models
             set { _member.MPoints = value; }
         }
         #endregion
+        public IFormFile File { get;set; }
     }
 }
