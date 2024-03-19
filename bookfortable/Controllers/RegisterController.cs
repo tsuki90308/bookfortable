@@ -66,9 +66,11 @@ namespace Bookfortable.Controllers
                 // 如果找不到相應的活動，返回 NotFound 結果
                 return NotFound();
             }
+                string json = CLoginDictionary.getJson(CLoginDictionary.SK_LOGINGED_USER, HttpContext);
+                Member mbr = CLoginDictionary.mDeseliaze(json);
             SingUp singUp = new SingUp()//寫入到SQL
             {
-                MemberId = 6,
+                MemberId = mbr.MemberId,
                 EventId = @event.EventId,
                 EventName = @event.EventName,
                 EventDate = @event.EventDate,

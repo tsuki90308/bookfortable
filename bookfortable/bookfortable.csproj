@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\SignUpViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Result\Create.cshtml" />
     <None Include="Views\Result\Edit.cshtml" />
     <None Include="Views\Result\List.cshtml" />

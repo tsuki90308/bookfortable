@@ -19,7 +19,13 @@ public class SignUpController : Controller
     //根據會員編號帶出會員報名的資料
     public IActionResult List()
     {
-        List<SingUp> signUps = _db.SingUps.ToList();
+        var signUps = from signUp in _db.SingUps
+                      join member in _db.Members on signUp.MemberId equals member.MemberId
+                      select new SignUpViewModel
+                      {
+                          SingUp = signUp,
+                          MemberName = member.MName,
+                      };
         return View(signUps);
     }
 
