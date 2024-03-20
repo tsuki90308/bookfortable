@@ -25,7 +25,7 @@ namespace Bookfortable.Controllers
             var orderList = db.OrderLists.First(r => r.Oidramd == Oidramd);
             var orderId = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
             //需填入你的網址
-            var website = $"https://localhost:7174";
+            var website = $"https://oursoft.app/bookfortable";
             var order = new Dictionary<string, string>
             {
                 { "MerchantTradeNo",  orderId},
