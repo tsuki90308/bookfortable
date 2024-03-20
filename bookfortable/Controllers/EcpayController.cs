@@ -31,8 +31,8 @@ namespace Bookfortable.Controllers
         public string AddOrders(get_localStorage json)
         {
             FinalContext db = new FinalContext();
-            EcpayOrders Orders = new EcpayOrders();
-            Orders.MemberID = json.MerchantID;
+            EcpayOrder Orders = new EcpayOrder();
+            Orders.MemberId = json.MerchantID;
             Orders.MerchantTradeNo = json.MerchantTradeNo;
             Orders.RtnCode = 0; //未付款
             Orders.RtnMsg = "訂單成功尚未付款";
@@ -43,7 +43,7 @@ namespace Bookfortable.Controllers
             Orders.PaymentTypeChargeFee = "0";
             Orders.TradeDate = json.MerchantTradeDate;
             Orders.SimulatePaid = 0;
-            db.EcpayOrders.Add(Orders);
+            db.EcpayOrder.Add(Orders);
             db.SaveChanges();
             return "OK";
         }

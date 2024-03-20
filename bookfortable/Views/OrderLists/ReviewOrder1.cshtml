@@ -118,6 +118,9 @@
                 <p>收件人電話 : @ViewBag.ShippingPhone</p>
                 <p>收件人地址 : @ViewBag.ShippingAdd1 @ViewBag.ShippingAdd2 @ViewBag.ShippingAdd3</p>
             </div>
+            <div style="text-align:right;">
+                <button class="btn btn-info b-part" onclick="location.href='@Url.Action("Index", "Payment")'">付款</button>
+            </div>
         </div>
         
     </div>
