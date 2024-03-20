@@ -19,8 +19,10 @@ namespace Bookfortable.Controllers
     //step1 : 網頁導入傳值到前端
     public class PaymentController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string Oidramd)
         {
+            FinalContext db = new FinalContext();
+            var orderList = db.OrderLists.First(r => r.Oidramd == Oidramd);
             var orderId = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
             //需填入你的網址
             var website = $"https://localhost:7174";
@@ -28,16 +30,16 @@ namespace Bookfortable.Controllers
             {
                 { "MerchantTradeNo",  orderId},
                 { "MerchantTradeDate",  DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")},
-                { "TotalAmount",  "222"},
-                { "TradeDesc",  "無"},
-                { "ItemName",  "書服盲盒開市"},
-                { "ExpireDate",  "3"},
-                { "CustomField1",  ""},
-                { "CustomField2",  ""},
+                { "TotalAmount", ((int)orderList.OrderTotal).ToString()},
+                { "TradeDesc", "無"},
+                { "ItemName", "書服盲盒商品一批"},
+                { "ExpireDate", "3"},
+                { "CustomField1", Oidramd},
+                { "CustomField2",  orderList.CustomerName},
                 { "CustomField3",  ""},
                 { "CustomField4",  ""},
                 { "ReturnURL",  $"{website}/api/Ecpay/AddPayInfo"},
-                { "OrderResultURL", $"{website}/"},
+                { "OrderResultURL", $"{website}/Payment/success"},
                 { "PaymentInfoURL",  $"{website}/api/Ecpay/AddAccountInfo"},
                 { "ClientRedirectURL",  $"{website}/Payment/AccountInfo/{orderId}"},
                 { "MerchantID",  "3002607"},
@@ -123,6 +125,9 @@ namespace Bookfortable.Controllers
 
             return result.ToString();
         }
-
+        public IActionResult success()
+        {
+            return View();
+        }
     }
 }
