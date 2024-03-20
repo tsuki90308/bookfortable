@@ -41,15 +41,15 @@
                                 <div style="width:100px; height:100px">
                                     <img id="profileImage" src="@(mbr.MFilepic != null ? $"data:image;base64,{Convert.ToBase64String(mbr.MFilepic)}" : "#")" class="img-fluid rounded-circle img-thumbnail" alt="大頭貼" />
                                 </div>
-                                <label for="fileInput" class="btn btn-sm btn-primary ml-3">選擇大頭貼</label>
-                                <input asp-for="File" type="file" id="fileInput" class=" btn ml-3" accept="image/png image/jpg" style="display: none;" />
+                                @* <label for="fileInput" class="btn btn-sm btn-primary ml-3">選擇大頭貼</label> *@
+                                @* <input asp-for="File" type="file" id="fileInput" class=" btn ml-3" accept="image/png image/jpg" style="display: none;" /> *@
                             </div>
                             
                             <label class="lead">@mbr.MName</label><br />
                             <label class="">帳號：@mbr.MAccount</label><br />
-                            <label>密碼：@mbr.MPassword</label><br />
+                            <label>密碼：@for (int i = 0; i < @mbr.MPassword.Length; i++) {<span>*</span> }</label><br />
                             <label>信箱：@mbr.MMail</label>
-                            <a asp-action="Edit" asp-route-id="@mbr.MemberId" class="text-dark btn btn-outline-success"></a>
+                            <br /><a asp-action="FrontEidt" asp-route-id="@mbr.MemberId" class="text-dark btn btn-outline-success">修改會員資料</a>
                         </div>
                     </div>
                 </div>
