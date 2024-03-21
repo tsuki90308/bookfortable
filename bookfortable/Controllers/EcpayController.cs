@@ -1,18 +1,21 @@
-﻿using Bookfortable.Models;
-using Bookfortable.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using bookfortable.ViewModels;
+using Bookfortable.Models;
+using Bookfortable.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using bookfortable.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
-
-
 
 namespace Bookfortable.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-
     public class EcpayController : ControllerBase
     {
         private readonly IMemoryCache _memoryCache;
@@ -22,14 +25,14 @@ namespace Bookfortable.Controllers
             _memoryCache = memoryCache;
         }
 
-        FinalContext db = new FinalContext();
-        //step4 : 新增訂單
+
         [HttpPost]
         [Route("api/Ecpay/AddOrders")]
         public string AddOrders(get_localStorage json)
         {
-            EcpayOrders Orders = new EcpayOrders();
-            Orders.MemberID = json.MerchantID;
+            FinalContext db = new FinalContext();
+            EcpayOrder Orders = new EcpayOrder();
+            Orders.MemberId = json.MerchantID;
             Orders.MerchantTradeNo = json.MerchantTradeNo;
             Orders.RtnCode = 0; //未付款
             Orders.RtnMsg = "訂單成功尚未付款";
@@ -40,25 +43,9 @@ namespace Bookfortable.Controllers
             Orders.PaymentTypeChargeFee = "0";
             Orders.TradeDate = json.MerchantTradeDate;
             Orders.SimulatePaid = 0;
-            //db.EcpayOrders.Add(Orders);
+            db.EcpayOrder.Add(Orders);
             db.SaveChanges();
             return "OK";
-        }
-        // HomeController->Index->ReturnURL所設定的
-        [HttpPost]
-        [Route("api/Ecpay/AddPayInfo")]
-        public HttpResponseMessage AddPayInfo(JObject info)
-        {
-            try
-            {
-                var cache = _memoryCache;
-                cache.Set(info.Value<string>("MerchantTradeNo"), info, DateTime.Now.AddMinutes(60));
-                return ResponseOK();
-            }
-            catch (Exception e)
-            {
-                return ResponseError();
-            }
         }
         // HomeController->Index->PaymentInfoURL所設定的
         [HttpPost]

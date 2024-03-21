@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "success";
+    Layout = "_FrontLayout";
+}
+<link rel="stylesheet" href="/css/heart.css">
+    <style>
+        #cart-titile {
+            text-align: center;
+        }
+
+            #cart-titile p {
+                color: lightgray;
+                font-size: 17px;
+            }
+
+        .b-part {
+            letter-spacing: 7px;
+        }
+
+        .b-tight {
+            letter-spacing: -1px;
+        }
+
+        #cart-titile .URhere {
+            color: dimgray;
+            font-weight: bolder;
+        }
+
+        .confirm-box {
+            display: flex;
+            /* 水平置中 */
+            justify-content: center;
+            /* 垂直置中 */
+            align-content: center;
+            flex-wrap: wrap;
+        }
+
+        .center {
+            text-align: center;
+            justify-content: center;
+            /* 垂直置中 */
+            align-content: center;
+            flex-wrap: wrap;
+            letter-spacing: 0.13em;
+        }
+    </style>
+
+<br />
+<br />
+<div id="cart-titile">
+    <p>
+        <a class="b-part">&emsp;購物車&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part">&emsp;訂購資料&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part">&emsp;確認訂單&emsp;</a>
+        <a class="b-tight">―――――――――――――――――</a>
+        <a class="b-part URhere">&emsp;完成訂單&emsp;</a>
+    </p>
+</div>
+<div class="center">
+    
+    <br />
+    <br />
+    <div>付款成功</div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="cssload-main">
+        <div class="cssload-heart">
+            <span class="cssload-heartL"></span>
+            <span class="cssload-heartR"></span>
+            <span class="cssload-square"></span>
+        </div>
+        <div class="cssload-shadow"></div>
+    </div>
+    <div style="display: none;" id="timeBox"></div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <strong>您是最棒的! 書服! 感謝您</strong>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    
+</div>
+<script>
+    設定秒數
+    var count = 5;
+    function countDown() {
+        // 將秒數寫在指定元素中
+        document.getElementById("timeBox").innerHTML = count;
+        // 每次執行就減1
+        count -= 1;
+        // 當 count = 0 時跳轉頁面
+        if (count == 0) {
+            location.href = "https://localhost:7174/";
+        }
+        // 設定每秒執行1次
+        setTimeout("countDown()", 1000);
+    }
+    // 執行 countDown
+    countDown();
+</script>
