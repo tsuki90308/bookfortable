@@ -1,4 +1,4 @@
-﻿@model IEnumerable<bookfortable.ViewModels.SignUpViewModel>
+﻿@model IEnumerable<Bookfortable.ViewModels.SignUpViewModel>
 
 @{
     ViewData["Title"] = "List";
@@ -28,8 +28,8 @@
                 活動類型
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mname)
-            </th> *@
+                @Html.DisplayNameFor(model => model.MemberName)
+            </th> @**@
            @*  <th></th> *@
         </tr>
     </thead>
@@ -56,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.MemberName)
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.EventId">取消報名</a>
+                    <a asp-action="Delete" asp-route-id="@item.EventId">刪除</a>
                 </td>
             </tr>
         }
