@@ -44,8 +44,8 @@
         border-bottom-left-radius: 20px; /* 左下圆角 */
         border-bottom-right-radius: 20px; /* 右下圆角 */
         position: fixed;
-        top: 150px; /* 距离页面顶部 20px */
-        right: 520px; /* 距离页面右侧 20px */
+        top: 210px; /* 距离页面顶部 20px */
+        right: 650px; /* 距离页面右侧 20px */
         transform-origin: bottom center; /* 以底部中心为旋转轴心 */
         transition: transform 3s ease;
         z-index: 9999; /* 确保在其他元素上面 */
@@ -507,7 +507,7 @@ padding: 0%
 
         function showResult() {
             const discountCode = generateDiscountCode();
-            result.textContent = `恭喜您獲得首購折扣碼，享全站89折優惠乙次`;
+            result.textContent = `恭喜您獲得限定活動折扣碼，享全站89折優惠乙次`;
             discountCodeDisplay.textContent = discountCode;
             // 将按钮的文字设置为空字符串，使其消失
             btnSpin.textContent = "";
