@@ -45,6 +45,7 @@
                             <form method="post" action="@Url.Action("RegistrationResult", "Register")">
                                 <input type="hidden" name="eventId" value="@Model.EventId" />
                                 <input type="hidden" name="memberId" value="@ViewBag.MemberId" />
+                                <input type="hidden" name="Mname" value="@ViewBag.Mname" />
                                 <button type="submit" class="btn btn-purple" onclick="return confirm('感謝您的報名！您已成功報名以下活動')">確認報名</button>
                             </form>
 
@@ -53,7 +54,7 @@
                             <!-- 取消報名按鈕 -->
                             <form method="post" action="@Url.Action("CancelRegistration", "Register")">
                                 <input type="hidden" name="eventId" value="@Model.EventId" />
-                                <input type="hidden" name="memberId" value="@ViewBag.MemberId" />
+                               
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('確定要取消報名嗎？')">取消報名</button>
                             </form>
                         </div>

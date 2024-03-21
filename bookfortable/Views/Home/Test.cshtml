@@ -21,6 +21,120 @@
             background-color: darkblue; /* 悬停时的背景颜色 */
         }
 
+    /*     body {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                } */
+
+    #wheel {
+        width: 200px;
+        height: 200px;
+        background-color: #f0f0f0;
+        border-radius: 50%;
+        margin: 50px auto;
+        position: relative;
+    }
+
+    #pointer {
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent; /* 左侧透明 */
+        border-right: 20px solid transparent; /* 右侧透明 */
+        border-bottom: 80px solid #5674cc; /* 底部红色 */
+        border-bottom-left-radius: 20px; /* 左下圆角 */
+        border-bottom-right-radius: 20px; /* 右下圆角 */
+        position: fixed;
+        top: 150px; /* 距离页面顶部 20px */
+        right: 520px; /* 距离页面右侧 20px */
+        transform-origin: bottom center; /* 以底部中心为旋转轴心 */
+        transition: transform 3s ease;
+        z-index: 9999; /* 确保在其他元素上面 */
+    }
+
+    .full-screen-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .full-screen-image img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 5px;
+        }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        border-radius: 50%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 9999; /* 确保在其他元素上面 */
+    }
+
+    .discount-code-container {
+        position: fixed;
+        top: 50%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff; /* 白色背景 */
+        color: #007bff; /* 蓝色文字 */
+        padding: 22px; /* 增大容器内边距 */
+        border-radius: 14px; /* 增大边框圆角 */
+        font-size: 22px; /* 增大字体大小 */
+        font-weight: bold; /* 将文字改为粗体 */
+        display: none;
+    }
+
+        .discount-code-container button {
+            font-size: 16px; /* 增大按钮文字大小 */
+            margin-left: 20px; /* 添加间距 */
+        }
+
+    .begin-container {
+        position: fixed;
+        top: 30%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff; /* 白色背景 */
+        color: #007bff; /* 蓝色文字 */
+        padding: 22px; /* 增大容器内边距 */
+        border-radius: 14px; /* 增大边框圆角 */
+        font-size: 22px; /* 增大字体大小 */
+        font-weight: bold; /* 将文字改为粗体 */
+        display: none;
+    }
+
+    .thumbnail {
+        position: fixed;
+        top: 50%; /* 距离顶部的距离，根据需要调整 */
+        right: 20px; /* 距离右侧的距离，根据需要调整 */
+        transform: translateY(-50%);
+        width: 80px; /* 图标的宽度，根据需要调整 */
+        height: 100px; /* 图标的高度，根据需要调整 */
+        background-color: transparent; /* 图标的背景颜色 */
+        /*         border-radius: 100%; /* 让图标呈现圆形 */ */ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 可选：添加阴影效果 */
+        /*         z-index: 9998; /* 确保图标显示在其他内容上方 */ */ cursor: pointer; /* 将鼠标指针设为手型 */
+    }
+
+
+        .thumbnail:hover {
+            /* 可选：鼠标悬停时的样式 */
+            background-color: transparent;
+        }
+
 </style>
 
 <!-- 輪播-->
@@ -312,3 +426,119 @@ padding: 0%
             <a asp-controller="Eventfront" asp-action="List" class="rounded-button">更多線下活動</a>
         </div>
 </section>
+
+<body>
+    <body>
+        <img class="thumbnail"
+             src="~/images/點擊領優惠.png"
+             alt="Description of the image" />
+
+        <div class="full-screen-image">
+            <div class="close-btn">&times;</div>
+            <img src="~/images/IMG_6903.PNG" alt="Description of the image" />
+            <div id="fullScreenBtnSpin" style="display: none"></div>
+
+            <div class="begin-container">
+                <div id="btnSpin">開始轉盤</div>
+                <div id="result"></div>
+            </div>
+
+            <div id="">
+                <div id="pointer"></div>
+            </div>
+
+            <div class="discount-code-container">
+                <div id="discountCode"></div>
+                <button id="btnCopyDiscountCode">複製折扣碼</button>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        const wheel = document.getElementById("wheel");
+        const pointer = document.getElementById("pointer");
+        const btnSpin = document.getElementById("btnSpin");
+        const btnCloseFullScreen = document.querySelector(".close-btn");
+        const result = document.getElementById("result");
+        const discountCodeContainer = document.querySelector(
+            ".discount-code-container"
+        );
+        const fullScreenImage = document.querySelector(".full-screen-image");
+        const thumbnailImages = document.querySelectorAll(".thumbnail");
+        const discountCodeDisplay = document.getElementById("discountCode");
+        const btnCopyDiscountCode = document.getElementById(
+            "btnCopyDiscountCode"
+        );
+        const beginContainer = document.querySelector(".begin-container");
+        let isGamePlayed = false;
+
+        btnSpin.addEventListener("click", () => {
+            if (!isGamePlayed) {
+                const deg = Math.floor(Math.random() * 360) + 360 * 5; // 5圈
+                pointer.style.transform = `rotate(${deg}deg)`;
+                setTimeout(() => {
+                    showResult();
+                }, 3000);
+                isGamePlayed = true;
+            } else {
+                alert("您已經玩過一次了，趕快複製折扣碼吧！");
+            }
+        });
+
+        thumbnailImages.forEach((thumbnail) => {
+            thumbnail.addEventListener("click", () => {
+                fullScreenImage.style.display = "flex";
+                discountCodeContainer.style.display = "flex";
+                btnCloseFullScreen.style.display = "flex";
+                beginContainer.style.display = "flex"; // Show the begin container
+            });
+        });
+
+        btnCloseFullScreen.addEventListener("click", () => {
+            fullScreenImage.style.display = "none";
+            discountCodeContainer.style.display = "none";
+            btnCloseFullScreen.style.display = "none";
+            beginContainer.style.display = "none"; // Hide the begin container
+        });
+
+        btnCopyDiscountCode.addEventListener("click", () => {
+            copyDiscountCodeToClipboard();
+        });
+
+        function showResult() {
+            const discountCode = generateDiscountCode();
+            result.textContent = `恭喜您獲得首購折扣碼，享全站89折優惠乙次`;
+            discountCodeDisplay.textContent = discountCode;
+            // 将按钮的文字设置为空字符串，使其消失
+            btnSpin.textContent = "";
+        }
+
+        function generateDiscountCode() {
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let discountCode = "";
+            for (let i = 0; i < 6; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                discountCode += characters[randomIndex];
+            }
+            return discountCode;
+        }
+
+        function copyDiscountCodeToClipboard() {
+            const discountCode = discountCodeDisplay.textContent;
+
+            // 确保已经生成了折扣码并且显示在页面上
+            if (discountCode) {
+                navigator.clipboard
+                    .writeText(discountCode)
+                    .then(() => {
+                        alert("折扣碼已經成功複製到剪貼簿");
+                    })
+                    .catch((err) => {
+                        console.error("未複製成功 ", err);
+                    });
+            } else {
+                alert("請先點擊開始轉盤獲取折扣碼！");
+            }
+        }
+    </script>
+</body>

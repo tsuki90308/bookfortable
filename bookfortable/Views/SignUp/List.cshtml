@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bookfortable.Models.SingUp>
+﻿@model IEnumerable<bookfortable.ViewModels.SignUpViewModel>
 
 @{
     ViewData["Title"] = "List";
@@ -13,22 +13,19 @@
     <thead>
         <tr>
             <th>
-               活動名稱
+                活動名稱
             </th>
             <th>
                 活動日期
             </th>
             <th>
-               活動地點
+                活動地點
             </th>
             <th>
-               活動承辦人
+                活動承辦人
             </th>
             <th>
-               活動類型
-            </th>
-           @*  <th>
-                @Html.DisplayNameFor(model => model.Event)
+                活動類型
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mname)
@@ -37,37 +34,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Eventhost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Event.EventId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.MName)
-            </td>
-            <td>
-               
-                <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                <a asp-action="Create" asp-route-id="@item.EventId">新增報名</a>|
-                <a asp-action="Delete" asp-route-id="@item.EventId">取消報名</a>|
-
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SingUp.EventName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SingUp.EventDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SingUp.EventAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SingUp.Eventhost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SingUp.EventType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MemberName)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.EventId">取消報名</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
