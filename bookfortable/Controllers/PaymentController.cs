@@ -6,8 +6,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
-using bookfortable.Models;
-using bookfortable.ViewModels;
 using Bookfortable.Models;
 using Bookfortable.ViewModels;
 using Microsoft.AspNetCore.Http;
