@@ -1,5 +1,7 @@
 ﻿using Bookfortable.Models;
+using Bookfortable.Models.CLoginDictionary;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Bookfortable.Controllers
 {
@@ -38,8 +40,7 @@ namespace Bookfortable.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            CMemberWrap wrap = new CMemberWrap();
-            wrap.member = mbr;
+            CMemberWrap wrap = new CMemberWrap(mbr);
             return View(wrap);
         }
 
@@ -50,10 +51,14 @@ namespace Bookfortable.Controllers
             Member mEdit = db.Members.FirstOrDefault(p => p.MemberId == mIn.MemberId);
             if (mEdit != null)
             {
-                mEdit.MAccount = mIn.MAccount;
-                mEdit.MPassword = mIn.MPassword;
-                mEdit.MName = mIn.MName;
-                mEdit.MMail = mIn.MMail;
+                if(mIn.MAccount != null)
+                    mEdit.MAccount = mIn.MAccount;
+                if (mIn.MPassword != null)
+                    mEdit.MPassword = mIn.MPassword;
+                if (mIn.MName != null)
+                    mEdit.MName = mIn.MName;
+                if (mIn.MMail != null)
+                    mEdit.MMail = mIn.MMail;
 
                 if (File != null)
                 {
@@ -69,9 +74,13 @@ namespace Bookfortable.Controllers
                     mEdit.MCarrier = mIn.MCarrier;
                 mEdit.MPoints = mIn.MPoints;
 
+                string json = JsonSerializer.Serialize(mEdit);
+                HttpContext.Session.SetString(CLoginDictionary.SK_LOGINGED_USER, json);
+
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("FrontEidt", mIn.MemberId);
         }
     }
 }
