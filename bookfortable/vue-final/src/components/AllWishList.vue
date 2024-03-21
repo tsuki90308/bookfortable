@@ -42,6 +42,9 @@
       } else if (index === 1) {
         // 如果點擊第二個區塊，導航到 B 網頁
         router.push('/wishlist2');
+      }else if (index === 2) {
+        // 如果點擊第二個區塊，導航到 B 網頁
+        router.push('/wishlist3');
       }
       // 可以根據需要添加更多的條件和導航路徑
     }

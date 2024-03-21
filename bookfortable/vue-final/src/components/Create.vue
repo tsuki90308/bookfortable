@@ -31,6 +31,11 @@
       </div>
 
       <div class="form-group">
+      <label for="address" style="font-weight: bold;">地區</label>
+      <input type="text" class="form-control" v-model="address" placeholder="輸入地區">
+      </div>
+
+      <div class="form-group">
         <label for="notes" style="font-weight: bold;">備註</label>
         <textarea class="form-control" rows="3" v-model="notes" placeholder="輸入備註"></textarea>
       </div>
@@ -57,6 +62,7 @@ const selectedProductPublisher = ref('');
 const wishPrice = ref(''); // 新增的願望價格
 const showSuccessMessage = ref(false); // 标志位，用于控制提交成功消息的显示
 const notes = ref('');
+const address = ref('');
 
 
 //呼叫API
@@ -108,17 +114,17 @@ const selectProduct = (product) => {
 const submitForm = async () => {
   try {
     // 检查是否有选中产品以及是否输入了願望價格
-    if (!selectedProduct.value || !wishPrice.value) {
-      console.error('请填写完整的表单');
-      return;
+    if (!selectedProduct.value || !wishPrice.value || !address.value) {
+    window.alert('請填寫完整表單!!'); // 警示框提示用户填写完整的表单
+    return;
     }
 
     const data = {
       productName: selectedProduct.value.productName,
       productDescription: selectedProductDescription.value,
-      productPublisher: selectedProductPublisher.value, // 添加出版社
       wishPrice: parseFloat(wishPrice.value),
-      notes: notes.value // 添加备注
+      remark: notes.value,
+      address: address.value
     };
 
     const API_URL = `${import.meta.env.VITE_API_WISHLISTURL}/wishlists`;
@@ -134,8 +140,9 @@ const submitForm = async () => {
       searchTerm.value = '';
       wishPrice.value = '';
       selectedProductDescription.value = '';
-      selectedProductPublisher.value = '';
+      selectedProductPublisher.value = ''; 
       notes.value = '';
+      address.value = '';
       showSuccessMessage.value = true;
       setTimeout(() => {
         showSuccessMessage.value = false;
@@ -147,6 +154,8 @@ const submitForm = async () => {
     console.error('An error occurred:', error);
   }
 };
+
+
 
 
 onMounted(() => {

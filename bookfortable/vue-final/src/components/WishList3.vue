@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h2>王曉明的願望清單</h2>
+      <h2>李大明的願望清單</h2>
   
       <!-- 分頁按鈕 -->
       <nav aria-label="Page navigation example" class="pagination-container">
@@ -149,7 +149,7 @@
   
       // 篩選 WishlistId 在 40 到 50 之間的資料
   const filteredWishListResult = datas.wishListResult.filter(item => {
-    return item.wishListId >= 20 && item.wishListId <= 25;
+    return item.wishListId >= 15 && item.wishListId <= 18;
   });
 
   result.totalPages = Math.ceil(filteredWishListResult.length / terms.pageSize); // 計算總頁數

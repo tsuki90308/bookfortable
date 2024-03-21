@@ -6,6 +6,7 @@ import WishList from './components/WishList.vue';
 import Create from './components/Create.vue'
 import AllWishList from './components/AllWishList.vue';
 import WishList2 from './components/WishList2.vue';
+import WishList3 from './components/WishList3.vue';
 
 
 const routes = [
@@ -36,6 +37,10 @@ const routes = [
   {
     path:"/wishlist2",
     component : WishList2,
+  },
+  {
+    path:"/wishlist3",
+    component : WishList3,
   }
 ];
 
