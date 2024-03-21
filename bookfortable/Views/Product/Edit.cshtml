@@ -83,7 +83,7 @@
                             <label asp-for="ProductPhoto" class="control-label">現有封面照片</label>
                             <input asp-for="ProductPhoto" class="form-control" />
                             <span asp-validation-for="ProductPhoto" class="text-danger"></span>
-                            <img src="@Url.Content("~/images/" + Model.product.ProductPhoto)" style="max-height: 250px; margin-top: 10px;" />
+                            <img src="@Url.Content("../images/" + Model.product.ProductPhoto)" style="max-height: 250px; margin-top: 10px;" />
                         </div>
 
                         <div class="col-md-6">
